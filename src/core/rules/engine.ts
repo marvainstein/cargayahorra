@@ -418,7 +418,7 @@ export function describeBenefit(promotion: Promotion): string {
       value = `${formatARS(r.discountValue)} por litro`;
       break;
   }
-  if (r.unknownConditions.includes('CAP')) return `${value}, tope sin confirmar`;
+  if (r.unknownConditions.includes('CAP') || r.unknownConditions.includes('CAP_PERIOD')) return `${value}, tope sin confirmar`;
   if (r.caps.length === 0) return `${value}, sin tope`;
   const caps = r.caps.map((c) => `tope ${CAP_PERIOD_LABELS[c.period]} ${formatARS(c.amount)}`).join(' y ');
   return `${value}, ${caps}`;

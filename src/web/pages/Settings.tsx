@@ -1,0 +1,253 @@
+import { useEffect, useState } from 'react';
+import { FUEL_TYPE_LABELS } from '../../core/labels';
+import { FUEL_TYPES, type FuelType, type TriState } from '../../core/types';
+import { api, getToken, setToken } from '../api';
+import type { ProfileData } from '../App';
+import { ars, parsePesosInput, pesosText, toast, Tri } from '../components/ui';
+
+export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved: () => Promise<void> }) {
+  const [methods, setMethods] = useState<string[]>([]);
+  const [segments, setSegments] = useState<Record<string, TriState>>({});
+  const [memberships, setMemberships] = useState<string[]>([]);
+  const [apps, setApps] = useState<string[]>([]);
+  const [region, setRegion] = useState('');
+  const [split, setSplit] = useState<TriState>('UNKNOWN');
+  const [fuel, setFuel] = useState<FuelType>('SUPER');
+  const [price, setPrice] = useState('');
+  const [tank, setTank] = useState('');
+  const [budget, setBudget] = useState('');
+  const [token, setTokenInput] = useState(getToken());
+  const [adj, setAdj] = useState({ poolId: '', amount: '', date: '', note: '' });
+
+  useEffect(() => {
+    if (!data) return;
+    const p = data.profile;
+    setMethods(p.paymentMethods.map((m) => m.id));
+    setSegments(p.segments);
+    setMemberships(p.loyaltyMemberships);
+    setApps(p.apps);
+    setRegion(p.region ?? '');
+    setSplit(p.allowSplitPayment);
+    setFuel(p.defaultFuelType);
+    setPrice(pesosText(p.defaultPricePerLitre));
+    setTank(pesosText(p.maxLoadAmount));
+    setBudget(pesosText(p.estimatedMonthlyFuelBudget));
+  }, [data]);
+
+  if (!data) return <div className="skeleton" />;
+  const cat = data.catalog;
+  const toggle = (list: string[], id: string) => (list.includes(id) ? list.filter((x) => x !== id) : [...list, id]);
+
+  const save = async () => {
+    try {
+      await api.put('/profile', {
+        paymentMethodIds: methods,
+        segments,
+        loyaltyMemberships: memberships,
+        apps,
+        region: region || null,
+        allowSplitPayment: split,
+        defaultFuelType: fuel,
+        defaultPricePerLitre: parsePesosInput(price),
+        maxLoadAmount: parsePesosInput(tank),
+        estimatedMonthlyFuelBudget: parsePesosInput(budget),
+      });
+      setToken(token.trim());
+      await onSaved();
+      toast('Ajustes guardados');
+    } catch (e) {
+      toast((e as Error).message);
+    }
+  };
+
+  const addAdjustment = async () => {
+    const amount = parsePesosInput(adj.amount);
+    if (!adj.poolId || !amount || !adj.date) return toast('Completá tope, monto y fecha.');
+    try {
+      await api.post('/adjustments', { poolId: adj.poolId, amount, date: adj.date, note: adj.note });
+      setAdj({ poolId: '', amount: '', date: '', note: '' });
+      await onSaved();
+      toast('Consumo registrado');
+    } catch (e) {
+      toast((e as Error).message);
+    }
+  };
+
+  const providerName = (id: string | null) => cat.providers.find((p) => p.id === id)?.name ?? 'Otros';
+  const segmentsByProvider = new Map<string, typeof cat.segments>();
+  for (const s of cat.segments) segmentsByProvider.set(s.providerId ?? '', [...(segmentsByProvider.get(s.providerId ?? '') ?? []), s]);
+
+  return (
+    <>
+      <header className="topbar">
+        <div>
+          <div className="eyebrow">Tu perfil</div>
+          <h1>Ajustes</h1>
+        </div>
+      </header>
+      <div className="banner info">Sólo se guarda qué medios y beneficios tenés. Nunca números de tarjeta, claves ni credenciales.</div>
+
+      <h2>Medios de pago que tenés</h2>
+      <div className="card">
+        {cat.paymentMethods.map((m) => (
+          <label className="check" key={m.id}>
+            <input type="checkbox" checked={methods.includes(m.id)} onChange={() => setMethods(toggle(methods, m.id))} />
+            <span>{m.name}</span>
+          </label>
+        ))}
+      </div>
+
+      <h2>Planes y beneficios</h2>
+      <div className="card">
+        {[...segmentsByProvider.entries()].map(([pid, segs]) => (
+          <div key={pid} style={{ marginBottom: 14 }}>
+            <div className="title" style={{ fontWeight: 700, marginBottom: 6 }}>
+              {providerName(pid)}
+            </div>
+            {segs.map((s) => (
+              <div key={s.id} style={{ marginBottom: 10 }}>
+                <div className="small" style={{ marginBottom: 6 }}>
+                  {s.question ?? s.name}
+                </div>
+                <Tri value={segments[s.id] ?? 'UNKNOWN'} onChange={(v) => setSegments({ ...segments, [s.id]: v })} />
+              </div>
+            ))}
+          </div>
+        ))}
+        {cat.programmes.map((p) => (
+          <label className="check" key={p.id}>
+            <input type="checkbox" checked={memberships.includes(p.id)} onChange={() => setMemberships(toggle(memberships, p.id))} />
+            <span>Soy socio de {p.name}</span>
+          </label>
+        ))}
+      </div>
+
+      <h2>Apps que usás para pagar</h2>
+      <div className="card">
+        {cat.apps.map((a) => (
+          <label className="check" key={a.id}>
+            <input type="checkbox" checked={apps.includes(a.id)} onChange={() => setApps(toggle(apps, a.id))} />
+            <span>{a.name}</span>
+          </label>
+        ))}
+      </div>
+
+      <h2>Cómo cargás</h2>
+      <div className="card">
+        <label className="field">
+          <span>Combustible habitual</span>
+          <select value={fuel} onChange={(e) => setFuel(e.target.value as FuelType)}>
+            {FUEL_TYPES.map((f) => (
+              <option key={f} value={f}>
+                {FUEL_TYPE_LABELS[f]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          <span>Provincia</span>
+          <select value={region} onChange={(e) => setRegion(e.target.value)}>
+            <option value="">Sin indicar</option>
+            {data.provinces.map((p) => (
+              <option key={p.code} value={p.code}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div className="field">
+          <span>¿Tu estación te deja pagar una carga en dos operaciones (dos tarjetas)?</span>
+          <Tri value={split} onChange={setSplit} />
+        </div>
+        <div className="grid2">
+          <label className="field">
+            <span>Tanque lleno ($)</span>
+            <input inputMode="decimal" placeholder="Ej. 60.000" value={tank} onChange={(e) => setTank(e.target.value)} />
+          </label>
+          <label className="field">
+            <span>Precio por litro ($)</span>
+            <input inputMode="decimal" placeholder="Opcional" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </label>
+        </div>
+        <label className="field" style={{ marginBottom: 0 }}>
+          <span>Presupuesto mensual estimado ($)</span>
+          <input inputMode="decimal" placeholder="Ej. 250.000" value={budget} onChange={(e) => setBudget(e.target.value)} />
+        </label>
+      </div>
+
+      <div className="spacer" />
+      <button className="btn primary block" onClick={save}>
+        Guardar ajustes
+      </button>
+
+      {data.pools.length > 0 && (
+        <>
+          <h2>Consumos fuera de la app</h2>
+          <div className="card">
+            <p className="small muted" style={{ marginTop: 0 }}>
+              Algunos topes se comparten con otros rubros (p. ej. supermercado). Registrá acá lo que ya usaste para que el cálculo sea exacto.
+            </p>
+            {data.adjustments.map((a) => (
+              <div className="list-item" key={a.id}>
+                <div>
+                  <div className="title">{a.poolId}</div>
+                  <div className="meta">
+                    {a.date} {a.note && `· ${a.note}`}
+                  </div>
+                </div>
+                <div className="row">
+                  <span className="amount-strong">{ars(a.amount)}</span>
+                  <button
+                    className="btn small danger"
+                    onClick={async () => {
+                      await api.del(`/adjustments/${a.id}`);
+                      await onSaved();
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
+            <div className="spacer" />
+            <label className="field">
+              <span>Tope</span>
+              <select value={adj.poolId} onChange={(e) => setAdj({ ...adj, poolId: e.target.value })}>
+                <option value="">Elegí…</option>
+                {data.pools.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.promotions.join(' / ')}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="grid2">
+              <label className="field">
+                <span>Beneficio usado ($)</span>
+                <input inputMode="decimal" value={adj.amount} onChange={(e) => setAdj({ ...adj, amount: e.target.value })} />
+              </label>
+              <label className="field">
+                <span>Fecha</span>
+                <input type="date" value={adj.date} onChange={(e) => setAdj({ ...adj, date: e.target.value })} />
+              </label>
+            </div>
+            <button className="btn block" onClick={addAdjustment}>
+              Agregar consumo
+            </button>
+          </div>
+        </>
+      )}
+
+      <h2>Acceso</h2>
+      <div className="card">
+        <label className="field">
+          <span>Token de acceso (si el servidor usa APP_TOKEN)</span>
+          <input type="password" value={token} onChange={(e) => setTokenInput(e.target.value)} autoComplete="off" />
+        </label>
+        <a className="btn block" href="#/admin">
+          Administración de promociones ›
+        </a>
+      </div>
+    </>
+  );
+}

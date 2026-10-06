@@ -263,3 +263,28 @@ describe('propiedad: igual a fuerza bruta', () => {
     }
   });
 });
+
+describe('rendimiento y optimalidad (regresión)', () => {
+  it('mes completo, 3 tarjetas, 5 promos, sin dividir pago: óptimo probado y rápido', { timeout: 20_000 }, () => {
+    const m = [BANCO_A_VISA, BANCO_B_DEBITO, BANCO_C_MASTER];
+    const promos = [
+      promo({ id: 'a', providerId: 'banco-a', rule: { discountValue: 2000, caps: [{ amount: pesos(20000), period: 'MONTHLY' }], eligibleProviderIds: ['banco-a'] } }),
+      promo({ id: 'b', providerId: 'banco-b', rule: { discountValue: 1000, daysOfWeek: [2], caps: [{ amount: pesos(2000), period: 'PER_TRANSACTION' }], usageLimits: [{ maxTransactions: 1, period: 'WEEKLY' }], eligibleProviderIds: ['banco-b'] } }),
+      promo({ id: 'c', providerId: 'banco-c', rule: { discountValue: 2500, daysOfWeek: [5, 6, 7], minimumPurchase: pesos(200), caps: [{ amount: pesos(5000), period: 'WEEKLY' }], eligibleProviderIds: ['banco-c'] } }),
+      promo({ id: 'x', providerId: 'prog', rule: { stage: 'PRICE', discountValue: 1000, daysOfWeek: [1, 5], caps: [{ amount: pesos(7000), period: 'MONTHLY' }], stackable: 'YES' } }),
+      promo({ id: 'y', providerId: 'banco-a', rule: { discountValue: 1500, caps: [{ amount: pesos(30000), period: 'MONTHLY', poolId: 'p' }], eligibleProviderIds: ['banco-a'], stackable: 'YES' } }),
+    ];
+    const t0 = Date.now();
+    const { plan } = planPeriod({ from: TUE, to: '2026-10-31', budget: pesos(300000), fuelType: 'SUPER', pricePerLitre: null, promotions: promos, userState: state({ paymentMethods: m, allowSplitPayment: 'NO', maxLoadAmount: pesos(60000) }) });
+    expect(Date.now() - t0).toBeLessThan(5000);
+    expect(plan.provenOptimal).toBe(true);
+    expect(plan.totalBenefit).toBe(pesos(63_950));
+    // sin dividir el pago: nunca dos operaciones el mismo día
+    const days = plan.transactions.map((t) => t.date);
+    expect(new Set(days).size).toBe(days.length);
+    // ninguna carga supera el tanque
+    expect(plan.transactions.every((t) => t.amount <= pesos(60000))).toBe(true);
+    // el límite semanal de b se respeta
+    expect(plan.transactions.filter((t) => t.promotions.some((p) => p.id === 'b')).length).toBeLessThanOrEqual(4);
+  });
+});
