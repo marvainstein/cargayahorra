@@ -700,7 +700,9 @@ export function recommend(req: RecommendRequest): Recommendation {
     for (const m of profile.paymentMethods) {
       const e = { ...dayEligibility(p, req.date, m, { ...baseReq(req) }), method: m };
       const rank = (x: string) => (x === 'ELIGIBLE' ? 3 : x === 'UNCERTAIN' ? 2 : 1);
-      if (!best || rank(e.eligibility) > rank(best.eligibility)) best = e;
+      // el medio de pago "más cercano" a aplicar: mejor estado y, a igual estado, menos motivos
+      if (!best || rank(e.eligibility) > rank(best.eligibility) || (rank(e.eligibility) === rank(best.eligibility) && e.reasons.length < best.reasons.length))
+        best = e;
     }
     if (!best) continue;
     if (best.eligibility === 'INELIGIBLE') {
