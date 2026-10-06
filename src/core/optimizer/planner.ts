@@ -28,7 +28,7 @@
  */
 import { ceilToPeso, type Cents, formatARS, formatPercent } from '../money';
 import { addDays, formatLongDate, type LocalDate } from '../time';
-import type { FuelType, PaymentMethod, Promotion, UserState } from '../types';
+import type { CapPeriod, FuelType, PaymentMethod, Promotion, UserState } from '../types';
 import { checkStaticEligibility, type Catalog, describeBenefit, idCatalog, type Reason } from '../rules/engine';
 import { canCombinePromotions, evaluateTransaction, type TransactionEvaluation } from '../rules/combine';
 import { periodKey, transactionsInPeriod, usedBenefitForCap } from '../usage';
@@ -219,7 +219,6 @@ export function optimizePlan(req: PlanRequest): Plan {
   if (!Number.isSafeInteger(total) || total < 0) throw new Error('totalSpend inválido');
 
   const methods = req.userState.profile.paymentMethods.filter((m) => !req.onlyPaymentMethodIds || req.onlyPaymentMethodIds.includes(m.id));
-  const U = Math.max(total, 1) / UNIT; // cota superior por operación (big-M)
   const maxPerDay = req.maxPerDay ?? null;
 
   // 1) Operaciones candidatas
@@ -236,158 +235,42 @@ export function optimizePlan(req: PlanRequest): Plan {
     });
   }
 
-  // 2) Variables
-  let nv = 0;
-  const objective: number[] = [];
-  const binaries: number[] = [];
-  const newVar = (obj = 0, binary = false) => {
-    objective.push(obj);
-    if (binary) binaries.push(nv);
-    return nv++;
-  };
-  const constraints: Constraint[] = [];
-  const xVar = new Map<number, number>();
-  const uses: PromoUse[] = [];
-
-  for (const c of candidates) {
-    // leve preferencia por días más cercanos y por menos operaciones (desempate determinístico)
-    const x = newVar(-1e-7 * (c.dayIndex + 1));
-    xVar.set(c.index, x);
-    if (maxPerDay !== null) constraints.push({ terms: [[x, 1]], op: '<=', rhs: maxPerDay / UNIT });
-    const priceUses: PromoUse[] = [];
-    const ordered = [...c.promos].sort((a, b) => (a.rule.stage === b.rule.stage ? 0 : a.rule.stage === 'PRICE' ? -1 : 1));
-    for (const p of ordered) {
-      const fixed = p.rule.discountType === 'FIXED_AMOUNT';
-      const rate = benefitRate(p, req.pricePerLitre);
-      const v = newVar(rate, fixed);
-      const use: PromoUse = { candidate: c, promo: p, varIndex: v, rate, fixed };
-      uses.push(use);
-      if (fixed) {
-        const minP = Math.max(p.rule.minimumPurchase ?? 0, 100) / UNIT;
-        constraints.push({ terms: [[x, 1], [v, -minP]], op: '>=', rhs: 0, label: 'fixed-min' });
-      } else {
-        // e ≤ x  (PRICE)   |   e ≤ x − Σ r_q e_q  (PAYMENT)
-        const terms: Array<[number, number]> = [[v, 1], [x, -1]];
-        if (p.rule.stage === 'PAYMENT') for (const pu of priceUses) if (!pu.fixed) terms.push([pu.varIndex, priceRate(pu.promo)]);
-        constraints.push({ terms, op: '<=', rhs: 0, label: 'base' });
-        if (p.rule.maximumPurchase != null) constraints.push({ terms: [[v, 1]], op: '<=', rhs: p.rule.maximumPurchase / UNIT });
-        if (p.rule.minimumPurchase != null && p.rule.minimumPurchase > 0) {
-          // semi-continua: o no se usa, o la operación alcanza la compra mínima
-          const z = newVar(-1e-6, true);
-          constraints.push({ terms: [[v, 1], [z, -U]], op: '<=', rhs: 0 });
-          constraints.push({ terms: [[x, 1], [z, -p.rule.minimumPurchase / UNIT]], op: '>=', rhs: 0 });
-        }
-      }
-      if (p.rule.stage === 'PRICE') priceUses.push(use);
-    }
+  // 2-7) Modelo con restricciones enteras "perezosas": las binarias (compra mínima,
+  // límites de operaciones, una operación por día, no dividir el pago, máximo de
+  // cargas) se agregan sólo donde la solución las viola, y se vuelve a resolver.
+  // La solución final cumple todas las restricciones y es óptima para un problema
+  // relajado del original, por lo tanto óptima para el original.
+  const bigM = Math.max(Math.min(total, maxPerDay ?? total), 1) / UNIT;
+  const active = { minPurchase: new Set<string>(), usageLimit: new Set<string>(), onePerDay: new Set<string>(), noSplitDays: new Set<string>(), maxLoads: false };
+  let model = buildModel(candidates, req, active, bigM, maxPerDay, total);
+  let res = solveMILP(model.lp);
+  let provenOptimal = res.provenOptimal;
+  for (let iter = 0; iter < 12 && res.status === 'OPTIMAL'; iter++) {
+    const added = findViolations(model, res.x, candidates, req, active);
+    if (!added) break;
+    model = buildModel(candidates, req, active, bigM, maxPerDay, total);
+    res = solveMILP(model.lp);
+    provenOptimal = provenOptimal && res.provenOptimal;
   }
-  const rest = newVar(0);
-
-  // 3) Gasto total
-  constraints.push({ terms: [...[...xVar.values()].map((x) => [x, 1] as [number, number]), [rest, 1]], op: '=', rhs: total / UNIT, label: 'budget' });
-
-  // 4) Topes (por promoción o pool, por período)
-  const benefitTerm = (u: PromoUse): [number, number] => [u.varIndex, u.fixed ? u.promo.rule.discountValue / UNIT : u.rate];
-  const capGroups = new Map<string, { remaining: number; terms: Array<[number, number]> }>();
-  for (const u of uses) {
-    const p = u.promo;
-    if (p.rule.unknownConditions.includes('CAP')) continue; // sólo en modo INCLUDE_UNCERTAIN llega acá
-    for (const cap of p.rule.caps) {
-      if (cap.period === 'PER_TRANSACTION') {
-        constraints.push({ terms: [benefitTerm(u)], op: '<=', rhs: cap.amount / UNIT, label: 'cap-tx' });
-        continue;
-      }
-      const owner = cap.poolId ? `pool:${cap.poolId}` : `promo:${p.id}`;
-      const key = `${owner}|${periodKey(cap.period, u.candidate.date, p, p.rule.weekStartsOn)}`;
-      let g = capGroups.get(key);
-      if (!g) {
-        const used = usedBenefitForCap(cap, p, u.candidate.date, req.userState.usage);
-        g = { remaining: Math.max(0, cap.amount - used), terms: [] };
-        capGroups.set(key, g);
-      } else {
-        const used = usedBenefitForCap(cap, p, u.candidate.date, req.userState.usage);
-        g.remaining = Math.min(g.remaining, Math.max(0, cap.amount - used));
-      }
-      g.terms.push(benefitTerm(u));
-    }
-  }
-  for (const g of capGroups.values()) constraints.push({ terms: g.terms, op: '<=', rhs: g.remaining / UNIT, label: 'cap' });
-
-  // 5) Indicadores de uso (límites de operaciones / una por día)
-  const useIndicator = new Map<PromoUse, number>();
-  const indicatorFor = (u: PromoUse): number => {
-    let z = useIndicator.get(u);
-    if (z !== undefined) return z;
-    if (u.fixed) z = u.varIndex;
-    else {
-      z = newVar(-1e-6, true);
-      constraints.push({ terms: [[u.varIndex, 1], [z, -U]], op: '<=', rhs: 0 });
-    }
-    useIndicator.set(u, z);
-    return z;
-  };
-  const usesByPromo = new Map<string, PromoUse[]>();
-  for (const u of uses) {
-    const arr = usesByPromo.get(u.promo.id) ?? [];
-    arr.push(u);
-    usesByPromo.set(u.promo.id, arr);
-  }
-  for (const [, list] of usesByPromo) {
-    const p = list[0].promo;
-    for (const limit of p.rule.usageLimits) {
-      const groups = new Map<string, PromoUse[]>();
-      for (const u of list) {
-        const k = limit.period === 'PER_TRANSACTION' ? `tx:${u.candidate.index}` : periodKey(limit.period, u.candidate.date, p, p.rule.weekStartsOn);
-        groups.set(k, [...(groups.get(k) ?? []), u]);
-      }
-      for (const [, g] of groups) {
-        const already = limit.period === 'PER_TRANSACTION' ? 0 : transactionsInPeriod(limit, p, g[0].candidate.date, req.userState.usage);
-        const left = Math.max(0, limit.maxTransactions - already);
-        constraints.push({ terms: g.map((u) => [indicatorFor(u), 1] as [number, number]), op: '<=', rhs: left, label: 'usage-limit' });
-      }
-    }
-    // misma promoción en varias operaciones el mismo día
-    if (p.rule.multipleOperationsPerDay !== 'YES') {
-      const byDay = new Map<string, PromoUse[]>();
-      for (const u of list) byDay.set(u.candidate.date, [...(byDay.get(u.candidate.date) ?? []), u]);
-      for (const [, g] of byDay) {
-        if (g.length > 1) constraints.push({ terms: g.map((u) => [indicatorFor(u), 1] as [number, number]), op: '<=', rhs: 1, label: 'one-per-day' });
-      }
-    }
-  }
-
-  // 6) Una operación por día si no se puede dividir el pago; tope de cargas; tanque por día
-  const byDay = new Map<string, Candidate[]>();
-  for (const c of candidates) byDay.set(c.date, [...(byDay.get(c.date) ?? []), c]);
-  for (const list of byDay.values()) {
-    if (maxPerDay !== null && list.length > 1)
-      constraints.push({ terms: list.map((c) => [xVar.get(c.index)!, 1] as [number, number]), op: '<=', rhs: maxPerDay / UNIT, label: 'tank' });
-    if (!req.allowSplit && list.length > 1) {
-      const ws = list.map((c) => {
-        const w = newVar(-1e-6, true);
-        constraints.push({ terms: [[xVar.get(c.index)!, 1], [w, -U]], op: '<=', rhs: 0 });
-        return w;
-      });
-      constraints.push({ terms: ws.map((w) => [w, 1] as [number, number]), op: '<=', rhs: 1, label: 'no-split' });
-    }
-  }
-  if (req.maxLoads != null) {
-    const terms: Array<[number, number]> = [];
-    for (const list of byDay.values()) {
-      const l = newVar(-1e-6, true);
-      for (const c of list) constraints.push({ terms: [[xVar.get(c.index)!, 1], [l, -U]], op: '<=', rhs: 0 });
-      terms.push([l, 1]);
-    }
-    if (terms.length) constraints.push({ terms, op: '<=', rhs: req.maxLoads, label: 'max-loads' });
-  }
-
-  // 7) Resolver
-  const res = solveMILP({ numVars: nv, objective, constraints, binaries });
   if (res.status !== 'OPTIMAL') {
     warnings.push('No se encontró una asignación factible con las restricciones indicadas.');
     return emptyPlan(req, mode, warnings);
   }
-  if (!res.provenOptimal) warnings.push('El cálculo se cortó por tiempo: la estrategia es buena pero podría no ser la óptima.');
+  if (res.status === 'OPTIMAL' && findViolations(model, res.x, candidates, req, active)) {
+    // No convergió: se activan todas las restricciones enteras (nunca se devuelve un plan que las viole).
+    for (const u of model.uses) if (u.promo.rule.minimumPurchase) active.minPurchase.add(useKey(u));
+    for (const u of model.uses) {
+      if (u.promo.rule.usageLimits.length) active.usageLimit.add(u.promo.id);
+      active.onePerDay.add(`${u.promo.id}|${u.candidate.date}`);
+    }
+    for (const c of candidates) active.noSplitDays.add(c.date);
+    active.maxLoads = true;
+    model = buildModel(candidates, req, active, bigM, maxPerDay, total);
+    res = solveMILP(model.lp);
+    provenOptimal = provenOptimal && res.provenOptimal;
+  }
+  const { xVar, uses } = model;
+  if (!provenOptimal) warnings.push('El cálculo se cortó por tiempo: la estrategia es buena pero podría no ser la óptima.');
 
   // 8) Reconstruir operaciones y recalcular con el motor (centavos exactos)
   const chosen: Array<{ c: Candidate; amount: Cents }> = [];
@@ -437,10 +320,235 @@ export function optimizePlan(req: PlanRequest): Plan {
     explanation: [],
     warnings,
     feasible: true,
-    provenOptimal: res.provenOptimal,
+    provenOptimal,
   };
   plan.explanation = explainPlan(plan, req);
   return plan;
+}
+
+interface Model {
+  lp: { numVars: number; objective: number[]; constraints: Constraint[]; binaries: number[] };
+  xVar: Map<number, number>;
+  uses: PromoUse[];
+}
+
+interface ActiveSets {
+  minPurchase: Set<string>;
+  usageLimit: Set<string>;
+  onePerDay: Set<string>;
+  noSplitDays: Set<string>;
+  maxLoads: boolean;
+}
+
+const useKey = (u: PromoUse) => `${u.candidate.index}|${u.promo.id}`;
+
+function buildModel(candidates: Candidate[], req: PlanRequest, active: ActiveSets, U: number, maxPerDay: Cents | null, total: Cents): Model {
+  let nv = 0;
+  const objective: number[] = [];
+  const binaries: number[] = [];
+  const newVar = (obj = 0, binary = false) => {
+    objective.push(obj);
+    if (binary) binaries.push(nv);
+    return nv++;
+  };
+  const constraints: Constraint[] = [];
+  const xVar = new Map<number, number>();
+  const uses: PromoUse[] = [];
+
+  const byDay = new Map<string, Candidate[]>();
+  for (const c of candidates) byDay.set(c.date, [...(byDay.get(c.date) ?? []), c]);
+
+  for (const c of candidates) {
+    // leve preferencia por días más cercanos (desempate determinístico)
+    const x = newVar(-1e-7 * (c.dayIndex + 1));
+    xVar.set(c.index, x);
+    if (maxPerDay !== null && byDay.get(c.date)!.length === 1) constraints.push({ terms: [[x, 1]], op: '<=', rhs: maxPerDay / UNIT });
+    const priceUses: PromoUse[] = [];
+    const ordered = [...c.promos].sort((a, b) => (a.rule.stage === b.rule.stage ? 0 : a.rule.stage === 'PRICE' ? -1 : 1));
+    for (const p of ordered) {
+      const fixed = p.rule.discountType === 'FIXED_AMOUNT';
+      const rate = benefitRate(p, req.pricePerLitre);
+      const v = newVar(rate, fixed);
+      const use: PromoUse = { candidate: c, promo: p, varIndex: v, rate, fixed };
+      uses.push(use);
+      if (fixed) {
+        const minP = Math.max(p.rule.minimumPurchase ?? 0, 100) / UNIT;
+        constraints.push({ terms: [[x, 1], [v, -minP]], op: '>=', rhs: 0, label: 'fixed-min' });
+      } else {
+        // e ≤ x  (PRICE)   |   e ≤ x − Σ r_q e_q  (PAYMENT)
+        const terms: Array<[number, number]> = [[v, 1], [x, -1]];
+        if (p.rule.stage === 'PAYMENT') for (const pu of priceUses) if (!pu.fixed) terms.push([pu.varIndex, priceRate(pu.promo)]);
+        constraints.push({ terms, op: '<=', rhs: 0, label: 'base' });
+        if (p.rule.maximumPurchase != null) constraints.push({ terms: [[v, 1]], op: '<=', rhs: p.rule.maximumPurchase / UNIT });
+        if (p.rule.minimumPurchase != null && p.rule.minimumPurchase > 0 && active.minPurchase.has(useKey(use))) {
+          // semi-continua: o no se usa, o la operación alcanza la compra mínima
+          const z = newVar(-1e-6, true);
+          constraints.push({ terms: [[v, 1], [z, -U]], op: '<=', rhs: 0 });
+          constraints.push({ terms: [[x, 1], [z, -p.rule.minimumPurchase / UNIT]], op: '>=', rhs: 0 });
+        }
+      }
+      if (p.rule.stage === 'PRICE') priceUses.push(use);
+    }
+  }
+  const rest = newVar(0);
+
+  // Gasto total
+  constraints.push({ terms: [...[...xVar.values()].map((x) => [x, 1] as [number, number]), [rest, 1]], op: '=', rhs: total / UNIT, label: 'budget' });
+
+  // Topes (por promoción o pool, por período)
+  const benefitTerm = (u: PromoUse): [number, number] => [u.varIndex, u.fixed ? u.promo.rule.discountValue / UNIT : u.rate];
+  const capGroups = new Map<string, { remaining: number; terms: Array<[number, number]> }>();
+  for (const u of uses) {
+    const p = u.promo;
+    if (p.rule.unknownConditions.includes('CAP')) continue; // sólo en modo INCLUDE_UNCERTAIN llega acá
+    for (const cap of p.rule.caps) {
+      if (cap.period === 'PER_TRANSACTION') {
+        constraints.push({ terms: [benefitTerm(u)], op: '<=', rhs: cap.amount / UNIT, label: 'cap-tx' });
+        continue;
+      }
+      const owner = cap.poolId ? `pool:${cap.poolId}` : `promo:${p.id}`;
+      const key = `${owner}|${periodKey(cap.period, u.candidate.date, p, p.rule.weekStartsOn)}`;
+      const used = usedBenefitForCap(cap, p, u.candidate.date, req.userState.usage);
+      const remaining = Math.max(0, cap.amount - used);
+      const g = capGroups.get(key);
+      if (!g) capGroups.set(key, { remaining, terms: [benefitTerm(u)] });
+      else {
+        g.remaining = Math.min(g.remaining, remaining);
+        g.terms.push(benefitTerm(u));
+      }
+    }
+  }
+  for (const g of capGroups.values()) constraints.push({ terms: g.terms, op: '<=', rhs: g.remaining / UNIT, label: 'cap' });
+
+  // Indicadores de uso (límites de operaciones / una por día)
+  const useIndicator = new Map<PromoUse, number>();
+  const indicatorFor = (u: PromoUse): number => {
+    let z = useIndicator.get(u);
+    if (z !== undefined) return z;
+    if (u.fixed) z = u.varIndex;
+    else {
+      z = newVar(-1e-6, true);
+      constraints.push({ terms: [[u.varIndex, 1], [z, -U]], op: '<=', rhs: 0 });
+    }
+    useIndicator.set(u, z);
+    return z;
+  };
+  for (const [promoId, list] of usesByPromo(uses)) {
+    const p = list[0].promo;
+    if (active.usageLimit.has(promoId)) {
+      for (const limit of p.rule.usageLimits) {
+        for (const g of groupUsesByPeriod(list, limit.period, p).values()) {
+          const already = limit.period === 'PER_TRANSACTION' ? 0 : transactionsInPeriod(limit, p, g[0].candidate.date, req.userState.usage);
+          const left = Math.max(0, limit.maxTransactions - already);
+          constraints.push({ terms: g.map((u) => [indicatorFor(u), 1] as [number, number]), op: '<=', rhs: left, label: 'usage-limit' });
+        }
+      }
+    }
+    // misma promoción en varias operaciones el mismo día
+    if (p.rule.multipleOperationsPerDay !== 'YES') {
+      const days = new Map<string, PromoUse[]>();
+      for (const u of list) days.set(u.candidate.date, [...(days.get(u.candidate.date) ?? []), u]);
+      for (const [date, g] of days) {
+        if (g.length > 1 && active.onePerDay.has(`${promoId}|${date}`))
+          constraints.push({ terms: g.map((u) => [indicatorFor(u), 1] as [number, number]), op: '<=', rhs: 1, label: 'one-per-day' });
+      }
+    }
+  }
+
+  // Tanque por día, una operación por día si no se puede dividir el pago, máximo de cargas
+  for (const [date, list] of byDay) {
+    if (maxPerDay !== null && list.length > 1)
+      constraints.push({ terms: list.map((c) => [xVar.get(c.index)!, 1] as [number, number]), op: '<=', rhs: maxPerDay / UNIT, label: 'tank' });
+    if (!req.allowSplit && list.length > 1 && active.noSplitDays.has(date)) {
+      const ws = list.map((c) => {
+        const w = newVar(-1e-6, true);
+        constraints.push({ terms: [[xVar.get(c.index)!, 1], [w, -U]], op: '<=', rhs: 0 });
+        return w;
+      });
+      constraints.push({ terms: ws.map((w) => [w, 1] as [number, number]), op: '<=', rhs: 1, label: 'no-split' });
+    }
+  }
+  if (req.maxLoads != null && active.maxLoads) {
+    const terms: Array<[number, number]> = [];
+    for (const list of byDay.values()) {
+      const l = newVar(-1e-6, true);
+      for (const c of list) constraints.push({ terms: [[xVar.get(c.index)!, 1], [l, -U]], op: '<=', rhs: 0 });
+      terms.push([l, 1]);
+    }
+    if (terms.length) constraints.push({ terms, op: '<=', rhs: req.maxLoads, label: 'max-loads' });
+  }
+
+  return { lp: { numVars: nv, objective, constraints, binaries }, xVar, uses };
+}
+
+function usesByPromo(uses: PromoUse[]): Map<string, PromoUse[]> {
+  const m = new Map<string, PromoUse[]>();
+  for (const u of uses) m.set(u.promo.id, [...(m.get(u.promo.id) ?? []), u]);
+  return m;
+}
+
+function groupUsesByPeriod(list: PromoUse[], period: CapPeriod, p: Promotion): Map<string, PromoUse[]> {
+  const groups = new Map<string, PromoUse[]>();
+  for (const u of list) {
+    const k = period === 'PER_TRANSACTION' ? `tx:${u.candidate.index}` : periodKey(period, u.candidate.date, p, p.rule.weekStartsOn);
+    groups.set(k, [...(groups.get(k) ?? []), u]);
+  }
+  return groups;
+}
+
+/** Activa las restricciones enteras que la solución viola. Devuelve true si agregó alguna. */
+function findViolations(model: Model, x: number[], candidates: Candidate[], req: PlanRequest, active: ActiveSets): boolean {
+  const EPS = 1e-7;
+  let added = false;
+  const used = (u: PromoUse) => x[u.varIndex] > EPS;
+  const spend = (c: Candidate) => x[model.xVar.get(c.index)!];
+  for (const u of model.uses) {
+    const min = u.promo.rule.minimumPurchase;
+    if (!u.fixed && min && used(u) && spend(u.candidate) * UNIT < min - 1 && !active.minPurchase.has(useKey(u))) {
+      active.minPurchase.add(useKey(u));
+      added = true;
+    }
+  }
+  for (const [promoId, list] of usesByPromo(model.uses)) {
+    const p = list[0].promo;
+    if (!active.usageLimit.has(promoId)) {
+      for (const limit of p.rule.usageLimits) {
+        for (const g of groupUsesByPeriod(list, limit.period, p).values()) {
+          const already = limit.period === 'PER_TRANSACTION' ? 0 : transactionsInPeriod(limit, p, g[0].candidate.date, req.userState.usage);
+          if (g.filter(used).length > limit.maxTransactions - already && !active.usageLimit.has(promoId)) {
+            active.usageLimit.add(promoId);
+            added = true;
+          }
+        }
+      }
+    }
+    if (p.rule.multipleOperationsPerDay !== 'YES') {
+      const counts = new Map<string, number>();
+      for (const u of list) if (used(u)) counts.set(u.candidate.date, (counts.get(u.candidate.date) ?? 0) + 1);
+      for (const [date, n] of counts) {
+        const key = `${promoId}|${date}`;
+        if (n > 1 && !active.onePerDay.has(key)) {
+          active.onePerDay.add(key);
+          added = true;
+        }
+      }
+    }
+  }
+  const daysUsed = new Map<string, number>();
+  for (const c of candidates) if (spend(c) > EPS) daysUsed.set(c.date, (daysUsed.get(c.date) ?? 0) + 1);
+  if (!req.allowSplit) {
+    for (const [date, n] of daysUsed) {
+      if (n > 1 && !active.noSplitDays.has(date)) {
+        active.noSplitDays.add(date);
+        added = true;
+      }
+    }
+  }
+  if (req.maxLoads != null && !active.maxLoads && daysUsed.size > req.maxLoads) {
+    active.maxLoads = true;
+    added = true;
+  }
+  return added;
 }
 
 function emptyPlan(req: PlanRequest, mode: PlanMode, warnings: string[]): Plan {

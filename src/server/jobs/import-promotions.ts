@@ -9,7 +9,7 @@
  *    (el motor deja de usarla como definitiva hasta que alguien la revise).
  *  - Si una promoción desaparece de la fuente, se marca para revisión.
  */
-import type { Clock } from '../../core/time';
+import { type Clock, DEFAULT_TIMEZONE, localDateOf } from '../../core/time';
 import type { Promotion } from '../../core/types';
 import { all, type DB, get, run } from '../db/db';
 import {
@@ -172,7 +172,7 @@ export async function importFromSource(db: DB, clock: Clock, source: PromotionSo
   if (validation.valid.length > 0) {
     for (const p of listBySource(db, source.id)) {
       if (!p.meta.active || !p.meta.sourceKey || seen.has(p.meta.sourceKey)) continue;
-      if (p.validUntil && p.validUntil < now.slice(0, 10)) continue; // vencida: es esperable que desaparezca
+      if (p.validUntil && p.validUntil < localDateOf(clock.now(), DEFAULT_TIMEZONE)) continue; // vencida: es esperable que desaparezca
       if (!p.pendingReview) {
         recordCandidate(db, runId, source.id, null, p.meta.sourceKey, p.id, 'MISSING', now);
         setPendingReview(db, clock, p.id, 'La promoción ya no aparece en la fuente oficial.', `import:${source.id}`);

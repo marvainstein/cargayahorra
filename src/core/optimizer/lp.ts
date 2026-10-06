@@ -233,6 +233,19 @@ export function solveMILP(lp: LinearProgram, opts: MILPOptions = {}): MILPResult
       best = { status: 'OPTIMAL', x, objective: res.objective };
       continue;
     }
+    // Heurística de redondeo (en la raíz y cada 25 nodos): fijar binarias redondeadas
+    // para conseguir rápido una solución factible buena que permita podar.
+    if (nodes === 1 || nodes % 25 === 0) {
+      for (const threshold of [0.5, 1e-6]) {
+        const fixAll = binaries.map((b) => [b, res.x[b] >= threshold ? 1 : 0] as [number, 0 | 1]);
+        const h = solveLP({ numVars: lp.numVars, objective: lp.objective, constraints: [...base, ...fixAll.map(([vv, val]) => ({ terms: [[vv, 1]] as Array<[number, number]>, op: '=' as const, rhs: val }))] });
+        if (h.status === 'OPTIMAL' && (!best || h.objective > best.objective + 1e-7)) {
+          const hx = h.x.slice();
+          for (const b of binaries) hx[b] = Math.round(hx[b]);
+          best = { status: 'OPTIMAL', x: hx, objective: h.objective };
+        }
+      }
+    }
     const v = res.x[branchVar];
     // Explorar primero la rama más cercana al valor de la relajación (se apila último).
     const first: 0 | 1 = v >= 0.5 ? 1 : 0;

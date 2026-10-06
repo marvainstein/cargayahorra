@@ -92,7 +92,19 @@ export function createApi(ctx: AppContext) {
     );
   });
 
-  api.get('/profile', (c) => c.json({ profile: getProfile(ctx.db), catalog: loadCatalog(ctx.db), provinces: PROVINCES, adjustments: listAdjustments(ctx.db) }));
+  api.get('/profile', (c) => {
+    // Topes compartidos (pools) para poder cargar consumos hechos fuera de la app.
+    const pools = new Map<string, string[]>();
+    for (const p of loadPromotions(ctx.db))
+      for (const cap of p.rule.caps) if (cap.poolId) pools.set(cap.poolId, [...(pools.get(cap.poolId) ?? []), p.name]);
+    return c.json({
+      profile: getProfile(ctx.db),
+      catalog: loadCatalog(ctx.db),
+      provinces: PROVINCES,
+      adjustments: listAdjustments(ctx.db),
+      pools: [...pools.entries()].map(([id, names]) => ({ id, promotions: names })),
+    });
+  });
 
   api.put('/profile', async (c) => {
     const b = (await c.req.json()) as Record<string, unknown>;

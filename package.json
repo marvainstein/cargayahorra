@@ -8,16 +8,16 @@
   },
   "scripts": {
     "dev": "concurrently -k -n api,web \"npm:dev:api\" \"npm:dev:web\"",
-    "dev:api": "tsx watch src/server/main.ts",
+    "dev:api": "NODE_OPTIONS=--disable-warning=ExperimentalWarning tsx watch src/server/main.ts",
     "dev:web": "vite",
     "build": "vite build",
-    "start": "NODE_ENV=production tsx src/server/main.ts",
+    "start": "NODE_ENV=production NODE_OPTIONS=--disable-warning=ExperimentalWarning tsx src/server/main.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "import": "tsx src/server/cli.ts import",
-    "jobs": "tsx src/server/cli.ts jobs",
-    "seed": "tsx src/server/cli.ts seed"
+    "import": "NODE_OPTIONS=--disable-warning=ExperimentalWarning tsx src/server/cli.ts import",
+    "jobs": "NODE_OPTIONS=--disable-warning=ExperimentalWarning tsx src/server/cli.ts jobs",
+    "seed": "NODE_OPTIONS=--disable-warning=ExperimentalWarning tsx src/server/cli.ts seed"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",
