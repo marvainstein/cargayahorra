@@ -174,9 +174,12 @@ export function weekdayName(dow: number): string {
   return WEEKDAY_NAMES_ES[dow] ?? '?';
 }
 
+const WEEKDAY_PLURAL_ES = ['', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábados', 'domingos'];
+
+/** "lunes y viernes", "viernes, sábados y domingos". */
 export function formatWeekdays(days: number[]): string {
   const sorted = [...days].sort((a, b) => a - b);
-  const names = sorted.map(weekdayName);
+  const names = sorted.map((d) => WEEKDAY_PLURAL_ES[d] ?? '?');
   if (names.length <= 1) return names.join('');
   return `${names.slice(0, -1).join(', ')} y ${names[names.length - 1]}`;
 }
