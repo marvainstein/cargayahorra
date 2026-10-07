@@ -307,6 +307,8 @@ CREATE TABLE IF NOT EXISTS fuel_transaction_promotion (
   discount_amount INTEGER NOT NULL DEFAULT 0,
   cashback_amount INTEGER NOT NULL DEFAULT 0,
   pool_ids_json TEXT NOT NULL DEFAULT '[]',
+  -- beneficio que el motor calculaba para esta carga (para detectar diferencias con lo real)
+  expected_amount INTEGER,
   PRIMARY KEY (transaction_id, promotion_id)
 );
 

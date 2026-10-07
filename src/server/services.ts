@@ -218,7 +218,10 @@ export function monthlyPlan(ctx: AppContext, input: { budget?: Cents | null; fro
 
 export interface RegisterInput {
   date?: LocalDate;
-  amount: Cents;
+  /** Monto bruto (antes de descuentos). Si no se conoce, informar amountPaid. */
+  amount?: Cents | null;
+  /** Lo que se pagó en el surtidor; con descuentos en el momento se reconstruye el bruto. */
+  amountPaid?: Cents | null;
   paymentMethodId: string;
   fuelType?: FuelType;
   litres?: number | null;
@@ -226,7 +229,19 @@ export interface RegisterInput {
   stationId?: string | null;
   /** Promociones que efectivamente se aplicaron (si no se indica, se calcula la mejor confirmada). */
   promotionIds?: string[];
+  /**
+   * Beneficio real recibido por promoción (según el ticket o el resumen). Manda sobre el
+   * cálculo: los topes se descuentan con lo real y las diferencias quedan registradas.
+   */
+  actualBenefits?: Array<{ promotionId: string; amount: Cents }>;
   notes?: string | null;
+}
+
+export interface BenefitDiscrepancy {
+  promotionId: string;
+  name: string;
+  expected: Cents;
+  actual: Cents;
 }
 
 export function registerTransaction(ctx: AppContext, input: RegisterInput) {
@@ -234,30 +249,68 @@ export function registerTransaction(ctx: AppContext, input: RegisterInput) {
   const date = input.date ?? localToday(ctx, profile.timezone);
   const fuelType = input.fuelType ?? profile.defaultFuelType;
   if (!profile.paymentMethods.some((m) => m.id === input.paymentMethodId)) throw new Error('Ese medio de pago no está configurado en tu perfil.');
-  const pricePerLitre = input.pricePerLitre ?? (input.litres ? Math.round(input.amount / input.litres) : null);
-  const litres = input.litres ?? (pricePerLitre ? Math.round((input.amount / pricePerLitre) * 100) / 100 : null);
-  const tx = { date, grossAmount: input.amount, fuelType, paymentMethodId: input.paymentMethodId, stationId: input.stationId ?? null, litres, pricePerLitre };
+  const stationId = input.stationId ?? profile.defaultStationId;
 
-  let applied: Promotion[];
-  if (input.promotionIds) {
-    applied = promotions.filter((p) => input.promotionIds!.includes(p.id));
-  } else {
-    const best = optimizePlan({ dates: [date], totalSpend: input.amount, fuelType, pricePerLitre, stationId: tx.stationId, promotions, userState: state, catalog, allowSplit: false, singleLoad: true, onlyPaymentMethodIds: [input.paymentMethodId] });
+  const pickPromotions = (gross: Cents): Promotion[] => {
+    if (input.promotionIds) return promotions.filter((p) => input.promotionIds!.includes(p.id));
+    const best = optimizePlan({ dates: [date], totalSpend: gross, fuelType, pricePerLitre: input.pricePerLitre ?? null, stationId, promotions, userState: state, catalog, allowSplit: false, singleLoad: true, onlyPaymentMethodIds: [input.paymentMethodId] });
     const ids = new Set(best.transactions.flatMap((t) => t.promotions.map((p) => p.id)));
-    applied = promotions.filter((p) => ids.has(p.id));
+    return promotions.filter((p) => ids.has(p.id));
+  };
+
+  let gross = input.amount ?? null;
+  let derivedFromPaid = false;
+  if (gross == null) {
+    if (!input.amountPaid) throw new Error('Indicá el monto cargado o lo que pagaste.');
+    gross = grossFromPaid(input.amountPaid, (g) => {
+      const t = { date, grossAmount: g, fuelType, paymentMethodId: input.paymentMethodId, stationId, litres: input.litres ?? null, pricePerLitre: input.pricePerLitre ?? null };
+      return evaluateTransaction(t, pickPromotions(g), state, catalog).amountCharged;
+    });
+    derivedFromPaid = true;
+  }
+  const pricePerLitre = input.pricePerLitre ?? (input.litres ? Math.round(gross / input.litres) : null);
+  const litres = input.litres ?? (pricePerLitre ? Math.round((gross / pricePerLitre) * 100) / 100 : null);
+  const tx = { date, grossAmount: gross, fuelType, paymentMethodId: input.paymentMethodId, stationId, litres, pricePerLitre };
+  const applied = pickPromotions(gross);
+  if (input.actualBenefits) {
+    for (const ab of input.actualBenefits) {
+      if (!applied.some((p) => p.id === ab.promotionId)) {
+        const p = promotions.find((x) => x.id === ab.promotionId);
+        if (!p) throw new Error(`Promoción desconocida: ${ab.promotionId}`);
+        applied.push(p);
+      }
+    }
   }
   const ev = evaluateTransaction(tx, applied, state, catalog);
-  const recommended = recommend({ date, amount: input.amount, fuelType, pricePerLitre, stationId: tx.stationId, promotions, userState: state, catalog, lookaheadDays: 0 });
+  const recommended = recommend({ date, amount: gross, fuelType, pricePerLitre, stationId: tx.stationId, promotions, userState: state, catalog, lookaheadDays: 0 });
+  const discrepancies: BenefitDiscrepancy[] = [];
   const promotionsApplied = ev.results
-    .filter((r) => r.totalBenefit > 0)
-    .map((r) => ({ promotionId: r.promotionId, promotionVersionId: r.promotionVersionId, discountAmount: r.discountAmount, cashbackAmount: r.cashbackAmount, poolIds: r.poolIds }));
+    .map((r) => {
+      const p = applied.find((x) => x.id === r.promotionId)!;
+      const actual = input.actualBenefits?.find((a) => a.promotionId === r.promotionId)?.amount;
+      // Lo calculado sólo cuenta si la promo era elegible; lo real (si se informa) manda siempre.
+      const expected = r.eligibility === 'INELIGIBLE' ? 0 : r.totalBenefit;
+      const benefit = actual ?? expected;
+      if (actual !== undefined && Math.abs(actual - expected) >= 100)
+        discrepancies.push({ promotionId: p.id, name: p.name, expected, actual });
+      const instant = p.rule.delivery === 'INSTANT_DISCOUNT';
+      return {
+        promotionId: r.promotionId,
+        promotionVersionId: r.promotionVersionId,
+        discountAmount: instant ? benefit : 0,
+        cashbackAmount: instant ? 0 : benefit,
+        poolIds: r.poolIds,
+        expectedBenefit: expected,
+      };
+    })
+    .filter((a) => a.discountAmount + a.cashbackAmount > 0 || input.actualBenefits?.some((x) => x.promotionId === a.promotionId));
   const id = insertTransaction(ctx.db, ctx.clock.now().toISOString(), {
     date,
     stationId: tx.stationId,
     fuelType,
     litres,
     pricePerLitre,
-    grossAmount: input.amount,
+    grossAmount: gross,
     paymentMethodId: input.paymentMethodId,
     promotionsApplied,
     discountAmount: promotionsApplied.reduce((s, a) => s + a.discountAmount, 0),
@@ -265,7 +318,33 @@ export function registerTransaction(ctx: AppContext, input: RegisterInput) {
     recommendedBenefit: Math.max(recommended.recommended.totalBenefit, ev.totalBenefit),
     notes: input.notes ?? null,
   });
-  return { id, evaluation: ev, warnings: ev.eligibility !== 'ELIGIBLE' ? [...ev.reasons, ...ev.uncertainties].map((r) => r.message) : [] };
+  const totalBenefit = promotionsApplied.reduce((s, a) => s + a.discountAmount + a.cashbackAmount, 0);
+  return {
+    id,
+    grossAmount: gross,
+    derivedFromPaid,
+    evaluation: ev,
+    totalBenefit,
+    discrepancies,
+    warnings: ev.eligibility !== 'ELIGIBLE' ? [...ev.reasons, ...ev.uncertainties].map((r) => r.message) : [],
+  };
+}
+
+/**
+ * Monto bruto tal que lo cobrado en el surtidor sea `paid` (búsqueda binaria: lo
+ * cobrado crece con el bruto). Si hay varias soluciones, el menor bruto posible.
+ */
+export function grossFromPaid(paid: Cents, chargedFor: (gross: Cents) => Cents): Cents {
+  let lo = paid;
+  let hi = paid * 3;
+  if (chargedFor(lo) >= paid) return lo;
+  while (chargedFor(hi) < paid) hi *= 2;
+  while (hi - lo > 1) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (chargedFor(mid) >= paid) hi = mid;
+    else lo = mid;
+  }
+  return hi;
 }
 
 export function historySummary(ctx: AppContext, month?: string) {

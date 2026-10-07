@@ -21,7 +21,7 @@ interface HistoryResponse {
     paymentMethodName: string;
     benefit: number;
     cashbackAmount: number;
-    promotions: Array<{ promotionId: string; name: string }>;
+    promotions: Array<{ promotionId: string; name: string; discountAmount: number; cashbackAmount: number; expectedBenefit?: number | null }>;
   }>;
 }
 
@@ -114,6 +114,13 @@ export function History() {
                     {t.pricePerLitre ? ` · ${ars(t.pricePerLitre)}/L` : ''}
                     <br />
                     {t.promotions.length ? t.promotions.map((p) => p.name).join(' + ') : 'Sin promoción'}
+                    {t.promotions
+                      .filter((p) => p.expectedBenefit != null && Math.abs(p.expectedBenefit - p.discountAmount - p.cashbackAmount) >= 100)
+                      .map((p) => (
+                        <div key={p.promotionId} style={{ color: 'var(--warn)' }}>
+                          Calculado {ars(p.expectedBenefit!)} · recibido {ars(p.discountAmount + p.cashbackAmount)}
+                        </div>
+                      ))}
                     {t.cashbackAmount > 0 && ' · reintegro pendiente de acreditación'}
                   </div>
                   <button className="btn small danger" style={{ marginTop: 6, paddingLeft: 0, background: 'none' }} onClick={() => void remove(t.id)}>

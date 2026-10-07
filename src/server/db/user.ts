@@ -195,6 +195,7 @@ export function listTransactions(db: DB, opts: { from?: string; to?: string } = 
         discountAmount: Number(a.discount_amount),
         cashbackAmount: Number(a.cashback_amount),
         poolIds: JSON.parse(a.pool_ids_json),
+        expectedBenefit: a.expected_amount == null ? null : Number(a.expected_amount),
       }),
     ),
   }));
@@ -225,13 +226,14 @@ export function insertTransaction(db: DB, now: string, tx: Omit<FuelTransaction,
     for (const a of tx.promotionsApplied)
       run(
         db,
-        'INSERT INTO fuel_transaction_promotion (transaction_id, promotion_id, promotion_version_id, discount_amount, cashback_amount, pool_ids_json) VALUES (?,?,?,?,?,?)',
+        'INSERT INTO fuel_transaction_promotion (transaction_id, promotion_id, promotion_version_id, discount_amount, cashback_amount, pool_ids_json, expected_amount) VALUES (?,?,?,?,?,?,?)',
         id,
         a.promotionId,
         a.promotionVersionId,
         a.discountAmount,
         a.cashbackAmount,
         JSON.stringify(a.poolIds),
+        a.expectedBenefit ?? null,
       );
   });
   return id;

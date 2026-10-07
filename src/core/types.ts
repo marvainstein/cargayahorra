@@ -247,6 +247,8 @@ export interface AppliedPromotion {
   discountAmount: Cents;
   cashbackAmount: Cents;
   poolIds: string[];
+  /** Lo que el motor calculaba para esta carga (null si no se calculó). */
+  expectedBenefit?: Cents | null;
 }
 
 export interface FuelTransaction {
