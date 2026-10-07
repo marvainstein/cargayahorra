@@ -112,7 +112,8 @@ export function mapAxionStation(x: Record<string, unknown>): Station | null {
   const address = decodeEntities(String(x.Direccion ?? '')).replace(/\s+/g, ' ').trim();
   const locality = decodeEntities(String(x.Localidad ?? '')).replace(/\s+/g, ' ').trim();
   if (!code || !address) return null;
-  const region = /capital fed/i.test(locality) ? 'CABA' : provinceCode(String(x.Provincia ?? ''));
+  // La API informa CABA como localidad ("CABA", "CAPITAL FED ZONA 2") con provincia "Buenos Aires".
+  const region = /\bcaba\b|capital fed|ciudad aut[oó]noma/i.test(locality) ? 'CABA' : provinceCode(String(x.Provincia ?? ''));
   return {
     id: `axion-${code}`,
     brandId: 'axion',

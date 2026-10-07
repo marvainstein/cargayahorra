@@ -90,6 +90,13 @@ Dónde buscar las bases:
 
 ## Tu perfil (Ajustes → ¿Qué tenés?)
 - Brubank Plan One con Visa débito.
-- BBVA cuenta base (sin Black+) con Visa crédito; falta indicar si cobrás el sueldo en BBVA.
+- BBVA cuenta base (sin Black+, sin cobro de sueldo) con Visa crédito.
 - Axion ON nivel 3, 4 o 5.
-- **Falta:** tu estación habitual y el combustible que cargás (Súper o Premium/Quantium). Con Súper, la promo de Axion ON no aplica.
+- Combustible: Quantium nafta (Premium).
+- Estación: **Axion Av. Warnes 2040, CABA**. Figura en el Anexo I de Brubank (como «Av. Warnes 2040, Chacarita») y el localizador oficial la marca con ON y con Quantium.
+
+Con esto, en octubre de 2026 te aplican dos promociones verificadas:
+- **Martes:** Brubank 10%, hasta $4.000 por carga (se alcanza cargando $40.000), 1 por semana.
+- **Lunes y viernes:** Axion ON 10% en Quantium, hasta $14.000 en el mes (se alcanza cargando $140.000 en total), pagando con cualquier medio. No se suma con Brubank en la misma carga.
+
+**Falta:** cuánto entra en tu tanque (Ajustes → «Tanque lleno»), para que el plan no proponga cargas imposibles.
