@@ -1,4 +1,5 @@
 import type { Clock } from '../../core/time';
+import type { Station } from '../../core/types';
 import type { PromotionDraft } from '../db/promotions';
 
 export interface RawDocument {
@@ -16,6 +17,8 @@ export interface ParsedPromotion {
   /** Fragmento del texto original usado (trazabilidad). */
   excerpt: string;
   warnings: string[];
+  /** Estaciones adheridas publicadas en las bases (se guardan antes que la promoción). */
+  stations?: Station[];
 }
 
 export interface ValidationIssue {

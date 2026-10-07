@@ -11,6 +11,8 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
   const [memberships, setMemberships] = useState<string[]>([]);
   const [apps, setApps] = useState<string[]>([]);
   const [region, setRegion] = useState('');
+  const [station, setStation] = useState<string | null>(null);
+  const [stationQuery, setStationQuery] = useState('');
   const [split, setSplit] = useState<TriState>('UNKNOWN');
   const [fuel, setFuel] = useState<FuelType>('SUPER');
   const [price, setPrice] = useState('');
@@ -27,6 +29,7 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
     setMemberships(p.loyaltyMemberships);
     setApps(p.apps);
     setRegion(p.region ?? '');
+    setStation(p.defaultStationId);
     setSplit(p.allowSplitPayment);
     setFuel(p.defaultFuelType);
     setPrice(pesosText(p.defaultPricePerLitre));
@@ -46,6 +49,7 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
         loyaltyMemberships: memberships,
         apps,
         region: region || null,
+        defaultStationId: station,
         allowSplitPayment: split,
         defaultFuelType: fuel,
         defaultPricePerLitre: parsePesosInput(price),
@@ -73,6 +77,10 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
     }
   };
 
+  const norm = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const selectedStation = station ? cat.stations.find((st) => st.id === station) ?? null : null;
+  const words = norm(stationQuery).split(/\s+/).filter(Boolean);
+  const stationMatches = stationQuery.trim().length >= 3 ? cat.stations.filter((st) => words.every((w) => norm(st.name).includes(w))).slice(0, 15) : [];
   const providerName = (id: string | null) => cat.providers.find((p) => p.id === id)?.name ?? 'Otros';
   const segmentsByProvider = new Map<string, typeof cat.segments>();
   for (const s of cat.segments) segmentsByProvider.set(s.providerId ?? '', [...(segmentsByProvider.get(s.providerId ?? '') ?? []), s]);
@@ -130,6 +138,50 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
             <span>{a.name}</span>
           </label>
         ))}
+      </div>
+
+      <h2>Tu estación</h2>
+      <div className="card">
+        <p className="small muted" style={{ marginTop: 0 }}>
+          Algunas promociones sólo valen en estaciones adheridas. Elegí dónde cargás habitualmente.
+        </p>
+        {selectedStation ? (
+          <div className="row">
+            <div>
+              <div className="title" style={{ fontWeight: 700 }}>
+                {selectedStation.name}
+              </div>
+              <div className="small muted">{data.provinces.find((p) => p.code === selectedStation.region)?.name ?? ''}</div>
+            </div>
+            <button className="btn small" onClick={() => setStation(null)}>
+              Cambiar
+            </button>
+          </div>
+        ) : (
+          <>
+            <label className="field" style={{ marginBottom: 8 }}>
+              <span>Buscar por calle o localidad</span>
+              <input value={stationQuery} onChange={(e) => setStationQuery(e.target.value)} placeholder="Ej. Congreso, Villa Urquiza" autoComplete="off" />
+            </label>
+            {stationMatches.map((st) => (
+              <button
+                key={st.id}
+                className="list-item"
+                style={{ width: '100%', textAlign: 'left', background: 'none', border: 0, cursor: 'pointer', borderTop: '1px solid var(--line)' }}
+                onClick={() => {
+                  setStation(st.id);
+                  if (!region && st.region) setRegion(st.region);
+                  setStationQuery('');
+                }}
+              >
+                <span>{st.name}</span>
+              </button>
+            ))}
+            {stationQuery.trim().length >= 3 && stationMatches.length === 0 && (
+              <p className="small muted">No aparece en la lista de estaciones conocidas ({cat.stations.length}).</p>
+            )}
+          </>
+        )}
       </div>
 
       <h2>Cómo cargás</h2>

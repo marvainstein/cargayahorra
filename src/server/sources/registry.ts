@@ -53,6 +53,7 @@ export const SOURCE_CONFIGS: OfficialPageConfig[] = [
     keyword: /axion/i,
     sourceKeyFromUrl: (url) => /articles\/(\d+)/.exec(url)?.[1] ?? url,
     defaultName: 'Brubank en Axion',
+    stationAnnex: { marker: /ANEXO I\b/, linePattern: /^axion\b(?: energy)?/i, brandId: 'axion' },
     parse: {
       stage: 'PAYMENT',
       eligibleProviderIds: ['brubank'],
@@ -61,7 +62,7 @@ export const SOURCE_CONFIGS: OfficialPageConfig[] = [
         { pattern: /plan plus/, segmentId: 'brubank-plan-plus' },
         { pattern: /plan one/, segmentId: 'brubank-plan-one' },
       ],
-      generalAudiencePatterns: [/clientes en general|todos los clientes|clientes generales/],
+      generalAudiencePatterns: [/clientes en general|todos los clientes|clientes generales|\bclientes brubank\.\s/],
       fuelKeywords: AXION_FUELS,
       appKeywords: APPS,
     },

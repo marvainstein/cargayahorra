@@ -81,13 +81,28 @@ export function extractTitle(html: string): string | null {
   return title ? htmlToText(title[1]).trim() || null : null;
 }
 
+/**
+ * Contenido principal de la página (<article>, si no <main>, si no <body>).
+ * Evita interpretar menús, pies o artículos relacionados como parte de las bases.
+ */
+export function extractMainContent(html: string): string {
+  const pick = (tag: string) => {
+    const m = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i').exec(html);
+    return m && htmlToText(m[1]).length > 100 ? m[1] : null;
+  };
+  return pick('article') ?? pick('main') ?? pick('body') ?? html;
+}
+
 export function extractLinks(html: string, baseUrl: string): Array<{ href: string; text: string }> {
   const out: Array<{ href: string; text: string }> = [];
   const re = /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html))) {
     try {
-      out.push({ href: new URL(decodeEntities(m[1]), baseUrl).toString(), text: htmlToText(m[2]) });
+      const url = new URL(decodeEntities(m[1]), baseUrl);
+      // Links http:// al mismo sitio (p. ej. el centro de ayuda de Brubank) se piden por https.
+      if (url.protocol === 'http:' && new URL(baseUrl).protocol === 'https:') url.protocol = 'https:';
+      out.push({ href: url.toString(), text: htmlToText(m[2]) });
     } catch {
       // href inválido: se ignora
     }
