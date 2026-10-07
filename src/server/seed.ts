@@ -353,6 +353,8 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
 ];
 
 export function seedCatalog(db: DB) {
+  // Catálogo oficial de estaciones (antes que el usuario, que referencia su estación habitual).
+  if (!get(db, `SELECT 1 FROM station WHERE source = 'axion-estaciones' LIMIT 1`)) upsertStations(db, AXION_STATIONS.stations, 'axion-estaciones');
   transaction(db, () => {
     const providers: Array<[string, string, string]> = [
       ['bbva', 'BBVA', 'BANK'],
@@ -427,10 +429,20 @@ export function seedUser(db: DB, clock: Clock) {
   if (get(db, 'SELECT id FROM user WHERE id = ?', DEFAULT_USER_ID)) return;
   const now = clock.now().toISOString();
   transaction(db, () => {
-    run(db, `INSERT INTO user (id, created_at, updated_at) VALUES (?,?,?)`, DEFAULT_USER_ID, now, now);
+    // Estación habitual: Axion Av. Warnes 2040 (CABA). Combustible: Quantium nafta (Premium).
+    run(
+      db,
+      `INSERT INTO user (id, created_at, updated_at, region, default_fuel_type, default_station_id) VALUES (?,?,?,?,?,?)`,
+      DEFAULT_USER_ID,
+      now,
+      now,
+      'CABA',
+      'PREMIUM',
+      'axion-537',
+    );
     // Lo que se sabe del pedido: Brubank One, BBVA y Axion ON. El resto se confirma en Ajustes.
     for (const m of ['brubank-visa-debito', 'bbva-visa-credito']) run(db, 'INSERT INTO user_payment_method (user_id, payment_method_id) VALUES (?,?)', DEFAULT_USER_ID, m);
-    // Lo que indicaste: Brubank One, BBVA base (sin Black+) con Visa crédito, Axion ON nivel 4 o 5.
+    // Lo que indicaste: Brubank One, BBVA base (sin Black+, sin sueldo) con Visa crédito, Axion ON nivel 4 o 5.
     const segs: Array<[string, string]> = [
       ['brubank-plan-one', 'YES'],
       ['brubank-plan-plus', 'NO'],
@@ -439,6 +451,7 @@ export function seedUser(db: DB, clock: Clock) {
       ['bbva-black-all', 'NO'],
       ['axion-on-level-1-2', 'NO'],
       ['axion-on-level-3-5', 'YES'],
+      ['bbva-sueldo', 'NO'],
     ];
     for (const [s, st] of segs) run(db, 'INSERT INTO user_segment (user_id, segment_id, status) VALUES (?,?,?)', DEFAULT_USER_ID, s, st);
     run(db, `INSERT INTO user_loyalty_membership (user_id, programme_id) VALUES (?, 'axion-on')`, DEFAULT_USER_ID);
@@ -447,7 +460,6 @@ export function seedUser(db: DB, clock: Clock) {
 }
 
 export function seedPromotions(db: DB, clock: Clock) {
-  upsertStations(db, AXION_STATIONS.stations, 'axion-estaciones');
   // Línea de base de la página de Axion: la primera vigilancia ya detecta cambios posteriores.
   for (const blk of AXION_BENEFITS.blocks)
     run(
