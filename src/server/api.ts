@@ -154,24 +154,36 @@ export function createApi(ctx: AppContext) {
   api.post('/transactions', async (c) => {
     const b = (await c.req.json()) as Record<string, unknown>;
     const errors: string[] = [];
-    const amount = cents(b.amount, 'amount', errors, { min: 1 });
+    const amount = cents(b.amount, 'amount', errors, { min: 1, nullable: true });
+    const amountPaid = cents(b.amountPaid, 'amountPaid', errors, { min: 1, nullable: true });
+    if (amount == null && amountPaid == null) errors.push('Indicá el monto cargado (amount) o lo que pagaste (amountPaid).');
     if (!b.paymentMethodId) errors.push('paymentMethodId es obligatorio.');
     if (b.date && !isLocalDate(String(b.date))) errors.push('date inválida.');
     const pricePerLitre = cents(b.pricePerLitre, 'pricePerLitre', errors, { nullable: true });
     const litres = b.litres == null || b.litres === '' ? null : Number(b.litres);
     if (litres !== null && !(litres > 0)) errors.push('litres inválido.');
+    let actualBenefits: Array<{ promotionId: string; amount: number }> | undefined;
+    if (Array.isArray(b.actualBenefits)) {
+      actualBenefits = b.actualBenefits.map((x, i) => {
+        const o = (x ?? {}) as Record<string, unknown>;
+        if (typeof o.promotionId !== 'string') errors.push(`actualBenefits[${i}].promotionId es obligatorio.`);
+        return { promotionId: String(o.promotionId), amount: cents(o.amount, `actualBenefits[${i}].amount`, errors) ?? 0 };
+      });
+    }
     if (errors.length) return bad(c, errors);
     try {
       return c.json(
         registerTransaction(ctx, {
           date: (b.date as string) || undefined,
-          amount: amount!,
+          amount,
+          amountPaid,
           paymentMethodId: String(b.paymentMethodId),
           fuelType: fuelParam(b.fuelType),
           litres,
           pricePerLitre,
           stationId: b.stationId ? String(b.stationId) : null,
           promotionIds: Array.isArray(b.promotionIds) ? b.promotionIds.map(String) : undefined,
+          actualBenefits,
           notes: b.notes ? String(b.notes) : null,
         }),
         201,

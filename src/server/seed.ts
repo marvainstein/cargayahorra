@@ -116,7 +116,7 @@ const AXION_SOURCE = { name: 'Axion energy — Beneficios y promociones (sitio o
 const AXION_ON_NOTES = [
   'Sólo para usuarios ON: identificate como usuario ON (te pueden pedir el DNI).',
   'No es acumulable con otras promociones: si la usás, no sumes la promo del banco en esa carga.',
-  'Las bases dicen "descuento" sin aclarar si se aplica en el surtidor o como reintegro; el ahorro calculado es el mismo.',
+  'El descuento se aplica en el surtidor: el banco cobra el monto ya descontado (confirmado con una carga real del 05/10/2026).',
 ];
 
 function draft(d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 'retrievedAt' | 'lastVerifiedAt'>): PromotionDraft {

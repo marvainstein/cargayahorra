@@ -36,7 +36,7 @@ npm run build && npm start   # todo en http://localhost:8787
 ## Tests
 
 ```bash
-npm test            # 93 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
+npm test            # 95 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
 npm run typecheck
 ```
 

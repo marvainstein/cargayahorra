@@ -32,6 +32,7 @@ function migrate(db: DB) {
   addColumn('customer_segment', 'group_id', 'group_id TEXT');
   addColumn('station', 'attributes_json', "attributes_json TEXT NOT NULL DEFAULT '{}'");
   addColumn('station', 'source', 'source TEXT');
+  addColumn('fuel_transaction_promotion', 'expected_amount', 'expected_amount INTEGER');
 }
 
 /** Ejecuta fn dentro de una transacción. */

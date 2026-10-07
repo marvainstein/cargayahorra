@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { PlannedTransaction } from '../../core/optimizer/planner';
 import { FUEL_TYPE_LABELS } from '../../core/labels';
-import { FUEL_TYPES, type FuelType } from '../../core/types';
+import { FUEL_TYPES, type FuelType, type Promotion } from '../../core/types';
 import { api } from '../api';
 import type { ProfileData } from '../App';
 import { ars, parsePesosInput, pesosText, Sheet, toast } from './ui';
@@ -30,6 +30,14 @@ export function RegisterSheet({
   const [date, setDate] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [amountMode, setAmountMode] = useState<'gross' | 'paid'>('gross');
+  const [promoChoice, setPromoChoice] = useState<string>(suggestion?.promotions[0]?.id ?? 'AUTO');
+  const [actual, setActual] = useState('');
+  const [promos, setPromos] = useState<Promotion[]>([]);
+
+  useEffect(() => {
+    void api.get<{ promotions: Promotion[] }>('/promotions').then((r) => setPromos(r.data.promotions));
+  }, []);
 
   const submit = async () => {
     const cents = parsePesosInput(amount);
@@ -37,15 +45,23 @@ export function RegisterSheet({
     setBusy(true);
     setError(null);
     try {
-      const r = await api.post<{ evaluation: { totalBenefit: number }; warnings: string[] }>('/transactions', {
-        amount: cents,
+      const promotionIds = promoChoice === 'AUTO' ? undefined : promoChoice === 'NONE' ? [] : [promoChoice];
+      const actualCents = parsePesosInput(actual);
+      const r = await api.post<{ totalBenefit: number; grossAmount: number; derivedFromPaid: boolean; discrepancies: Array<{ name: string; expected: number; actual: number }> }>('/transactions', {
+        ...(amountMode === 'gross' ? { amount: cents } : { amountPaid: cents }),
+        promotionIds,
+        actualBenefits: actualCents != null && promotionIds?.length ? [{ promotionId: promotionIds[0], amount: actualCents }] : undefined,
         paymentMethodId: method,
         fuelType: fuel,
         litres: litres ? Number(litres.replace(',', '.')) : null,
         pricePerLitre: !litres && price ? parsePesosInput(price) : null,
         date: date || undefined,
       });
-      toast(r.data.evaluation.totalBenefit > 0 ? `Registrada. Ahorraste ${ars(r.data.evaluation.totalBenefit)}.` : 'Carga registrada (sin beneficio confirmado).');
+      const d = r.data;
+      const parts = [d.totalBenefit > 0 ? `Registrada. Ahorraste ${ars(d.totalBenefit)}.` : 'Carga registrada (sin beneficio).'];
+      if (d.derivedFromPaid) parts.push(`Monto cargado: ${ars(d.grossAmount)}.`);
+      for (const x of d.discrepancies) parts.push(`Ojo: «${x.name}» debía dar ${ars(x.expected)} y diste ${ars(x.actual)}.`);
+      toast(parts.join(' '));
       onSaved();
     } catch (e) {
       setError((e as Error).message);
@@ -59,10 +75,36 @@ export function RegisterSheet({
       <p className="small muted" style={{ marginTop: 0 }}>
         Con esto la app descuenta lo usado de cada tope automáticamente.
       </p>
+      <div className="field">
+        <div className="segmented">
+          <button type="button" className={amountMode === 'gross' ? 'active' : ''} onClick={() => setAmountMode('gross')}>
+            Monto cargado
+          </button>
+          <button type="button" className={amountMode === 'paid' ? 'active' : ''} onClick={() => setAmountMode('paid')}>
+            Lo que pagué
+          </button>
+        </div>
+        <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} autoFocus={!suggestion} placeholder="$" />
+        {amountMode === 'paid' && <span className="small">Con un descuento en el surtidor, la app calcula el monto cargado.</span>}
+      </div>
       <label className="field">
-        <span>Monto cargado ($)</span>
-        <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} autoFocus={!suggestion} />
+        <span>Promoción usada</span>
+        <select value={promoChoice} onChange={(e) => setPromoChoice(e.target.value)}>
+          <option value="AUTO">Calcular automáticamente</option>
+          <option value="NONE">Ninguna</option>
+          {promos.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
+        </select>
       </label>
+      {promoChoice !== 'AUTO' && promoChoice !== 'NONE' && (
+        <label className="field">
+          <span>Ahorro real según el ticket o el resumen ($, opcional)</span>
+          <input inputMode="decimal" value={actual} onChange={(e) => setActual(e.target.value)} placeholder="Si lo dejás vacío, se usa el calculado" />
+        </label>
+      )}
       <label className="field">
         <span>Medio de pago</span>
         <select value={method} onChange={(e) => setMethod(e.target.value)}>
@@ -97,9 +139,6 @@ export function RegisterSheet({
         <span>Fecha (vacío = hoy)</span>
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </label>
-      {suggestion && suggestion.promotions.length > 0 && (
-        <p className="small muted">Se aplicará automáticamente la mejor promoción confirmada para ese medio de pago: {suggestion.promotions.map((p) => p.name).join(' + ')}.</p>
-      )}
       {error && <div className="banner danger">{error}</div>}
       <button className="btn primary block" onClick={submit} disabled={busy}>
         {busy ? 'Guardando…' : 'Guardar'}

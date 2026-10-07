@@ -139,6 +139,32 @@ describe('API de usuario', () => {
     expect((await call('POST', '/admin/parse-text', { providerId: 'bbva', text: 'corto' })).status).toBe(400);
   });
 
+  it('registra una carga a partir de lo pagado (descuento en el momento)', async () => {
+    // Promo de prueba con la forma de Axion ON: 10% en el surtidor, tope mensual $14.000.
+    await call('POST', '/admin/promotions', testDraft({ providerId: 'axion-on', name: 'TEST ON 10%', rule: rule({ stage: 'PRICE', delivery: 'INSTANT_DISCOUNT', discountValue: 1000, caps: [{ amount: pesos(14_000), period: 'MONTHLY' }] }) }));
+    const r = await call('POST', '/transactions', { amountPaid: pesos(74_000), paymentMethodId: 'bbva-visa-credito', date: '2026-10-05', fuelType: 'PREMIUM' });
+    expect(r.status).toBe(201);
+    expect(r.json.derivedFromPaid).toBe(true);
+    expect(r.json.grossAmount).toBe(8_222_222); // $82.222,22
+    expect(r.json.totalBenefit).toBe(822_222); // $8.222,22
+    // queda tope del mes: 14.000 − 8.222,22
+    const h = await call('GET', '/home?amount=10000000&date=2026-10-09&fuelType=PREMIUM');
+    expect(h.json.recommendation.recommended.totalBenefit).toBe(pesos(14_000) - 822_222);
+  });
+
+  it('el beneficio real manda y las diferencias quedan registradas', async () => {
+    const created = await call('POST', '/admin/promotions', testDraft({ providerId: 'axion-on', name: 'TEST ON 10%', rule: rule({ stage: 'PRICE', delivery: 'INSTANT_DISCOUNT', discountValue: 1000, caps: [{ amount: pesos(14_000), period: 'MONTHLY' }] }) }));
+    const id = created.json.promotion.id;
+    const r = await call('POST', '/transactions', { amount: pesos(80_000), paymentMethodId: 'bbva-visa-credito', date: '2026-10-05', actualBenefits: [{ promotionId: id, amount: pesos(6_000) }] });
+    expect(r.json.discrepancies).toEqual([{ promotionId: id, name: 'TEST ON 10%', expected: pesos(8_000), actual: pesos(6_000) }]);
+    const hist = await call('GET', '/transactions?month=2026-10');
+    expect(hist.json.saved).toBe(pesos(6_000));
+    expect(hist.json.transactions[0].promotionsApplied[0].expectedBenefit).toBe(pesos(8_000));
+    // los topes se descuentan con lo real
+    const h = await call('GET', '/home?amount=20000000&date=2026-10-09');
+    expect(h.json.recommendation.recommended.totalBenefit).toBe(pesos(8_000));
+  });
+
   it('valida entradas', async () => {
     expect((await call('POST', '/transactions', { amount: 12.5, paymentMethodId: 'x' })).status).toBe(400);
     expect((await call('PUT', '/profile', { paymentMethodIds: ['no-existe'] })).status).toBe(400);
