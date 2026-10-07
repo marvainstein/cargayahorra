@@ -106,6 +106,8 @@ export function Home({ profile }: { profile: ProfileData | null }) {
         </a>
       )}
 
+      {profile && <ProfileSummary profile={profile} />}
+
       <section className="card amount-card" aria-label="Cuánto vas a cargar">
         <div className="row" style={{ marginBottom: 8 }}>
           <label htmlFor="amount" style={{ margin: 0 }}>
@@ -365,8 +367,9 @@ function HeroCard({ plan, rec, onRegister }: { plan: Plan; rec: Recommendation; 
       <div className="badge">🥇 Hoy te conviene</div>
       {single ? (
         <>
-          <div className="method">{single.paymentMethodName}</div>
+          <div className="method">{single.paymentMethodMatters ? single.paymentMethodName : single.promotions[0]?.providerName}</div>
           <div className="benefit-line">{single.promotions.map((p) => p.summary).join(' + ')}</div>
+          {!single.paymentMethodMatters && <div className="sub">Pagá con el medio que quieras.</div>}
           {capInfo(single) && <div className="sub">{capInfo(single)}</div>}
         </>
       ) : (
@@ -444,7 +447,7 @@ function Steps({ plan }: { plan: Plan }) {
           <span className="n">{i + 1}</span>
           <div>
             <div className="amt">
-              {ars(t.amount)} con {t.paymentMethodName}
+              {ars(t.amount)} con {t.paymentMethodMatters ? t.paymentMethodName : `${t.promotions[0]?.providerName} (cualquier medio)`}
             </div>
             <div className="small muted">{t.promotions.map((p) => p.name).join(' + ')}</div>
           </div>
@@ -488,5 +491,30 @@ function WaitBars({ rec }: { rec: Recommendation }) {
         </div>
       ))}
     </div>
+  );
+}
+
+/** "Calculado para: Brubank Visa débito (Plan One) · BBVA Visa crédito · Axion ON nivel 3, 4 o 5 · estación" */
+function ProfileSummary({ profile }: { profile: ProfileData }) {
+  const p = profile.profile;
+  const cat = profile.catalog;
+  const yes = (providerId: string) =>
+    cat.segments.filter((sg) => sg.providerId === providerId && p.segments[sg.id] === 'YES').map((sg) => sg.name);
+  const items: string[] = [];
+  for (const m of p.paymentMethods) {
+    const plans = yes(m.providerId);
+    items.push(plans.length ? `${m.name} (${plans.join(', ')})` : m.name);
+  }
+  for (const id of p.loyaltyMemberships) {
+    const prog = cat.programmes.find((pg) => pg.id === id);
+    const lvl = yes(id);
+    items.push(`${prog?.name ?? id}${lvl.length ? ` ${lvl.join(', ').toLowerCase()}` : ''}`);
+  }
+  const station = p.defaultStationId ? cat.stations.find((st) => st.id === p.defaultStationId) : null;
+  return (
+    <a href="#/settings" className="small muted" style={{ display: 'block', margin: '0 4px 12px', textDecoration: 'none' }}>
+      Calculado para: <strong style={{ color: 'var(--text)' }}>{items.join(' · ') || 'sin medios de pago'}</strong>
+      {station ? ` · ${station.name}` : ' · sin estación'} <span style={{ color: 'var(--brand-strong)' }}>Cambiar ›</span>
+    </a>
   );
 }

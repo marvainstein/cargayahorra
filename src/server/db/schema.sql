@@ -31,7 +31,19 @@ CREATE TABLE IF NOT EXISTS customer_segment (
   id TEXT PRIMARY KEY,
   provider_id TEXT REFERENCES payment_provider(id),
   name TEXT NOT NULL,
-  question TEXT
+  question TEXT,
+  -- segmentos excluyentes entre sí (p. ej. el plan de un banco): se eligen con una sola opción
+  group_id TEXT
+);
+
+-- Grupo de segmentos excluyentes (p. ej. "Plan" de Brubank: One / Plus / Ultra).
+CREATE TABLE IF NOT EXISTS customer_segment_group (
+  id TEXT PRIMARY KEY,
+  provider_id TEXT,
+  label TEXT NOT NULL,
+  -- se puede no tener ninguno (p. ej. no tener paquete Black+)
+  allow_none INTEGER NOT NULL DEFAULT 0,
+  none_label TEXT
 );
 
 CREATE TABLE IF NOT EXISTS app (
@@ -47,7 +59,10 @@ CREATE TABLE IF NOT EXISTS station (
   region TEXT,
   latitude REAL,
   longitude REAL,
-  active INTEGER NOT NULL DEFAULT 1
+  active INTEGER NOT NULL DEFAULT 1,
+  -- atributos publicados por la fuente (p. ej. {"on": true, "products": ["QUANTIUM", ...]})
+  attributes_json TEXT NOT NULL DEFAULT '{}',
+  source TEXT
 );
 
 -- ───────────── Usuario ─────────────
@@ -304,4 +319,18 @@ CREATE TABLE IF NOT EXISTS cap_usage_adjustment (
   pool_id TEXT,
   amount INTEGER NOT NULL,
   note TEXT NOT NULL DEFAULT ''
+);
+
+-- Bloques de texto oficial vigilados (fuentes que no se interpretan solas, p. ej. Axion).
+-- Una promoción se vincula a un bloque con source_key = '<block_key>#<variante>'.
+CREATE TABLE IF NOT EXISTS source_watch (
+  source_id TEXT NOT NULL,
+  block_key TEXT NOT NULL,
+  title TEXT NOT NULL,
+  text TEXT NOT NULL,
+  text_hash TEXT NOT NULL,
+  first_seen_at TEXT NOT NULL,
+  last_seen_at TEXT NOT NULL,
+  missing_since TEXT,
+  PRIMARY KEY (source_id, block_key)
 );

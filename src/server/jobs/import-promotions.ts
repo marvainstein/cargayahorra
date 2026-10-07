@@ -13,6 +13,7 @@ import { type Clock, DEFAULT_TIMEZONE, localDateOf } from '../../core/time';
 import type { Promotion } from '../../core/types';
 import { all, type DB, get, run } from '../db/db';
 import { upsertStations } from '../db/stations';
+import { matchAnnexToCatalog } from '../sources/stations';
 import { sha256 } from '../sources/html';
 import {
   addVersion,
@@ -173,7 +174,27 @@ export async function importFromSource(db: DB, clock: Clock, source: PromotionSo
   const seen = new Set<string>();
   for (const p of validation.valid) {
     seen.add(p.sourceKey);
-    if (p.stations) upsertStations(db, p.stations);
+    if (p.stations) {
+      // Las estaciones del anexo se cruzan con el catálogo oficial; lo que no cruza con
+      // certeza deja la lista marcada como incompleta (nunca "no aplica").
+      const catalog = all(db, `SELECT * FROM station WHERE active = 1 AND brand_id = ?`, p.stations[0]?.brandId ?? 'axion').map((r) => ({
+        id: r.id,
+        brandId: r.brand_id,
+        name: r.name,
+        address: r.address ?? null,
+        region: r.region ?? null,
+        latitude: null,
+        longitude: null,
+        active: true,
+      }));
+      if (catalog.length > 0) {
+        const m = matchAnnexToCatalog(p.stations.map((st) => st.name), catalog);
+        p.draft.rule.eligibleStationIds = m.matchedIds;
+        p.draft.rule.extra = { ...p.draft.rule.extra, stationListIncomplete: m.unmatched.length > 0, stationAnnexCount: p.stations.length };
+      } else {
+        upsertStations(db, p.stations);
+      }
+    }
     const fingerprint = sha256(comparableTerms(p.draft));
     const existing = findBySourceKey(db, source.id, p.sourceKey);
     if (!existing) {

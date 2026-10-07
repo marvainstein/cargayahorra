@@ -25,6 +25,13 @@ function migrate(db: DB) {
   // Columnas agregadas después de la versión inicial (CREATE TABLE IF NOT EXISTS no las agrega).
   const cols = (db.prepare('PRAGMA table_info(promotion)').all() as Row[]).map((c) => c.name);
   if (!cols.includes('source_fingerprint')) db.exec('ALTER TABLE promotion ADD COLUMN source_fingerprint TEXT');
+  const addColumn = (table: string, column: string, ddl: string) => {
+    const existing = (db.prepare(`PRAGMA table_info(${table})`).all() as Row[]).map((c) => c.name);
+    if (!existing.includes(column)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${ddl}`);
+  };
+  addColumn('customer_segment', 'group_id', 'group_id TEXT');
+  addColumn('station', 'attributes_json', "attributes_json TEXT NOT NULL DEFAULT '{}'");
+  addColumn('station', 'source', 'source TEXT');
 }
 
 /** Ejecuta fn dentro de una transacción. */

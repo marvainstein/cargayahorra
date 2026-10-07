@@ -66,6 +66,14 @@ describe('elegibilidad', () => {
     expect(missing.eligibility).toBe('UNCERTAIN');
   });
 
+  it('estación sin confirmar: no se afirma que no aplique', () => {
+    const incomplete = bancoA30({ eligibleStationIds: ['est-1'], extra: { stationListIncomplete: true } });
+    expect(calculatePromotionBenefit({ promotion: incomplete, transaction: tx(10_000, { stationId: 'est-2' }), userState: state() }).eligibility).toBe('UNCERTAIN');
+    const unknownFlag = bancoA30({ eligibleStationIds: ['est-1'], extra: { uncertainStationIds: ['est-3'] } });
+    expect(calculatePromotionBenefit({ promotion: unknownFlag, transaction: tx(10_000, { stationId: 'est-3' }), userState: state() }).eligibility).toBe('UNCERTAIN');
+    expect(calculatePromotionBenefit({ promotion: unknownFlag, transaction: tx(10_000, { stationId: 'est-2' }), userState: state() }).eligibility).toBe('INELIGIBLE');
+  });
+
   it('región excluida', () => {
     const p = bancoA30({ excludedRegions: ['MENDOZA'] });
     const r = calculatePromotionBenefit({ promotion: p, transaction: tx(10_000), userState: state({ region: 'MENDOZA' }) });

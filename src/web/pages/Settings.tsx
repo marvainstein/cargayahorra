@@ -81,9 +81,30 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
   const selectedStation = station ? cat.stations.find((st) => st.id === station) ?? null : null;
   const words = norm(stationQuery).split(/\s+/).filter(Boolean);
   const stationMatches = stationQuery.trim().length >= 3 ? cat.stations.filter((st) => words.every((w) => norm(st.name).includes(w))).slice(0, 15) : [];
-  const providerName = (id: string | null) => cat.providers.find((p) => p.id === id)?.name ?? 'Otros';
-  const segmentsByProvider = new Map<string, typeof cat.segments>();
-  for (const s of cat.segments) segmentsByProvider.set(s.providerId ?? '', [...(segmentsByProvider.get(s.providerId ?? '') ?? []), s]);
+  // Tarjetas agrupadas por banco/programa, con sus planes (grupos excluyentes) y preguntas sueltas.
+  const providerCards = cat.providers
+    .map((provider) => {
+      const programme = cat.programmes.find((pg) => pg.id === provider.id) ?? null;
+      const segs = cat.segments.filter((sg) => sg.providerId === provider.id);
+      const groups = cat.segmentGroups
+        .filter((g) => g.providerId === provider.id)
+        .map((g) => ({ ...g, segments: segs.filter((sg) => sg.groupId === g.id) }))
+        .filter((g) => g.segments.length > 0);
+      return { provider, programme, methods: cat.paymentMethods.filter((m) => m.providerId === provider.id), groups, singles: segs.filter((sg) => !sg.groupId) };
+    })
+    .filter((c) => c.methods.length > 0 || c.programme);
+  type Group = (typeof providerCards)[number]['groups'][number];
+  const groupValue = (g: Group): string => {
+    const yes = g.segments.find((sg) => segments[sg.id] === 'YES');
+    if (yes) return yes.id;
+    if (g.segments.every((sg) => segments[sg.id] === 'NO')) return 'NONE';
+    return 'UNKNOWN';
+  };
+  const setGroup = (g: Group, value: string) => {
+    const next = { ...segments };
+    for (const sg of g.segments) next[sg.id] = value === 'UNKNOWN' ? 'UNKNOWN' : sg.id === value ? 'YES' : 'NO';
+    setSegments(next);
+  };
 
   return (
     <>
@@ -95,40 +116,54 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
       </header>
       <div className="banner info">Sólo se guarda qué medios y beneficios tenés. Nunca números de tarjeta, claves ni credenciales.</div>
 
-      <h2>Medios de pago que tenés</h2>
-      <div className="card">
-        {cat.paymentMethods.map((m) => (
-          <label className="check" key={m.id}>
-            <input type="checkbox" checked={methods.includes(m.id)} onChange={() => setMethods(toggle(methods, m.id))} />
-            <span>{m.name}</span>
-          </label>
-        ))}
-      </div>
-
-      <h2>Planes y beneficios</h2>
-      <div className="card">
-        {[...segmentsByProvider.entries()].map(([pid, segs]) => (
-          <div key={pid} style={{ marginBottom: 14 }}>
-            <div className="title" style={{ fontWeight: 700, marginBottom: 6 }}>
-              {providerName(pid)}
+      <h2>¿Qué tenés?</h2>
+      <p className="small muted" style={{ margin: '-4px 4px 10px' }}>
+        Marcá tus tarjetas y planes: la recomendación se calcula sólo con lo que tenés.
+      </p>
+      {providerCards.map(({ provider, methods: pms, groups, singles, programme }) => {
+        const enabled = programme ? memberships.includes(programme.id) : pms.some((m) => methods.includes(m.id));
+        return (
+          <div className="card" key={provider.id} style={{ marginBottom: 12 }}>
+            <div className="title" style={{ fontWeight: 800, fontSize: 18, marginBottom: 6 }}>
+              {provider.name}
             </div>
-            {segs.map((s) => (
-              <div key={s.id} style={{ marginBottom: 10 }}>
-                <div className="small" style={{ marginBottom: 6 }}>
-                  {s.question ?? s.name}
-                </div>
-                <Tri value={segments[s.id] ?? 'UNKNOWN'} onChange={(v) => setSegments({ ...segments, [s.id]: v })} />
-              </div>
+            {programme && (
+              <label className="check">
+                <input type="checkbox" checked={enabled} onChange={() => setMemberships(toggle(memberships, programme.id))} />
+                <span>Soy usuario de {programme.name}</span>
+              </label>
+            )}
+            {pms.map((m) => (
+              <label className="check" key={m.id}>
+                <input type="checkbox" checked={methods.includes(m.id)} onChange={() => setMethods(toggle(methods, m.id))} />
+                <span>{m.name}</span>
+              </label>
             ))}
+            {enabled &&
+              groups.map((g) => (
+                <div className="field" key={g.id} style={{ marginTop: 10, marginBottom: 4 }}>
+                  <span>{g.label}</span>
+                  <div className="chips" style={{ flexWrap: 'wrap', marginTop: 0 }}>
+                    {[...g.segments.map((sg) => ({ value: sg.id, label: sg.name })), ...(g.allowNone ? [{ value: 'NONE', label: g.noneLabel ?? 'Ninguno' }] : []), { value: 'UNKNOWN', label: 'No sé' }].map((o) => (
+                      <button type="button" key={o.value} className={`chip ${groupValue(g) === o.value ? 'active' : ''}`} onClick={() => setGroup(g, o.value)}>
+                        {o.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            {enabled &&
+              singles.map((sg) => (
+                <div key={sg.id} style={{ marginTop: 10 }}>
+                  <div className="small" style={{ marginBottom: 6 }}>
+                    {sg.question ?? sg.name}
+                  </div>
+                  <Tri value={segments[sg.id] ?? 'UNKNOWN'} onChange={(v) => setSegments({ ...segments, [sg.id]: v })} />
+                </div>
+              ))}
           </div>
-        ))}
-        {cat.programmes.map((p) => (
-          <label className="check" key={p.id}>
-            <input type="checkbox" checked={memberships.includes(p.id)} onChange={() => setMemberships(toggle(memberships, p.id))} />
-            <span>Soy socio de {p.name}</span>
-          </label>
-        ))}
-      </div>
+        );
+      })}
 
       <h2>Apps que usás para pagar</h2>
       <div className="card">

@@ -8,16 +8,17 @@
   },
   "scripts": {
     "dev": "concurrently -k -n api,web \"npm:dev:api\" \"npm:dev:web\"",
-    "dev:api": "NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx watch src/server/main.ts",
+    "dev:api": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx watch src/server/main.ts",
     "dev:web": "vite",
     "build": "vite build",
-    "start": "NODE_USE_ENV_PROXY=1 NODE_ENV=production NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/main.ts",
+    "start": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_ENV=production NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/main.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "import": "NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts import",
-    "jobs": "NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts jobs",
-    "seed": "NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts seed"
+    "import": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts import",
+    "jobs": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts jobs",
+    "seed": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts seed",
+    "axion": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts axion"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",

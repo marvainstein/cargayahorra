@@ -7,8 +7,6 @@
  *   SOURCE_<ID>_INDEX_URLS, SOURCE_<ID>_DETAIL_URLS
  */
 import type { FuelType } from '../../core/types';
-import { normalizeText } from '../../core/regions';
-import type { LegalParseOptions } from './legal-parser';
 import { OfficialPageSource, type OfficialPageConfig } from './official-page-source';
 import type { PromotionSource } from './types';
 
@@ -118,21 +116,10 @@ export const SOURCE_CONFIGS: OfficialPageConfig[] = [
 ];
 
 /**
- * La página de Axion publica también promociones de bancos y billeteras.
- * Las de BBVA/Brubank se reasignan a ese proveedor; las de otros bancos se
- * ignoran por ahora (agregarlas = sumar el proveedor acá y en el catálogo).
+ * Fuentes que se interpretan automáticamente. Axion no está acá: su página se
+ * vigila por bloques (jobs/axion.ts) porque mezcla varias promociones en un texto.
+ * Su configuración se mantiene para interpretar bases pegadas a mano.
  */
-class AxionSource extends OfficialPageSource {
-  protected classify(text: string): { providerId: string; parse: LegalParseOptions } | null {
-    const t = normalizeText(text);
-    const bank = (id: string) => SOURCE_CONFIGS.find((c) => c.providerId === id)!;
-    if (/\bbbva\b/.test(t)) return { providerId: 'bbva', parse: bank('bbva').parse };
-    if (/brubank/.test(t)) return { providerId: 'brubank', parse: bank('brubank').parse };
-    if (/\bbanco\b|mercado pago|cuenta dni|naranja x|uala|\bmodo\b|tarjeta/.test(t)) return null;
-    return super.classify(text);
-  }
-}
-
 export function buildSources(): PromotionSource[] {
-  return SOURCE_CONFIGS.map((c) => (c.id === 'axion-beneficios' ? new AxionSource(withEnv(c)) : new OfficialPageSource(withEnv(c))));
+  return SOURCE_CONFIGS.filter((c) => c.id !== 'axion-beneficios').map((c) => new OfficialPageSource(withEnv(c)));
 }
