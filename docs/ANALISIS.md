@@ -31,6 +31,13 @@ Todas se cargaron como `AUTOMATICALLY_IMPORTED`, confianza `LOW`, con la URL ofi
 
 ## 3. Arquitectura
 
+> **Actualización 2026-10-07: publicación 100% gratuita.**
+> - **Datos:** GitHub Actions consulta las fuentes cada 6 horas y publica `data/app-data.json`.
+> - **Web:** la app se sirve desde GitHub Pages y el motor corre en el teléfono.
+> - **Datos personales:** viven en el dispositivo.
+>
+> El diagrama de abajo describe el modo servidor, que sigue disponible y usa los mismos casos de uso (`src/app/`).
+
 ```
 Fuente oficial ──► Scheduled job ──► Adapter (fetch/parse) ──► Validación ──► SQLite (versionado)
                                                                                    │

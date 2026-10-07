@@ -55,7 +55,7 @@ Su sitio no envía el certificado intermedio de su cadena HTTPS. Se completa con
   > Promoción válida los lunes y viernes del 01/10/2026 al 31/12/2026 para usuarios ON en estaciones adheridas, en la carga de combustibles QUANTIUM Y QUANTIUM DIESEL X10. El beneficio es intransferible y se solicitará DNI para su uso y acreditación de puntos. No es acumulable con otras promociones. El tope de descuento para Quantium (nafta) es de $7.000 mensuales para niveles 1 y 2 y de $14.000 mensuales para niveles 3, 4 y 5. Para Quantium (Diesel) el tope es de $7.000 quincenal.
   - **Quantium nafta:** verificada; para vos rige el tope de **$14.000 por mes**.
   - **Quantium Diesel:** «quincenal» no aclara si es por quincena del mes o cada 15 días, así que queda sin confirmar.
-  - **Forma del beneficio:** las bases dicen «descuento» sin aclarar dónde se aplica. Una carga real (05/10/2026) confirmó que **se aplica en el surtidor**: el banco cobró $54.010,81, que es el 90% de $60.012,01.
+  - **Forma del beneficio:** las bases dicen «descuento» sin aclarar dónde se aplica. Una carga real (05/10/2026) confirmó que **se aplica en el surtidor**: el banco cobró exactamente el 90% del monto cargado.
   - **No acumulable:** el día que usás ON, no se suma la promo del banco en esa carga.
   - **Promos que salen:** el «5% en súper» que había aparecido en notas periodísticas **no figura**, así que se eliminó.
   - **BBVA:** ninguna de las 12 promociones es de BBVA.
@@ -88,17 +88,6 @@ Dónde buscar las bases:
 - Web: https://www.bbva.com.ar/beneficios/ (a esa dirección redirige go.bbva.com.ar). Buscá «Axion» o «Combustible», entrá al beneficio y abrí «Bases y condiciones» / «Legales».
 - App BBVA: Beneficios → buscar «Axion» o «Combustible» → abrir el beneficio → legales.
 
-## Tu perfil (Ajustes → ¿Qué tenés?)
-- Brubank Plan One con Visa débito.
-- BBVA cuenta base (sin Black+, sin cobro de sueldo) con Visa crédito.
-- Axion ON nivel 3, 4 o 5.
-- Combustible: Quantium nafta (Premium).
-- Estación: **Axion Av. Warnes 2040, CABA**. Figura en el Anexo I de Brubank (como «Av. Warnes 2040, Chacarita») y el localizador oficial la marca con ON y con Quantium.
+## Tu perfil
 
-Con esto, en octubre de 2026 te aplican dos promociones verificadas:
-- **Martes:** Brubank 10%, hasta $4.000 por carga (se alcanza cargando $40.000), 1 por semana.
-- **Lunes y viernes:** Axion ON 10% en Quantium, hasta $14.000 en el mes (se alcanza cargando $140.000 en total), pagando con cualquier medio. No se suma con Brubank en la misma carga.
-
-**Uso de octubre:** el 05/10 cargaste $60.012,01 de Quantium con ON y tuviste $6.001,20 de descuento. Te quedan **$7.998,80** de tope ON en octubre (cargando $79.988 un lunes o viernes).
-
-**Falta:** cuánto entra en tu tanque (Ajustes → «Tanque lleno»), para que el plan no proponga cargas imposibles.
+Los datos personales (tarjetas, plan, estación, cargas) **no se guardan en este repositorio**, que es público. Viven sólo en el dispositivo (Ajustes → ¿Qué tenés?), con opción de exportar e importar un respaldo.

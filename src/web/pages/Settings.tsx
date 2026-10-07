@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FUEL_TYPE_LABELS } from '../../core/labels';
 import { FUEL_TYPES, type FuelType, type TriState } from '../../core/types';
-import { api, getToken, setToken } from '../api';
+import { api } from '../api';
 import type { ProfileData } from '../App';
 import { ars, parsePesosInput, pesosText, toast, Tri } from '../components/ui';
 
@@ -18,7 +18,6 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
   const [price, setPrice] = useState('');
   const [tank, setTank] = useState('');
   const [budget, setBudget] = useState('');
-  const [token, setTokenInput] = useState(getToken());
   const [adj, setAdj] = useState({ poolId: '', amount: '', date: '', note: '' });
 
   useEffect(() => {
@@ -56,9 +55,29 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
         maxLoadAmount: parsePesosInput(tank),
         estimatedMonthlyFuelBudget: parsePesosInput(budget),
       });
-      setToken(token.trim());
       await onSaved();
       toast('Ajustes guardados');
+    } catch (e) {
+      toast((e as Error).message);
+    }
+  };
+
+  const exportBackup = async () => {
+    const r = await api.get<unknown>('/backup');
+    const blob = new Blob([JSON.stringify(r.data, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `carga-y-ahorra-respaldo-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  const importBackup = async (file: File | undefined) => {
+    if (!file) return;
+    try {
+      await api.post('/backup', await file.text());
+      await onSaved();
+      toast('Respaldo importado');
     } catch (e) {
       toast((e as Error).message);
     }
@@ -114,7 +133,12 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
           <h1>Ajustes</h1>
         </div>
       </header>
-      <div className="banner info">Sólo se guarda qué medios y beneficios tenés. Nunca números de tarjeta, claves ni credenciales.</div>
+      {!data.configured && (
+        <div className="banner warn">
+          <strong>Primero contanos qué tenés.</strong> Marcá tus tarjetas, planes y tu estación, y tocá «Guardar ajustes». La recomendación se calcula sólo con eso.
+        </div>
+      )}
+      <div className="banner info">Sólo se guarda qué medios y beneficios tenés, en este dispositivo. Nunca números de tarjeta, claves ni credenciales.</div>
 
       <h2>¿Qué tenés?</h2>
       <p className="small muted" style={{ margin: '-4px 4px 10px' }}>
@@ -325,14 +349,23 @@ export function Settings({ data, onSaved }: { data: ProfileData | null; onSaved:
         </>
       )}
 
-      <h2>Acceso</h2>
+      <h2>Tus datos</h2>
       <div className="card">
-        <label className="field">
-          <span>Token de acceso (si el servidor usa APP_TOKEN)</span>
-          <input type="password" value={token} onChange={(e) => setTokenInput(e.target.value)} autoComplete="off" />
-        </label>
-        <a className="btn block" href="#/admin">
-          Administración de promociones ›
+        <p className="small muted" style={{ marginTop: 0 }}>
+          Tu perfil y tus cargas se guardan sólo en este dispositivo. Exportá un respaldo de vez en cuando o para pasarlos a otro teléfono.
+        </p>
+        <div className="grid2">
+          <button className="btn small" onClick={() => void exportBackup()}>
+            Exportar respaldo
+          </button>
+          <label className="btn small" style={{ cursor: 'pointer' }}>
+            Importar respaldo
+            <input type="file" accept="application/json,.json" style={{ display: 'none' }} onChange={(e) => void importBackup(e.target.files?.[0])} />
+          </label>
+        </div>
+        <div className="spacer" />
+        <a className="btn block" href="#/estado">
+          Estado de los datos y fuentes ›
         </a>
       </div>
     </>

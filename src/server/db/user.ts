@@ -4,16 +4,13 @@
  * de pago y beneficios tiene el usuario.
  */
 import { randomUUID } from 'node:crypto';
-import type { Catalog } from '../../core/rules/engine';
+import type { CatalogData } from '../../app/types';
 import type { Cents } from '../../core/money';
 import type {
   AppliedPromotion,
   CapUsageAdjustment,
   FuelTransaction,
   FuelType,
-  PaymentMethod,
-  PaymentProvider,
-  Station,
   TriState,
   UserProfile,
 } from '../../core/types';
@@ -21,15 +18,8 @@ import { all, type DB, get, run, transaction } from './db';
 
 export const DEFAULT_USER_ID = 'default';
 
-export interface CatalogData {
-  providers: PaymentProvider[];
-  paymentMethods: PaymentMethod[];
-  segments: Array<{ id: string; providerId: string | null; name: string; question: string | null; groupId: string | null }>;
-  segmentGroups: Array<{ id: string; providerId: string | null; label: string; allowNone: boolean; noneLabel: string | null }>;
-  programmes: Array<{ id: string; name: string; fuelBrandId: string | null }>;
-  apps: Array<{ id: string; name: string }>;
-  stations: Station[];
-}
+export type { CatalogData } from '../../app/types';
+export { engineCatalog } from '../../app/types';
 
 export function loadCatalog(db: DB): CatalogData {
   return {
@@ -68,21 +58,6 @@ export function loadCatalog(db: DB): CatalogData {
       active: !!r.active,
       attributes: JSON.parse(r.attributes_json ?? '{}'),
     })),
-  };
-}
-
-/** Nombres legibles para las explicaciones del motor. */
-export function engineCatalog(c: CatalogData): Catalog {
-  const byId = <T extends { id: string; name: string }>(xs: T[]) => new Map(xs.map((x) => [x.id, x.name]));
-  const providers = byId(c.providers);
-  const segments = byId(c.segments);
-  const programmes = new Map([...byId(c.programmes), ...byId(c.apps)]);
-  const methods = byId(c.paymentMethods);
-  return {
-    providerName: (id) => providers.get(id) ?? id,
-    segmentName: (id) => segments.get(id) ?? id,
-    programmeName: (id) => programmes.get(id) ?? id,
-    paymentMethodName: (id) => methods.get(id) ?? id,
   };
 }
 

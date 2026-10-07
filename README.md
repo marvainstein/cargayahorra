@@ -16,71 +16,55 @@ Detalle completo en [`docs/VERIFICACION.md`](docs/VERIFICACION.md).
 
 En **Ajustes → ¿Qué tenés?** elegí tus tarjetas, planes y nivel de Axion ON, tu **estación** y tu combustible: la recomendación se calcula sólo con eso.
 
-## Levantarlo
+## Cómo funciona (gratis)
+
+- **Web:** GitHub Pages. La app es estática y el motor de cálculo corre en el teléfono.
+- **Datos de promociones:** GitHub Actions (`.github/workflows/pages.yml`), cada 6 horas.
+  1. Parte de las promociones verificadas del repo (`src/server/seed.ts`).
+  2. Consulta las fuentes oficiales: estaciones y beneficios de Axion, centro de ayuda de Brubank y precios.
+  3. Detecta cambios y datos desactualizados.
+  4. Publica `data/app-data.json` junto con la app.
+
+  Si una fuente cambió, abre o actualiza un *issue* «Revisar cambios en promociones». Las promos afectadas no se usan hasta revisarlas.
+- **Tus datos** (perfil, cargas, ajustes de topes): sólo en tu teléfono (almacenamiento local). Se pueden exportar e importar desde Ajustes. **Nunca** van al repo, que es público.
+
+### Publicar (una sola vez)
+
+1. En GitHub: **Settings → Pages → Build and deployment → Source: «GitHub Actions»**.
+2. **Actions → «Actualizar datos y publicar» → Run workflow** (o hacer cualquier push a `main`).
+3. La app queda en **https://marvainstein.github.io/cargayahorra/**. En el iPhone: abrila en Safari → Compartir → «Agregar a pantalla de inicio».
+
+## Desarrollo local
 
 Requiere Node 22.5+.
 
 ```bash
 npm install
-npm run dev          # API en :8787 + frontend en :5173 (con proxy a /api)
-```
-
-Abrí http://localhost:5173. La base SQLite se crea sola en `data/` con el catálogo, tu perfil inicial y las promociones candidatas.
-
-Producción local:
-
-```bash
-npm run build && npm start   # todo en http://localhost:8787
-```
-
-## Tests
-
-```bash
-npm test            # 95 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
+npm run dev          # genera datos sin consultar fuentes (--offline) y abre la app en :5173
+npm run data         # consulta las fuentes oficiales y genera public/data/app-data.json
+npm test             # 95 tests
 npm run typecheck
+npm run build        # app estática en dist/
 ```
 
-## Actualizar promociones
+Hay además un modo servidor (`npm run dev:server`, `npm start`, Dockerfile) con base SQLite y API. No hace falta para la versión publicada.
 
-- **Automático:** el servidor corre los jobs solo (importación cada 6 h, detección de desactualizadas cada 1 h, precios cada 24 h). Desactivable con `ENABLE_SCHEDULER=false`.
-- **A mano:** `npm run import` (todas las fuentes), `npm run import -- brubank-help` (una), `npm run axion` (estaciones y página de beneficios de Axion), `npm run jobs` (todos los jobs), o desde Administración → «Ejecutar …».
-- Los cambios detectados en promociones ya revisadas **no se aplican solos**: aparecen en Administración → «Cambios detectados para revisar».
+## Actualizar o corregir una promoción
 
-## Agregar una promoción a mano
-
-Administración → **+ Nueva**. Completá beneficio, topes (con período y, si se comparte con otros rubros, un id de *pool*), días, medios de pago, combustibles, segmentos y la URL oficial. Si algo no está claro, marcalo en «Condiciones que NO se pueden confirmar»: la promo se mostrará como «sin confirmar» y no se usará para recomendar. Cada edición crea una **versión nueva** (el historial queda).
+- **Automático:** el workflow corre solo cada 6 horas. También a mano: Actions → «Actualizar datos y publicar» → Run workflow.
+- **Cuando hay un issue de revisión:** se compara con las bases oficiales y se actualiza la promoción en `src/server/seed.ts`. Eso incluye la huella `sourceFingerprint` (Brubank) o la línea de base en `src/server/seed-data/` (Axion). Al subir el cambio se republica sola.
+- **Promos que no se pueden leer automáticamente (BBVA):** se cargan en `src/server/seed.ts` a partir de las bases pegadas. `parseLegalText` (`src/server/sources/legal-parser.ts`) ayuda a interpretarlas y marca lo dudoso como desconocido.
 
 ## Agregar una fuente nueva (p. ej. YPF Serviclub, Shell Box, MODO)
 
-1. Si es una página oficial con bases: agregá una entrada en `SOURCE_CONFIGS` (`src/server/sources/registry.ts`) con URLs, palabra clave, proveedor y mapeos de segmentos/combustibles.
-2. Si tiene API o un formato propio: creá una clase que implemente `PromotionSource` (`fetch`, `parse`, `validate`) en `src/server/sources/` y sumala en `buildSources()`.
-3. Agregá proveedor, medios de pago, segmentos y apps en el catálogo (`src/server/seed.ts`, es idempotente).
-4. Escribí un test con HTML/JSON de ejemplo (ver `tests/sources.test.ts`).
+1. **Página oficial con bases:** una entrada en `SOURCE_CONFIGS` (`src/server/sources/registry.ts`).
+2. **API o formato propio:** una clase que implemente `PromotionSource` (`fetch`, `parse`, `validate`) en `src/server/sources/`. Si la página mezcla promos, un vigilante por bloques como el de Axion (`src/server/jobs/axion.ts`).
+3. **Catálogo:** proveedor, tarjetas, segmentos y grupos en `src/server/seed.ts`.
+4. **Test:** con un texto de ejemplo, en `tests/`.
 
-El motor de reglas y el optimizador no cambian.
+El motor y la interfaz no cambian.
 
-Las URLs también se pueden configurar sin tocar código: `SOURCE_<ID>_INDEX_URLS` y `SOURCE_<ID>_DETAIL_URLS` (ver `.env.example`). **BBVA** no tiene URL por defecto: configurá `SOURCE_BBVA_BENEFICIOS_DETAIL_URLS` con la página de bases vigente.
-
-## Desplegar
-
-Es un único proceso + un archivo SQLite. Cualquier servicio con disco persistente sirve.
-
-**Docker (VPS, Fly.io, Railway, Render):**
-
-```bash
-docker build -t carga-y-ahorra .
-docker run -d -p 8787:8787 -v cya-data:/data -e APP_TOKEN=un-token-largo carga-y-ahorra
-```
-
-**Fly.io** (ejemplo): `fly launch` (detecta el Dockerfile) → `fly volumes create data --size 1` → montarlo en `/data` en `fly.toml` → `fly secrets set APP_TOKEN=...` → `fly deploy`.
-
-Poné siempre `APP_TOKEN` si queda expuesto a internet; la app lo pide una vez y lo recuerda.
-
-**Instalar en el iPhone:** abrí la URL en Safari → Compartir → «Agregar a pantalla de inicio». Se abre a pantalla completa (`display: standalone`). Sin conexión muestra la última respuesta **marcada como desactualizada**, nunca como confirmada.
-
-Nota: detrás de un proxy (como en entornos de desarrollo en la nube), los scripts activan `NODE_USE_ENV_PROXY=1` para que `fetch` use `HTTPS_PROXY`. Sin proxy no tiene efecto.
-
-## Variables de entorno
+## Variables de entorno (modo servidor y generación de datos)
 
 Ver [`.env.example`](.env.example).
 
@@ -88,7 +72,8 @@ Ver [`.env.example`](.env.example).
 
 ```
 src/core/      dominio puro: dinero, fechas, tipos, motor de reglas, optimizador (sin I/O)
-src/server/    SQLite, adapters de fuentes, importación, jobs, API (Hono)
-src/web/       PWA React (sólo presenta resultados)
+src/app/       casos de uso compartidos (recomendación, plan, registro, historial)
+src/server/    fuentes oficiales, importación, vigilancia, generación de datos (y modo servidor opcional)
+src/web/       PWA React: presenta resultados; datos personales en el dispositivo
 tests/         unitarios + integración (fixtures ficticios: "Banco A", "TEST", "EJEMPLO")
 ```
