@@ -3,17 +3,19 @@
  *
  * - Catálogo (proveedores, medios de pago, segmentos, apps).
  * - Perfil inicial del usuario (editable en Ajustes).
- * - Promociones CANDIDATAS encontradas durante la investigación inicial
- *   (2026-10-06). IMPORTANTE: provienen de resúmenes de búsqueda web porque el
- *   entorno de desarrollo no tenía acceso a los sitios oficiales. Se cargan como
- *   AUTOMATICALLY_IMPORTED con confianza LOW y con las condiciones dudosas
- *   marcadas como desconocidas. La app NO las usa para recomendaciones
- *   definitivas hasta que alguien las verifique contra la URL oficial desde el
- *   panel de administración.
+ * - Brubank: verificadas el 2026-10-07 leyendo las bases oficiales completas
+ *   (centro de ayuda), con la lista de estaciones adheridas del Anexo I.
+ * - Axion ON y BBVA: CANDIDATAS de resúmenes de búsqueda web (2026-10-06), porque
+ *   sus sitios no se pudieron leer desde el entorno de desarrollo. Se cargan como
+ *   AUTOMATICALLY_IMPORTED con confianza LOW y las dudas marcadas como
+ *   desconocidas. La app NO las usa para recomendaciones definitivas hasta que se
+ *   verifiquen contra la fuente oficial.
  */
 import { pesos } from '../core/money';
 import type { Clock } from '../core/time';
-import type { PromotionRule } from '../core/types';
+import type { PromotionRule, Station } from '../core/types';
+import brubankStations from './seed-data/brubank-axion-estaciones-2026-10.json';
+import { upsertStations } from './db/stations';
 import { type DB, get, run, transaction } from './db/db';
 import { createPromotion, type PromotionDraft } from './db/promotions';
 import { DEFAULT_USER_ID } from './db/user';
@@ -64,7 +66,35 @@ interface SeedPromotion {
   id: string;
   sourceId: string | null;
   sourceKey: string | null;
+  /** Cómo se verificó (queda en la auditoría). */
+  verification?: string;
   draft: PromotionDraft;
+}
+
+// Estaciones del Anexo I de las bases de Brubank (octubre 2026), extraídas del texto oficial.
+const BRUBANK_STATIONS = brubankStations as { retrievedAt: string; stations: Array<Pick<Station, 'id' | 'brandId' | 'name' | 'address' | 'region'>> };
+const BRUBANK_STATION_IDS = BRUBANK_STATIONS.stations.map((st) => st.id);
+const BRUBANK_VERIFIED_AT = BRUBANK_STATIONS.retrievedAt;
+const BRUBANK_URLS = {
+  martes:
+    'https://help.brubank.com/es/articles/9010023-todos-los-martes-10-off-en-la-carga-de-combustible-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank-y-gira-la-ruedita',
+  finde: 'https://help.brubank.com/es/articles/9010641-viernes-sabados-y-domingos-20-off-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank',
+  ultra: 'https://help.brubank.com/es/articles/12995968-todos-los-dias-30-off-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank',
+};
+
+/** Promoción leída en sus bases oficiales completas. Si queda alguna duda, no se marca verificada. */
+function verified(
+  d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 'retrievedAt' | 'lastVerifiedAt'>,
+  status: PromotionDraft['status'] = 'VERIFIED',
+): PromotionDraft {
+  return {
+    ...d,
+    status: d.rule.unknownConditions.length ? 'AUTOMATICALLY_IMPORTED' : status,
+    confidence: 'HIGH',
+    sourceName: 'Brubank — Centro de ayuda (bases y condiciones)',
+    retrievedAt: BRUBANK_VERIFIED_AT,
+    lastVerifiedAt: d.rule.unknownConditions.length ? null : BRUBANK_VERIFIED_AT,
+  };
 }
 
 function draft(d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 'retrievedAt' | 'lastVerifiedAt'>): PromotionDraft {
@@ -72,28 +102,40 @@ function draft(d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 
 }
 
 export const SEED_PROMOTIONS: SeedPromotion[] = [
+  // ── Brubank: verificadas contra las bases oficiales (centro de ayuda), 2026-10-07 ──
   {
     id: 'seed-brubank-martes-10',
     sourceId: 'brubank-help',
     sourceKey: '9010023',
-    draft: draft({
+    verification: 'Bases leídas completas en el centro de ayuda oficial de Brubank el 2026-10-07.',
+    draft: verified({
       providerId: 'brubank',
       fuelBrandId: 'axion',
       name: 'Brubank: martes 10% en Axion',
       description:
-        'Martes 10% de reintegro en Axion con tarjeta de débito Visa Brubank (clientes en general). Las fuentes consultadas no coinciden sobre el tope (tope semanal $4.000 vs. $2.000 por compra, 1 por semana, máx. 4).',
+        'Todos los clientes Brubank. Martes del 01/10 al 31/10/2026: 10% de reintegro en combustibles líquidos con tarjeta de débito o crédito Brubank, tope $4.000 por compra, 1 compra por semana y máximo 4 en el mes. Compras superiores a $200, en las estaciones del Anexo I.',
       validFrom: '2026-10-01',
       validUntil: '2026-10-31',
-      sourceUrl:
-        'https://help.brubank.com/es/articles/9010023-todos-los-martes-10-off-en-la-carga-de-combustible-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank-y-gira-la-ruedita',
+      sourceUrl: BRUBANK_URLS.martes,
       rule: base({
         discountValue: 1000,
         daysOfWeek: [2],
+        caps: [{ amount: pesos(4_000), period: 'PER_TRANSACTION' }],
+        usageLimits: [
+          { maxTransactions: 1, period: 'WEEKLY' },
+          { maxTransactions: 4, period: 'PROMOTION_PERIOD' },
+        ],
+        minimumPurchase: pesos(200) + 1,
         eligibleProviderIds: ['brubank'],
-        eligiblePaymentMethodTypes: ['DEBIT_CARD'],
-        eligibleNetworks: ['VISA'],
-        unknownConditions: ['CAP', 'OTHER', 'USAGE_LIMIT'],
-        notes: ['Girá la "ruedita" en la app de Brubank el mismo día de la compra.'],
+        eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
+        eligibleStationIds: BRUBANK_STATION_IDS,
+        multipleOperationsPerDay: 'NO',
+        notes: [
+          'El mismo día de la carga: entrá a la app de Brubank, tocá la compra con la leyenda "Promo" y elegí "Jugá y Participá por Premios". Sin ese paso no hay reintegro.',
+          'Pagá con la tarjeta Brubank (física o virtual). No cuentan transferencias 3.0, pagos con QR desde la app con saldo en cuenta ni consumos con extracash.',
+          'El reintegro se acredita en tu caja de ahorro en pesos hasta 72 hs hábiles después del 31/10.',
+          'La promoción puede terminar antes si se agota el presupuesto total de reintegros.',
+        ],
       }),
     }),
   },
@@ -101,49 +143,71 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
     id: 'seed-brubank-finde-20',
     sourceId: 'brubank-help',
     sourceKey: '9010641',
-    draft: draft({
+    verification:
+      'Bases leídas completas el 2026-10-07. Queda sin confirmar cómo se cuenta la "semana" del límite (con viernes a domingo, si la semana arranca el domingo podrían ser 2 compras por fin de semana).',
+    draft: verified({
       providerId: 'brubank',
       fuelBrandId: 'axion',
       name: 'Brubank Plan Plus: viernes a domingo 20% en Axion',
-      description: 'Viernes, sábados y domingos 20% en Axion, exclusivo Plan Plus, tope semanal $5.000. No aplica en Tierra del Fuego, Río Negro, Mendoza, Neuquén y Salta.',
+      description:
+        'Sólo clientes con Plan Plus activo. Viernes, sábados y domingos del 01/10 al 31/10/2026: 20% de reintegro, tope $5.000 por compra, 1 compra por semana y máximo 4. Compras superiores a $200, en las estaciones del Anexo I.',
       validFrom: '2026-10-01',
       validUntil: '2026-10-31',
-      sourceUrl:
-        'https://help.brubank.com/es/articles/9010641-viernes-sabados-y-domingos-20-off-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank-y-gira-la-ruedita',
+      sourceUrl: BRUBANK_URLS.finde,
       rule: base({
         discountValue: 2000,
         daysOfWeek: [5, 6, 7],
-        caps: [{ amount: pesos(5_000), period: 'WEEKLY' }],
+        caps: [{ amount: pesos(5_000), period: 'PER_TRANSACTION' }],
+        usageLimits: [
+          { maxTransactions: 1, period: 'WEEKLY' },
+          { maxTransactions: 4, period: 'PROMOTION_PERIOD' },
+        ],
+        minimumPurchase: pesos(200) + 1,
         eligibleProviderIds: ['brubank'],
         eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
-        eligibleNetworks: ['VISA'],
         eligibleCustomerSegments: ['brubank-plan-plus'],
-        excludedRegions: ['TIERRA_DEL_FUEGO', 'RIO_NEGRO', 'MENDOZA', 'NEUQUEN', 'SALTA'],
-        notes: ['El reintegro se acredita en el primer o segundo resumen posterior a la compra.'],
+        eligibleStationIds: BRUBANK_STATION_IDS,
+        multipleOperationsPerDay: 'NO',
+        unknownConditions: ['USAGE_LIMIT'],
+        notes: [
+          'Pagá con la tarjeta Brubank (física o virtual). No cuentan transferencias 3.0, pagos con QR desde la app con saldo en cuenta ni consumos con extracash.',
+          'El reintegro se acredita hasta 72 hs hábiles después del 31/10.',
+        ],
       }),
-    }),
+    }, 'AUTOMATICALLY_IMPORTED'),
   },
   {
     id: 'seed-brubank-ultra-30',
     sourceId: 'brubank-help',
     sourceKey: '12995968',
-    draft: draft({
+    verification: 'Bases leídas completas en el centro de ayuda oficial de Brubank el 2026-10-07.',
+    draft: verified({
       providerId: 'brubank',
       fuelBrandId: 'axion',
       name: 'Brubank Plan Ultra: todos los días 30% en Axion',
-      description: 'Todos los días 30% de reintegro en Axion, exclusivo Plan Ultra, compras superiores a $200, hasta agotar $12.000.000 de reintegros totales. No se encontró el tope por cliente para octubre.',
+      description:
+        'Sólo clientes suscriptos a Plan Ultra. Todos los días del 01/10 al 31/10/2026: 30% de reintegro, tope $6.000 por compra, 1 compra por día y máximo 5 en el período. Compras superiores a $200, en las estaciones del Anexo I.',
       validFrom: '2026-10-01',
       validUntil: '2026-10-31',
-      sourceUrl: 'https://help.brubank.com/es/articles/12995968-todos-los-dias-30-off-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank',
+      sourceUrl: BRUBANK_URLS.ultra,
       rule: base({
         discountValue: 3000,
-        minimumPurchase: pesos(200),
+        caps: [{ amount: pesos(6_000), period: 'PER_TRANSACTION' }],
+        usageLimits: [
+          { maxTransactions: 1, period: 'DAILY' },
+          { maxTransactions: 5, period: 'PROMOTION_PERIOD' },
+        ],
+        minimumPurchase: pesos(200) + 1,
         eligibleProviderIds: ['brubank'],
         eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
-        eligibleNetworks: ['VISA'],
         eligibleCustomerSegments: ['brubank-plan-ultra'],
-        unknownConditions: ['CAP'],
-        notes: ['La promoción puede terminar antes de su vigencia si se agota el presupuesto total.'],
+        eligibleStationIds: BRUBANK_STATION_IDS,
+        multipleOperationsPerDay: 'NO',
+        notes: [
+          'Pagá con la tarjeta Brubank (física o virtual). No cuentan transferencias 3.0, pagos con QR desde la app con saldo en cuenta ni consumos con extracash.',
+          'El reintegro se acredita hasta 72 hs hábiles después del 31/10.',
+          'La promoción puede terminar antes si se agota el presupuesto total de reintegros.',
+        ],
       }),
     }),
   },
@@ -361,6 +425,7 @@ export function seedUser(db: DB, clock: Clock) {
 }
 
 export function seedPromotions(db: DB, clock: Clock) {
+  upsertStations(db, BRUBANK_STATIONS.stations.map((st) => ({ ...st, latitude: null, longitude: null, active: true })));
   for (const s of SEED_PROMOTIONS) {
     if (get(db, 'SELECT id FROM promotion WHERE id = ?', s.id)) continue;
     if (s.sourceId && s.sourceKey && get(db, 'SELECT id FROM promotion WHERE source_id = ? AND source_key = ?', s.sourceId, s.sourceKey)) continue;
@@ -369,7 +434,7 @@ export function seedPromotions(db: DB, clock: Clock) {
       sourceId: s.sourceId,
       sourceKey: s.sourceKey,
       actor: 'seed',
-      reason: 'Candidata de la investigación inicial (sin verificar)',
+      reason: s.verification ?? 'Candidata de la investigación inicial (sin verificar)',
     });
   }
 }

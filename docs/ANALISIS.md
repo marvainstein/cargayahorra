@@ -8,7 +8,7 @@ El repositorio donde se inició la sesión (`wishlistcumple-`) es una wishlist d
 
 ## 2. Fuentes de promociones investigadas
 
-> Limitación importante: el entorno de desarrollo **no tenía acceso de red** a `axionenergy.com`, `help.brubank.com` ni `bbva.com.ar` (bloqueados por la política de red del contenedor). Sólo se pudieron ver **resúmenes de buscador**. Por eso **ninguna promoción se cargó como verificada**.
+> Actualización 2026-10-07: con acceso habilitado se verificó **Brubank** contra sus bases oficiales (ver [`VERIFICACION.md`](VERIFICACION.md)). Axion (certificado HTTPS incompleto) y BBVA (bloqueo anti-bots) siguen sin poder leerse. Lo que sigue en esta sección es el análisis inicial del 06/10, hecho sólo con resúmenes de buscador.
 
 | Proveedor | ¿API oficial? | ¿Feed estructurado? | Página oficial | Estrategia |
 |---|---|---|---|---|

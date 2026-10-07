@@ -45,6 +45,7 @@ export interface PromotionMeta {
   sourceKey: string | null;
   active: boolean;
   pendingReviewReason: string | null;
+  sourceFingerprint: string | null;
   createdAt: string;
 }
 
@@ -166,6 +167,7 @@ function metaOf(p: Row): PromotionMeta {
     sourceKey: p.source_key ?? null,
     active: !!p.active,
     pendingReviewReason: p.pending_review_reason ?? null,
+    sourceFingerprint: p.source_fingerprint ?? null,
     createdAt: p.created_at,
   };
 }
@@ -377,4 +379,8 @@ export function draftFromPromotion(p: Promotion): PromotionDraft {
     lastVerifiedAt: p.lastVerifiedAt,
     rule: p.rule,
   };
+}
+
+export function setSourceFingerprint(db: DB, promotionId: string, fingerprint: string | null) {
+  run(db, 'UPDATE promotion SET source_fingerprint = ? WHERE id = ?', fingerprint, promotionId);
 }

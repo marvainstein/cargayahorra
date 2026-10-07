@@ -449,6 +449,31 @@ function PromotionEditor({ initial, onDone }: { initial: AdminPromotion | null; 
   );
   const [reason, setReason] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+  const [pasteText, setPasteText] = useState('');
+  const [pasteInfo, setPasteInfo] = useState<string[] | null>(null);
+
+  const interpret = async () => {
+    try {
+      const r = await api.post<{ draft: AdminPromotion; warnings: string[]; stations: number }>('/admin/parse-text', { providerId, text: pasteText, sourceUrl });
+      const d = r.data.draft;
+      setName(d.name);
+      setDescription(d.description);
+      if (d.validFrom) setValidFrom(d.validFrom);
+      setValidUntil(d.validUntil ?? '');
+      setSourceName(d.sourceName ?? '');
+      setRule(d.rule);
+      setValueText(d.rule.discountType === 'PERCENTAGE' ? String(d.rule.discountValue / 100) : pesosText(d.rule.discountValue));
+      setStatus('AUTOMATICALLY_IMPORTED');
+      setPasteInfo([
+        `Interpretado. Revisá cada campo contra el texto antes de guardar.`,
+        ...(r.data.stations ? [`Se cargaron ${r.data.stations} estaciones del anexo.`] : []),
+        ...r.data.warnings,
+        ...(d.rule.unknownConditions.length ? [`Quedaron ${d.rule.unknownConditions.length} condición(es) sin confirmar (abajo, en "Condiciones que NO se pueden confirmar").`] : []),
+      ]);
+    } catch (e) {
+      setPasteInfo([(e as Error).message]);
+    }
+  };
 
   useEffect(() => {
     void api.get<{ catalog: CatalogData }>('/admin/promotions').then((r) => setCatalog(r.data.catalog));
@@ -497,6 +522,31 @@ function PromotionEditor({ initial, onDone }: { initial: AdminPromotion | null; 
         </div>
       </header>
       {initial && <div className="banner info">Guardar crea una versión nueva; las anteriores quedan en el historial.</div>}
+      {!initial && (
+        <div className="card" style={{ marginBottom: 12 }}>
+          <div className="title" style={{ fontWeight: 700, marginBottom: 6 }}>
+            Pegar bases y condiciones
+          </div>
+          <p className="small muted" style={{ marginTop: 0 }}>
+            Para fuentes que no se pueden leer automáticamente (p. ej. BBVA): copiá el texto oficial completo, elegí quién otorga el beneficio abajo y tocá «Interpretar».
+            Lo que no se pueda confirmar queda marcado.
+          </p>
+          <label className="field">
+            <span>Texto de las bases</span>
+            <textarea value={pasteText} onChange={(e) => setPasteText(e.target.value)} style={{ minHeight: 140 }} />
+          </label>
+          <button type="button" className="btn small primary" onClick={() => void interpret()} disabled={pasteText.trim().length < 80}>
+            Interpretar
+          </button>
+          {pasteInfo && (
+            <ul className="small" style={{ margin: '10px 0 0', paddingLeft: 18 }}>
+              {pasteInfo.map((l, i) => (
+                <li key={i}>{l}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
       <div className="card">
         <label className="field">
           <span>Nombre</span>

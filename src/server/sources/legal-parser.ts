@@ -159,12 +159,21 @@ export function parseLegalText(original: string, opts: LegalParseOptions): Legal
   // ── Vigencia ──
   let validFrom: LocalDate | null = null;
   let validUntil: LocalDate | null = null;
+  let longRange: RegExpExecArray | null = null;
   const range =
     /(?:desde el|del|a partir del)\s+(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(?:y\s+)?(?:hasta el|al|y el)\s+(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(text);
   if (range) {
     validFrom = date(range[1], range[2], range[3]);
     validUntil = date(range[4], range[5], range[6]);
     found.validity = range[0];
+  } else if (
+    (longRange = new RegExp(
+      `(?:desde el|del|a partir del)\\s+(\\d{1,2}) de (${MONTHS.join('|')})(?: de| del)? (\\d{4})\\s+(?:y\\s+)?(?:hasta el|al|y el)\\s+(\\d{1,2}) de (${MONTHS.join('|')})(?: de| del)? (\\d{4})`,
+    ).exec(text))
+  ) {
+    validFrom = date(longRange[1], String(MONTHS.indexOf(longRange[2]) + 1), longRange[3]);
+    validUntil = date(longRange[4], String(MONTHS.indexOf(longRange[5]) + 1), longRange[6]);
+    found.validity = longRange[0];
   } else {
     const textual = new RegExp(`del (\\d{1,2}) al (\\d{1,2}) de (${MONTHS.join('|')})(?: de| del)? (\\d{4})`).exec(text);
     if (textual) {
@@ -204,9 +213,13 @@ export function parseLegalText(original: string, opts: LegalParseOptions): Legal
 
   // ── Compra mínima / litros ──
   let minimumPurchase: number | null = null;
-  const minP = /(?:compras?|consumos?|cargas?|operaciones?|transacciones?)\s+(?:minimas?\s+de|superiores\s+a|mayores\s+a|iguales\s+o\s+superiores\s+a|de\s+al\s+menos|desde)\s+\$\s?([\d.]+(?:,\d{1,2})?)/.exec(text);
+  const minP =
+    /(?:compras?|consumos?|cargas?|operaciones?|transacciones?)\s+(minimas?\s+de|superiores\s+a|mayores\s+a|iguales\s+o\s+superiores\s+a|de\s+al\s+menos|desde)\s+(?:la\s+suma\s+de\s+)?\$\s?([\d.]+(?:,\d{1,2})?)/.exec(text);
   if (minP) {
-    minimumPurchase = parseArs(`$${minP[1]}`);
+    const amount = parseArs(`$${minP[2]}`);
+    // "superiores a $200" excluye exactamente $200: el mínimo es $200,01.
+    const strict = /^(superiores|mayores)/.test(minP[1]);
+    minimumPurchase = amount === null ? null : amount + (strict ? 1 : 0);
     found.minimumPurchase = minP[0];
   }
   let minimumLitres: number | null = null;
@@ -233,16 +246,24 @@ export function parseLegalText(original: string, opts: LegalParseOptions): Legal
     if (/\bvisa\b/.test(text)) networks.push('VISA');
     if (/mastercard/.test(text)) networks.push('MASTERCARD');
   }
+  // Requisitos de pago sólo en oraciones afirmativas (no en exclusiones como
+  // "no se considera compra participante a los pagos con QR").
+  const positive = text
+    .split(/(?<=[.;])\s+/)
+    .filter((sentence) => !/no se considera|no participan|quedan excluid|no aplica|no seran consideradas|excepto|salvo/.test(sentence))
+    .join(' ');
+  const excluded = /no se considera compra participante a (.+?)\.(?:\s|$)/.exec(text);
+  if (excluded) notes.push(`No cuentan: ${excluded[1].trim()}.`);
   let requiresApp: string | null = null;
-  let requiresQR = /\bqr\b/.test(text);
+  let requiresQR = /\bqr\b/.test(positive);
   for (const k of opts.appKeywords ?? []) {
-    if (k.pattern.test(text)) {
+    if (k.pattern.test(positive)) {
       requiresApp = k.appId;
       if (k.qr) requiresQR = true;
       break;
     }
   }
-  const requiresNFC = /\bnfc\b|contactless|sin contacto/.test(text);
+  const requiresNFC = /\bnfc\b|contactless|sin contacto/.test(positive);
 
   // ── Segmentos ──
   let segments: string[] | null = null;
@@ -285,11 +306,13 @@ export function parseLegalText(original: string, opts: LegalParseOptions): Legal
     if (period === 'DAILY' && n === 1) multipleOperationsPerDay = 'NO';
     found.usageLimit = perPeriod[0];
   }
-  const maxTotal = /maximo de (\d+)\s*(?:\(\s*\w+\s*\)\s*)?(?:compras|transacciones|operaciones|cargas)/.exec(text);
+  const maxTotal = /(?:maximo|limite) de (\d+)\s*(?:\(\s*\w+\s*\)\s*)?(?:compras|transacciones|operaciones|cargas)(?: participantes)?(?!\s+por\s+(?:semana|mes|dia))/.exec(text);
   if (maxTotal) {
     usageLimits.push({ maxTransactions: Number(maxTotal[1]), period: 'PROMOTION_PERIOD' });
     found.usageLimitTotal = maxTotal[0];
   }
+
+  if (multipleOperationsPerDay === 'UNKNOWN' && usageLimits.some((u) => u.maxTransactions === 1 && u.period !== 'PER_TRANSACTION')) multipleOperationsPerDay = 'NO';
 
   // ── Acumulabilidad ──
   let stackable: PromotionRule['stackable'] = 'UNKNOWN';

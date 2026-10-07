@@ -8,14 +8,13 @@ PWA para iPhone que responde **«Necesito cargar combustible. ¿Qué hago?»**: 
 
 ## Estado de los datos (leer primero)
 
-Las promociones incluidas son **candidatas sin verificar** encontradas el 06/10/2026 (el entorno de desarrollo no tenía acceso a los sitios oficiales). La app **no las usa para recomendaciones definitivas** hasta que las verifiques:
+Detalle completo en [`docs/VERIFICACION.md`](docs/VERIFICACION.md).
 
-1. Abrí **Ajustes → Administración de promociones**.
-2. Entrá a cada promoción, abrí la **fuente oficial** y compará.
-3. **Editar** → completá lo que falte y destildá las «condiciones que NO se pueden confirmar» que ya confirmaste → Guardar.
-4. **Verificar**.
+- **Brubank:** verificado contra las bases oficiales (7/10/2026), con la lista de 522 estaciones adheridas. La importación automática funciona.
+- **Axion ON y BBVA:** **sin verificar**. Sus sitios no se pudieron leer: Axion tiene un certificado HTTPS incompleto y BBVA bloquea servidores. La app no usa promociones sin verificar para recomendar; las muestra aparte como «sin confirmar».
+- Para BBVA (o cualquier fuente que no se pueda leer sola): **Administración → + Nueva → «Pegar bases y condiciones»**. Revisá lo interpretado y verificá.
 
-También respondé en **Ajustes** las preguntas de perfil (paquete Black+, nivel de Axion ON, si tu estación permite pagar en dos operaciones, tanque, provincia).
+En **Ajustes**, elegí tu **estación** (las promos de Brubank sólo valen en estaciones adheridas) y respondé las preguntas de perfil.
 
 ## Levantarlo
 
@@ -37,7 +36,7 @@ npm run build && npm start   # todo en http://localhost:8787
 ## Tests
 
 ```bash
-npm test            # 89 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
+npm test            # 91 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
 npm run typecheck
 ```
 
@@ -78,6 +77,8 @@ docker run -d -p 8787:8787 -v cya-data:/data -e APP_TOKEN=un-token-largo carga-y
 Poné siempre `APP_TOKEN` si queda expuesto a internet; la app lo pide una vez y lo recuerda.
 
 **Instalar en el iPhone:** abrí la URL en Safari → Compartir → «Agregar a pantalla de inicio». Se abre a pantalla completa (`display: standalone`). Sin conexión muestra la última respuesta **marcada como desactualizada**, nunca como confirmada.
+
+Nota: detrás de un proxy (como en entornos de desarrollo en la nube), los scripts activan `NODE_USE_ENV_PROXY=1` para que `fetch` use `HTTPS_PROXY`. Sin proxy no tiene efecto.
 
 ## Variables de entorno
 

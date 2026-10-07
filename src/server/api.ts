@@ -23,6 +23,10 @@ import { lastRun } from './jobs/scheduler';
 import { type AppContext, historySummary, home, monthlyPlan, registerTransaction } from './services';
 import { cents, parseDraft, ValidationError } from './validation';
 import { JOBS } from './jobs';
+import { upsertStations } from './db/stations';
+import { parseLegalText } from './sources/legal-parser';
+import { SOURCE_CONFIGS } from './sources/registry';
+import { parseStationAnnex, splitAnnex } from './sources/stations';
 
 function intParam(v: string | undefined): number | null {
   if (v === undefined || v === '') return null;
@@ -361,6 +365,45 @@ export function createApi(ctx: AppContext) {
       typeof b.longitude === 'number' ? b.longitude : null,
     );
     return c.json({ ok: true }, 201);
+  });
+
+  // Interpreta bases y condiciones pegadas a mano (para fuentes que no se pueden leer
+  // automáticamente, como BBVA). Devuelve un borrador SIN guardar, para revisar.
+  admin.post('/parse-text', async (c) => {
+    const b = (await c.req.json()) as Record<string, unknown>;
+    const text = typeof b.text === 'string' ? b.text.trim() : '';
+    const providerId = typeof b.providerId === 'string' ? b.providerId : '';
+    if (text.length < 80) return bad(c, 'Pegá el texto completo de las bases y condiciones.');
+    const cfg = SOURCE_CONFIGS.find((s) => s.providerId === providerId);
+    if (!cfg) return bad(c, `No hay reglas de interpretación para el proveedor ${providerId}.`);
+    const { terms, annex } = cfg.stationAnnex ? splitAnnex(text, cfg.stationAnnex.marker) : { terms: text, annex: null };
+    const parsed = parseLegalText(terms, cfg.parse);
+    const stations = annex && cfg.stationAnnex ? parseStationAnnex(annex, cfg.stationAnnex) : [];
+    if (stations.length) {
+      upsertStations(ctx.db, stations);
+      parsed.rule.eligibleStationIds = stations.map((st) => st.id);
+    }
+    const sourceUrl = typeof b.sourceUrl === 'string' && /^https?:\/\//.test(b.sourceUrl) ? b.sourceUrl : null;
+    return c.json({
+      draft: {
+        providerId,
+        fuelBrandId: cfg.fuelBrandId,
+        name: text.split('\n')[0].slice(0, 140),
+        description: terms.slice(0, 280),
+        status: 'AUTOMATICALLY_IMPORTED',
+        confidence: parsed.confidence,
+        validFrom: parsed.validFrom ?? '',
+        validUntil: parsed.validUntil,
+        sourceUrl,
+        sourceName: 'Bases pegadas a mano',
+        retrievedAt: now(),
+        lastVerifiedAt: null,
+        rule: parsed.rule,
+      },
+      warnings: parsed.warnings,
+      found: parsed.found,
+      stations: stations.length,
+    });
   });
 
   admin.get('/promotions/:id/draft', (c) => {

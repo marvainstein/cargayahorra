@@ -52,7 +52,7 @@ describe('parser de bases y condiciones', () => {
     const r = parseLegalText(t, brubankOpts);
     expect(r.rule.caps).toEqual([]);
     expect(r.rule.unknownConditions).toContain('CAP');
-    expect(r.rule.minimumPurchase).toBe(pesos(200));
+    expect(r.rule.minimumPurchase).toBe(pesos(200) + 1); // "superiores a $200" → $200,01
     expect(r.rule.notes.join(' ')).toContain('presupuesto total');
   });
 
@@ -114,5 +114,41 @@ describe('precios', () => {
     expect(m.find((x) => x.region === 'BUENOS_AIRES')!.fuelType).toBe('DIESEL_PREMIUM');
     expect(mapProduct('Nafta (premium) de más de 95 Ron')).toBe('PREMIUM');
     expect(() => regionalMedians('a,b\n1,2', /axion/i, 'UTC')).toThrow(/Estructura/);
+  });
+});
+
+describe('bases reales de Brubank (octubre 2026)', () => {
+  it('interpreta el artículo oficial de los martes', async () => {
+    const { readFileSync } = await import('node:fs');
+    const body = readFileSync(new URL('./fixtures/brubank-9010023-2026-10.html', import.meta.url), 'utf8');
+    const src = new OfficialPageSource(SOURCE_CONFIGS[0]);
+    const docs = [{ url: 'https://help.brubank.com/es/articles/9010023', status: 200, contentType: 'text/html', body, retrievedAt: '2026-10-07T15:29:24.000Z' }];
+    const [p] = src.parse(docs);
+    const r = p.draft.rule;
+    expect(p.sourceKey).toBe('9010023');
+    expect([p.draft.validFrom, p.draft.validUntil]).toEqual(['2026-10-01', '2026-10-31']);
+    expect(r.discountValue).toBe(1000);
+    expect(r.delivery).toBe('CASHBACK');
+    expect(r.daysOfWeek).toEqual([2]);
+    expect(r.caps).toEqual([{ amount: pesos(4_000), period: 'PER_TRANSACTION' }]);
+    expect(r.usageLimits).toEqual([
+      { maxTransactions: 1, period: 'WEEKLY' },
+      { maxTransactions: 4, period: 'PROMOTION_PERIOD' },
+    ]);
+    expect(r.minimumPurchase).toBe(pesos(200) + 1);
+    expect(r.eligiblePaymentMethodTypes).toEqual(['DEBIT_CARD', 'CREDIT_CARD']);
+    // el menú de la página menciona "Plan One": no debe tomarse como segmento
+    expect(r.eligibleCustomerSegments).toBeNull();
+    expect(r.unknownConditions).not.toContain('SEGMENTS');
+    // los pagos con QR están EXCLUIDOS, no son un requisito
+    expect(r.requiresQR).toBe(false);
+    expect(r.notes.join(' ')).toContain('transferencias 3.0');
+    expect(r.multipleOperationsPerDay).toBe('NO');
+    expect(p.stations).toHaveLength(5);
+    expect(r.eligibleStationIds).toHaveLength(5);
+    expect(p.stations![0].region).toBe('CABA');
+    // "Jugá y Participá por Premios": el parser no puede confirmarlo solo
+    expect(r.unknownConditions).toContain('OTHER');
+    expect(p.draft.status).toBe('AUTOMATICALLY_IMPORTED');
   });
 });

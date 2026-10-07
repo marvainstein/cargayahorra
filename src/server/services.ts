@@ -81,13 +81,18 @@ export function dataFreshness(ctx: AppContext, promotions: Promotion[]): DataFre
 }
 
 /** Preguntas de perfil que destrabarían promociones (segmentos desconocidos). */
-export function pendingQuestions(promotions: Promotion[], segments: Record<string, string>, catalogData: CatalogData) {
+export function pendingQuestions(promotions: Promotion[], segments: Record<string, string>, catalogData: CatalogData, stationId: string | null = null) {
   const ids = new Set<string>();
+  let needsStation = false;
   for (const p of promotions) {
     if (p.status === 'INVALID') continue;
     for (const s of p.rule.eligibleCustomerSegments ?? []) if (!segments[s] || segments[s] === 'UNKNOWN') ids.add(s);
+    if (p.rule.eligibleStationIds?.length && !stationId) needsStation = true;
   }
-  return catalogData.segments.filter((s) => ids.has(s.id)).map((s) => ({ segmentId: s.id, question: s.question ?? `¿Tenés ${s.name}?` }));
+  const questions = catalogData.segments.filter((s) => ids.has(s.id)).map((s) => ({ segmentId: s.id, question: s.question ?? `¿Tenés ${s.name}?` }));
+  // La estación va primero: sin ella, las promos que sólo valen en estaciones adheridas no se pueden confirmar.
+  if (needsStation) questions.unshift({ segmentId: 'station', question: '¿En qué estación cargás? Algunas promociones valen sólo en estaciones adheridas.' });
+  return questions;
 }
 
 export interface RecommendInput {
@@ -157,7 +162,7 @@ export function home(ctx: AppContext, input: RecommendInput): HomeResponse {
     amountSource,
     recommendation,
     freshness: dataFreshness(ctx, promotions),
-    questions: pendingQuestions(promotions, profile.segments, catalogData),
+    questions: pendingQuestions(promotions, profile.segments, catalogData, input.stationId ?? profile.defaultStationId),
   };
 }
 

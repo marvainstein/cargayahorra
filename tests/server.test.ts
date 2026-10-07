@@ -126,6 +126,19 @@ describe('API de usuario', () => {
     expect(hist.json.transactions[0].benefit).toBe(pesos(3_000));
   });
 
+  it('interpreta bases pegadas a mano sin guardarlas', async () => {
+    const text =
+      'EJEMPLO SINTÉTICO. Clientes BBVA. Válida los días sábados desde el 01/11/2030 hasta el 30/11/2030, 20% de reintegro en la carga de combustible con tarjetas de crédito Visa, con un tope de reintegro mensual de $6.000. No acumulable con otras promociones.';
+    const r = await call('POST', '/admin/parse-text', { providerId: 'bbva', text });
+    expect(r.status).toBe(200);
+    expect(r.json.draft.status).toBe('AUTOMATICALLY_IMPORTED');
+    expect(r.json.draft.rule.discountValue).toBe(2000);
+    expect(r.json.draft.rule.daysOfWeek).toEqual([6]);
+    expect(r.json.draft.rule.caps).toEqual([{ amount: pesos(6_000), period: 'MONTHLY' }]);
+    expect((await call('GET', '/admin/promotions')).json.promotions).toHaveLength(0);
+    expect((await call('POST', '/admin/parse-text', { providerId: 'bbva', text: 'corto' })).status).toBe(400);
+  });
+
   it('valida entradas', async () => {
     expect((await call('POST', '/transactions', { amount: 12.5, paymentMethodId: 'x' })).status).toBe(400);
     expect((await call('PUT', '/profile', { paymentMethodIds: ['no-existe'] })).status).toBe(400);

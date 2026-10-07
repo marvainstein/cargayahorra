@@ -22,7 +22,9 @@ function migrate(db: DB) {
   db.exec(schema);
   const row = db.prepare('SELECT version FROM schema_version LIMIT 1').get() as Row | undefined;
   if (!row) db.prepare('INSERT INTO schema_version (version) VALUES (?)').run(SCHEMA_VERSION);
-  // Migraciones futuras: if (row.version < 2) { ... }
+  // Columnas agregadas después de la versión inicial (CREATE TABLE IF NOT EXISTS no las agrega).
+  const cols = (db.prepare('PRAGMA table_info(promotion)').all() as Row[]).map((c) => c.name);
+  if (!cols.includes('source_fingerprint')) db.exec('ALTER TABLE promotion ADD COLUMN source_fingerprint TEXT');
 }
 
 /** Ejecuta fn dentro de una transacción. */

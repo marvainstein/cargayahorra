@@ -104,6 +104,9 @@ CREATE TABLE IF NOT EXISTS promotion (
   current_version_id TEXT,
   pending_review INTEGER NOT NULL DEFAULT 0,
   pending_review_reason TEXT,
+  -- huella de lo último que publicó la fuente (para detectar cambios en la fuente,
+  -- independiente de las ediciones manuales)
+  source_fingerprint TEXT,
   active INTEGER NOT NULL DEFAULT 1,
   created_at TEXT NOT NULL,
   UNIQUE (source_id, source_key)

@@ -9,7 +9,8 @@
  * clase; si una fuente necesita lógica propia puede extenderla y redefinir
  * `parse`/`validate` sin tocar el resto del sistema.
  */
-import { extractLinks, extractTitle, fetchDocument, htmlToText, sha256, structureFingerprint } from './html';
+import { extractLinks, extractMainContent, extractTitle, fetchDocument, htmlToText, sha256, structureFingerprint } from './html';
+import { parseStationAnnex, splitAnnex, type StationAnnexOptions } from './stations';
 import { type LegalParseOptions, parseLegalText } from './legal-parser';
 import type { ParsedPromotion, PromotionSource, RawDocument, SourceContext, ValidationIssue, ValidationResult } from './types';
 import { SourceError } from './types';
@@ -35,6 +36,8 @@ export interface OfficialPageConfig {
   parse: LegalParseOptions;
   /** Nombre de la promoción si la página no tiene título. */
   defaultName: string;
+  /** Anexo con la lista de estaciones adheridas, si la fuente lo publica. */
+  stationAnnex?: StationAnnexOptions;
 }
 
 export class OfficialPageSource implements PromotionSource {
@@ -91,16 +94,28 @@ export class OfficialPageSource implements PromotionSource {
     const out: ParsedPromotion[] = [];
     for (const doc of docs) {
       if (this.isIndex(doc)) continue;
-      const text = htmlToText(doc.body);
+      const fullText = htmlToText(extractMainContent(doc.body));
       const title = extractTitle(doc.body) ?? this.config.defaultName;
+      const annexCfg = this.config.stationAnnex;
+      const { terms: text, annex } = annexCfg ? splitAnnex(fullText, annexCfg.marker) : { terms: fullText, annex: null };
       const cls = this.classify(`${title}\n${text}`);
       if (!cls) continue;
       const parsed = parseLegalText(`${title}\n${text}`, cls.parse);
+      const stations = annex && annexCfg ? parseStationAnnex(annex, annexCfg) : [];
+      if (stations.length > 0) {
+        parsed.rule.eligibleStationIds = stations.map((st) => st.id);
+        parsed.rule.notes = parsed.rule.notes.filter((n) => n !== 'Sólo en estaciones adheridas.');
+        parsed.rule.notes.push(`Sólo en las ${stations.length} estaciones adheridas del anexo de las bases.`);
+      } else if (annexCfg && /anexo/i.test(text) && /adherid/i.test(text)) {
+        parsed.rule.unknownConditions = [...new Set([...parsed.rule.unknownConditions, 'STATIONS' as const])].sort();
+        parsed.warnings.push('Las bases remiten a un anexo de estaciones que no se pudo leer.');
+      }
       const sourceKey = this.config.sourceKeyFromUrl?.(doc.url) ?? sha256(doc.url).slice(0, 16);
       out.push({
         sourceKey,
         excerpt: text.slice(0, 4000),
         warnings: parsed.warnings,
+        stations: stations.length ? stations : undefined,
         draft: {
           providerId: cls.providerId,
           fuelBrandId: this.config.fuelBrandId,

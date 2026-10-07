@@ -12,6 +12,8 @@
 import { type Clock, DEFAULT_TIMEZONE, localDateOf } from '../../core/time';
 import type { Promotion } from '../../core/types';
 import { all, type DB, get, run } from '../db/db';
+import { upsertStations } from '../db/stations';
+import { sha256 } from '../sources/html';
 import {
   addVersion,
   createPromotion,
@@ -20,6 +22,7 @@ import {
   listBySource,
   listEvents,
   setPendingReview,
+  setSourceFingerprint,
   setStatus,
   touchVerified,
 } from '../db/promotions';
@@ -49,6 +52,29 @@ export function ensureSourceRow(db: DB, s: PromotionSource) {
   );
 }
 
+/**
+ * Condiciones esenciales. Se usan sólo la primera vez que la fuente muestra una
+ * promoción ya revisada a mano (sin huella previa): si coinciden, lo publicado
+ * se toma como línea de base; si no, el cambio queda para revisión.
+ */
+export function coreTerms(p: Pick<Promotion, 'validFrom' | 'validUntil' | 'rule'>): string {
+  const r = p.rule;
+  const norm = (xs: unknown[] | null) => (xs ? [...xs].map(String).sort() : null);
+  return JSON.stringify({
+    validFrom: p.validFrom,
+    validUntil: p.validUntil,
+    discountType: r.discountType,
+    discountValue: r.discountValue,
+    delivery: r.delivery,
+    caps: [...r.caps].map((c) => `${c.period}:${c.amount}`).sort(),
+    minimumPurchase: r.minimumPurchase,
+    usageLimits: [...r.usageLimits].map((u) => `${u.period}:${u.maxTransactions}`).sort(),
+    daysOfWeek: norm(r.daysOfWeek),
+    segments: norm(r.eligibleCustomerSegments),
+    stations: norm(r.eligibleStationIds),
+  });
+}
+
 /** Representación comparable de las condiciones (ignora metadatos de importación). */
 export function comparableTerms(p: Pick<Promotion, 'providerId' | 'validFrom' | 'validUntil' | 'rule'>): string {
   const r = p.rule;
@@ -72,6 +98,8 @@ export function comparableTerms(p: Pick<Promotion, 'providerId' | 'validFrom' | 
     networks: norm(r.eligibleNetworks),
     fuels: norm(r.eligibleFuelTypes),
     excludedRegions: norm(r.excludedRegions),
+    stations: norm(r.eligibleStationIds),
+    exclusions: r.notes.filter((n) => n.startsWith('No cuentan')).sort(),
     segments: norm(r.eligibleCustomerSegments),
     stackable: r.stackable,
     unknown: norm(r.unknownConditions),
@@ -145,19 +173,28 @@ export async function importFromSource(db: DB, clock: Clock, source: PromotionSo
   const seen = new Set<string>();
   for (const p of validation.valid) {
     seen.add(p.sourceKey);
+    if (p.stations) upsertStations(db, p.stations);
+    const fingerprint = sha256(comparableTerms(p.draft));
     const existing = findBySourceKey(db, source.id, p.sourceKey);
     if (!existing) {
-      createPromotion(db, clock, p.draft, { sourceId: source.id, sourceKey: p.sourceKey, actor: `import:${source.id}`, reason: 'Importada automáticamente' });
+      const created = createPromotion(db, clock, p.draft, { sourceId: source.id, sourceKey: p.sourceKey, actor: `import:${source.id}`, reason: 'Importada automáticamente' });
+      setSourceFingerprint(db, created.id, fingerprint);
       recordCandidate(db, runId, source.id, p, p.sourceKey, null, 'NEW', now);
       summary.created++;
       continue;
     }
-    if (comparableTerms(existing) === comparableTerms(p.draft)) {
+    // Se compara contra lo que la fuente publicó la vez anterior (huella), no contra la
+    // versión vigente, que puede haber sido completada o corregida a mano.
+    const sameAsLastImport = existing.meta.sourceFingerprint === fingerprint;
+    const baseline = existing.meta.sourceFingerprint === null && coreTerms(existing) === coreTerms(p.draft);
+    if (sameAsLastImport || baseline) {
+      if (baseline) setSourceFingerprint(db, existing.id, fingerprint);
       touchVerified(db, clock, existing.id, p.draft.retrievedAt ?? now);
       restoreIfStale(db, clock, existing.id, source.id);
       summary.unchanged++;
       continue;
     }
+    setSourceFingerprint(db, existing.id, fingerprint);
     summary.changed++;
     if (existing.status === 'AUTOMATICALLY_IMPORTED' && !existing.pendingReview) {
       // Nunca fue revisada: se versiona directamente (sigue sin estar confirmada).
