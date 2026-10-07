@@ -24,7 +24,8 @@ export const DEFAULT_USER_ID = 'default';
 export interface CatalogData {
   providers: PaymentProvider[];
   paymentMethods: PaymentMethod[];
-  segments: Array<{ id: string; providerId: string | null; name: string; question: string | null }>;
+  segments: Array<{ id: string; providerId: string | null; name: string; question: string | null; groupId: string | null }>;
+  segmentGroups: Array<{ id: string; providerId: string | null; label: string; allowNone: boolean; noneLabel: string | null }>;
   programmes: Array<{ id: string; name: string; fuelBrandId: string | null }>;
   apps: Array<{ id: string; name: string }>;
   stations: Station[];
@@ -45,6 +46,14 @@ export function loadCatalog(db: DB): CatalogData {
       providerId: r.provider_id ?? null,
       name: r.name,
       question: r.question ?? null,
+      groupId: r.group_id ?? null,
+    })),
+    segmentGroups: all(db, 'SELECT * FROM customer_segment_group ORDER BY id').map((r) => ({
+      id: r.id,
+      providerId: r.provider_id ?? null,
+      label: r.label,
+      allowNone: !!r.allow_none,
+      noneLabel: r.none_label ?? null,
     })),
     programmes: all(db, 'SELECT * FROM loyalty_programme ORDER BY name').map((r) => ({ id: r.id, name: r.name, fuelBrandId: r.fuel_brand_id ?? null })),
     apps: all(db, 'SELECT * FROM app ORDER BY name').map((r) => ({ id: r.id, name: r.name })),
@@ -57,6 +66,7 @@ export function loadCatalog(db: DB): CatalogData {
       latitude: r.latitude ?? null,
       longitude: r.longitude ?? null,
       active: !!r.active,
+      attributes: JSON.parse(r.attributes_json ?? '{}'),
     })),
   };
 }

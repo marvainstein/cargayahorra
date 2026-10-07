@@ -4,18 +4,22 @@
  * - Catálogo (proveedores, medios de pago, segmentos, apps).
  * - Perfil inicial del usuario (editable en Ajustes).
  * - Brubank: verificadas el 2026-10-07 leyendo las bases oficiales completas
- *   (centro de ayuda), con la lista de estaciones adheridas del Anexo I.
- * - Axion ON y BBVA: CANDIDATAS de resúmenes de búsqueda web (2026-10-06), porque
- *   sus sitios no se pudieron leer desde el entorno de desarrollo. Se cargan como
- *   AUTOMATICALLY_IMPORTED con confianza LOW y las dudas marcadas como
- *   desconocidas. La app NO las usa para recomendaciones definitivas hasta que se
- *   verifiquen contra la fuente oficial.
+ *   (centro de ayuda); estaciones del Anexo I cruzadas con el catálogo oficial.
+ * - Axion ON: verificadas el 2026-10-07 contra la página oficial de beneficios;
+ *   estaciones adheridas según el localizador oficial de Axion.
+ * - BBVA: CANDIDATAS de resúmenes de búsqueda web (2026-10-06), sin verificar: el
+ *   sitio de BBVA bloquea el acceso automatizado. La app NO las usa para
+ *   recomendaciones definitivas.
  */
 import { pesos } from '../core/money';
 import type { Clock } from '../core/time';
 import type { PromotionRule, Station } from '../core/types';
-import brubankStations from './seed-data/brubank-axion-estaciones-2026-10.json';
+import brubankAnnex from './seed-data/brubank-axion-estaciones-2026-10.json';
+import axionStations from './seed-data/axion-estaciones-2026-10-07.json';
+import axionBenefits from './seed-data/axion-beneficios-2026-10-07.json';
 import { upsertStations } from './db/stations';
+import { matchAnnexToCatalog } from './sources/stations';
+import { AXION_BENEFITS_SOURCE, AXION_STATIONS_SOURCE } from './jobs/axion';
 import { type DB, get, run, transaction } from './db/db';
 import { createPromotion, type PromotionDraft } from './db/promotions';
 import { DEFAULT_USER_ID } from './db/user';
@@ -71,10 +75,20 @@ interface SeedPromotion {
   draft: PromotionDraft;
 }
 
-// Estaciones del Anexo I de las bases de Brubank (octubre 2026), extraídas del texto oficial.
-const BRUBANK_STATIONS = brubankStations as { retrievedAt: string; stations: Array<Pick<Station, 'id' | 'brandId' | 'name' | 'address' | 'region'>> };
-const BRUBANK_STATION_IDS = BRUBANK_STATIONS.stations.map((st) => st.id);
-const BRUBANK_VERIFIED_AT = BRUBANK_STATIONS.retrievedAt;
+// Catálogo oficial de estaciones (localizador de Axion, 2026-10-07).
+const AXION_STATIONS = axionStations as unknown as { retrievedAt: string; stations: Station[] };
+// Anexo I de las bases de Brubank (octubre 2026): se cruza con el catálogo de forma estricta.
+const BRUBANK_ANNEX = brubankAnnex as { retrievedAt: string; lines: string[] };
+const BRUBANK_MATCH = matchAnnexToCatalog(BRUBANK_ANNEX.lines, AXION_STATIONS.stations);
+const BRUBANK_STATION_IDS = BRUBANK_MATCH.matchedIds;
+const BRUBANK_STATION_EXTRA = { stationListIncomplete: BRUBANK_MATCH.unmatched.length > 0, stationAnnexCount: BRUBANK_ANNEX.lines.length };
+const BRUBANK_VERIFIED_AT = BRUBANK_ANNEX.retrievedAt;
+// Página oficial de beneficios de Axion (bloques vigilados) y estaciones adheridas a ON.
+const AXION_BENEFITS = axionBenefits as { retrievedAt: string; blocks: Array<{ key: string; title: string; text: string; hash: string }> };
+const AXION_VERIFIED_AT = AXION_BENEFITS.retrievedAt;
+const ON_STATION_IDS = AXION_STATIONS.stations.filter((st) => st.attributes?.on === true).map((st) => st.id).sort();
+const ON_UNKNOWN_STATION_IDS = AXION_STATIONS.stations.filter((st) => st.attributes?.on == null).map((st) => st.id).sort();
+const ON_BLOCK = 'lunes-y-viernes-10-de-descuento';
 const BRUBANK_URLS = {
   martes:
     'https://help.brubank.com/es/articles/9010023-todos-los-martes-10-off-en-la-carga-de-combustible-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank-y-gira-la-ruedita',
@@ -86,16 +100,24 @@ const BRUBANK_URLS = {
 function verified(
   d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 'retrievedAt' | 'lastVerifiedAt'>,
   status: PromotionDraft['status'] = 'VERIFIED',
+  source: { name: string; at: string } = { name: 'Brubank — Centro de ayuda (bases y condiciones)', at: BRUBANK_VERIFIED_AT },
 ): PromotionDraft {
   return {
     ...d,
     status: d.rule.unknownConditions.length ? 'AUTOMATICALLY_IMPORTED' : status,
     confidence: 'HIGH',
-    sourceName: 'Brubank — Centro de ayuda (bases y condiciones)',
-    retrievedAt: BRUBANK_VERIFIED_AT,
-    lastVerifiedAt: d.rule.unknownConditions.length ? null : BRUBANK_VERIFIED_AT,
+    sourceName: source.name,
+    retrievedAt: source.at,
+    lastVerifiedAt: d.rule.unknownConditions.length ? null : source.at,
   };
 }
+
+const AXION_SOURCE = { name: 'Axion energy — Beneficios y promociones (sitio oficial)', at: AXION_VERIFIED_AT };
+const AXION_ON_NOTES = [
+  'Sólo para usuarios ON: identificate como usuario ON (te pueden pedir el DNI).',
+  'No es acumulable con otras promociones: si la usás, no sumes la promo del banco en esa carga.',
+  'Las bases dicen "descuento" sin aclarar si se aplica en el surtidor o como reintegro; el ahorro calculado es el mismo.',
+];
 
 function draft(d: Omit<PromotionDraft, 'status' | 'confidence' | 'sourceName' | 'retrievedAt' | 'lastVerifiedAt'>): PromotionDraft {
   return { ...d, status: 'AUTOMATICALLY_IMPORTED', confidence: 'LOW', sourceName: SEED_SOURCE_NAME, retrievedAt: SEED_RETRIEVED_AT, lastVerifiedAt: null };
@@ -129,6 +151,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
         eligibleProviderIds: ['brubank'],
         eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
         eligibleStationIds: BRUBANK_STATION_IDS,
+        extra: BRUBANK_STATION_EXTRA,
         multipleOperationsPerDay: 'NO',
         notes: [
           'El mismo día de la carga: entrá a la app de Brubank, tocá la compra con la leyenda "Promo" y elegí "Jugá y Participá por Premios". Sin ese paso no hay reintegro.',
@@ -167,6 +190,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
         eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
         eligibleCustomerSegments: ['brubank-plan-plus'],
         eligibleStationIds: BRUBANK_STATION_IDS,
+        extra: BRUBANK_STATION_EXTRA,
         multipleOperationsPerDay: 'NO',
         unknownConditions: ['USAGE_LIMIT'],
         notes: [
@@ -202,6 +226,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
         eligiblePaymentMethodTypes: ['DEBIT_CARD', 'CREDIT_CARD'],
         eligibleCustomerSegments: ['brubank-plan-ultra'],
         eligibleStationIds: BRUBANK_STATION_IDS,
+        extra: BRUBANK_STATION_EXTRA,
         multipleOperationsPerDay: 'NO',
         notes: [
           'Pagá con la tarjeta Brubank (física o virtual). No cuentan transferencias 3.0, pagos con QR desde la app con saldo en cuenta ni consumos con extracash.',
@@ -211,109 +236,71 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
       }),
     }),
   },
-  {
-    id: 'seed-axion-on-quantium-n12',
-    sourceId: null,
-    sourceKey: null,
-    draft: draft({
-      providerId: 'axion-on',
-      fuelBrandId: 'axion',
-      name: 'Axion ON: lunes y viernes 10% en Quantium (niveles 1 y 2)',
-      description: '10% de descuento lunes y viernes en Quantium para usuarios ON niveles 1 y 2, tope mensual $7.000. No acumulable con otras promociones.',
-      validFrom: '2026-10-01',
-      validUntil: '2026-12-31',
-      sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
-      rule: base({
-        discountValue: 1000,
-        delivery: 'INSTANT_DISCOUNT',
-        stage: 'PRICE',
-        daysOfWeek: [1, 5],
-        caps: [{ amount: pesos(7_000), period: 'MONTHLY' }],
-        eligibleFuelTypes: ['PREMIUM'],
-        eligibleCustomerSegments: ['axion-on-level-1-2'],
-        requiredLoyaltyProgrammeId: 'axion-on',
-        requiresApp: 'axion-on',
-        stackable: 'NO',
-        notes: ['Identificate con la app ON antes de pagar. Pueden pedirte el DNI.', 'Sólo en estaciones adheridas.'],
-      }),
-    }),
-  },
-  {
-    id: 'seed-axion-on-quantium-n35',
-    sourceId: null,
-    sourceKey: null,
-    draft: draft({
-      providerId: 'axion-on',
-      fuelBrandId: 'axion',
-      name: 'Axion ON: lunes y viernes 10% en Quantium (niveles 3 a 5)',
-      description: '10% de descuento lunes y viernes en Quantium para usuarios ON niveles 3, 4 y 5, tope mensual $14.000. No acumulable con otras promociones.',
-      validFrom: '2026-10-01',
-      validUntil: '2026-12-31',
-      sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
-      rule: base({
-        discountValue: 1000,
-        delivery: 'INSTANT_DISCOUNT',
-        stage: 'PRICE',
-        daysOfWeek: [1, 5],
-        caps: [{ amount: pesos(14_000), period: 'MONTHLY' }],
-        eligibleFuelTypes: ['PREMIUM'],
-        eligibleCustomerSegments: ['axion-on-level-3-5'],
-        requiredLoyaltyProgrammeId: 'axion-on',
-        requiresApp: 'axion-on',
-        stackable: 'NO',
-        notes: ['Identificate con la app ON antes de pagar. Pueden pedirte el DNI.', 'Sólo en estaciones adheridas.'],
-      }),
-    }),
-  },
+  // ── Axion ON: verificadas contra la página oficial de beneficios (API de WordPress), 2026-10-07 ──
+  ...(['n12', 'n35'] as const).map((level) => ({
+    id: `seed-axion-on-quantium-${level}`,
+    sourceId: 'axion-beneficios',
+    sourceKey: `${ON_BLOCK}#quantium-${level}`,
+    verification: 'Texto oficial leído en la página de beneficios de Axion el 2026-10-07; estaciones adheridas según el localizador oficial.',
+    draft: verified(
+      {
+        providerId: 'axion-on',
+        fuelBrandId: 'axion',
+        name: `Axion ON: lunes y viernes 10% en Quantium (niveles ${level === 'n12' ? '1 y 2' : '3, 4 y 5'})`,
+        description: `Lunes y viernes del 01/10 al 31/12/2026, usuarios ON en estaciones adheridas: 10% de descuento en Quantium (nafta), tope $${level === 'n12' ? '7.000' : '14.000'} mensual para niveles ${level === 'n12' ? '1 y 2' : '3, 4 y 5'}. No acumulable.`,
+        validFrom: '2026-10-01',
+        validUntil: '2026-12-31',
+        sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
+        rule: base({
+          discountValue: 1000,
+          delivery: 'INSTANT_DISCOUNT',
+          stage: 'PRICE',
+          daysOfWeek: [1, 5],
+          caps: [{ amount: pesos(level === 'n12' ? 7_000 : 14_000), period: 'MONTHLY' }],
+          eligibleFuelTypes: ['PREMIUM'],
+          eligibleCustomerSegments: [level === 'n12' ? 'axion-on-level-1-2' : 'axion-on-level-3-5'],
+          eligibleStationIds: ON_STATION_IDS,
+          requiredLoyaltyProgrammeId: 'axion-on',
+          stackable: 'NO',
+          notes: AXION_ON_NOTES,
+          extra: { stationAttribute: 'on', uncertainStationIds: ON_UNKNOWN_STATION_IDS },
+        }),
+      },
+      'VERIFIED',
+      AXION_SOURCE,
+    ),
+  })),
   {
     id: 'seed-axion-on-quantium-diesel',
-    sourceId: null,
-    sourceKey: null,
-    draft: draft({
-      providerId: 'axion-on',
-      fuelBrandId: 'axion',
-      name: 'Axion ON: lunes y viernes 10% en Quantium Diesel X10',
-      description: '10% de descuento lunes y viernes en Quantium Diesel X10 para usuarios ON. Tope informado: $7.000 "cada dos semanas" (no está claro si son quincenas calendario o 14 días corridos).',
-      validFrom: '2026-10-01',
-      validUntil: '2026-12-31',
-      sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
-      rule: base({
-        discountValue: 1000,
-        delivery: 'INSTANT_DISCOUNT',
-        stage: 'PRICE',
-        daysOfWeek: [1, 5],
-        eligibleFuelTypes: ['DIESEL_PREMIUM'],
-        requiredLoyaltyProgrammeId: 'axion-on',
-        requiresApp: 'axion-on',
-        stackable: 'NO',
-        unknownConditions: ['CAP_PERIOD'],
-        notes: ['Identificate con la app ON antes de pagar.'],
-      }),
-    }),
-  },
-  {
-    id: 'seed-axion-on-super-5',
-    sourceId: null,
-    sourceKey: null,
-    draft: draft({
-      providerId: 'axion-on',
-      fuelBrandId: 'axion',
-      name: 'Axion ON: 5% todos los días en nafta súper (≥ 25 L)',
-      description: 'Mencionada en una nota periodística sin fecha clara: 5% todos los días en nafta súper para cargas de al menos 25 litros. Vigencia y tope sin confirmar.',
-      validFrom: '2026-10-01',
-      validUntil: null,
-      sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
-      rule: base({
-        discountValue: 500,
-        delivery: 'INSTANT_DISCOUNT',
-        stage: 'PRICE',
-        minimumLitres: 25,
-        eligibleFuelTypes: ['SUPER'],
-        requiredLoyaltyProgrammeId: 'axion-on',
-        requiresApp: 'axion-on',
-        unknownConditions: ['VALIDITY', 'CAP', 'STACKABILITY'],
-      }),
-    }),
+    sourceId: 'axion-beneficios',
+    sourceKey: `${ON_BLOCK}#quantium-diesel`,
+    verification: 'Texto oficial leído el 2026-10-07. Queda sin confirmar qué significa "quincenal" (quincenas del mes o 15 días corridos).',
+    draft: verified(
+      {
+        providerId: 'axion-on',
+        fuelBrandId: 'axion',
+        name: 'Axion ON: lunes y viernes 10% en Quantium Diesel X10',
+        description: 'Lunes y viernes del 01/10 al 31/12/2026, usuarios ON en estaciones adheridas: 10% de descuento en Quantium Diesel X10, tope $7.000 "quincenal" (sin aclarar si es por quincena del mes o cada 15 días). No acumulable.',
+        validFrom: '2026-10-01',
+        validUntil: '2026-12-31',
+        sourceUrl: 'https://www.axionenergy.com/beneficios-y-promociones/',
+        rule: base({
+          discountValue: 1000,
+          delivery: 'INSTANT_DISCOUNT',
+          stage: 'PRICE',
+          daysOfWeek: [1, 5],
+          eligibleFuelTypes: ['DIESEL_PREMIUM'],
+          eligibleStationIds: ON_STATION_IDS,
+          requiredLoyaltyProgrammeId: 'axion-on',
+          stackable: 'NO',
+          unknownConditions: ['CAP_PERIOD'],
+          notes: AXION_ON_NOTES,
+          extra: { stationAttribute: 'on', uncertainStationIds: ON_UNKNOWN_STATION_IDS, capText: '$7.000 quincenal' },
+        }),
+      },
+      'VERIFIED',
+      AXION_SOURCE,
+    ),
   },
   {
     id: 'seed-bbva-black-save-20',
@@ -383,17 +370,36 @@ export function seedCatalog(db: DB) {
     ];
     for (const m of methods) run(db, 'INSERT OR IGNORE INTO payment_method (id, provider_id, name, type, network) VALUES (?,?,?,?,?)', ...m);
     run(db, `INSERT OR IGNORE INTO loyalty_programme (id, name, fuel_brand_id) VALUES ('axion-on', 'Axion ON', 'axion')`);
-    const segments: Array<[string, string | null, string, string]> = [
-      ['brubank-plan-one', 'brubank', 'Brubank Plan One', '¿Tu plan de Brubank es One?'],
-      ['brubank-plan-plus', 'brubank', 'Brubank Plan Plus', '¿Tu plan de Brubank es Plus?'],
-      ['brubank-plan-ultra', 'brubank', 'Brubank Plan Ultra', '¿Tu plan de Brubank es Ultra?'],
-      ['bbva-black-save', 'bbva', 'BBVA Black+ Save', '¿Tenés el paquete BBVA Black+ Save?'],
-      ['bbva-black-all', 'bbva', 'BBVA Black+ All', '¿Tenés el paquete BBVA Black+ All?'],
-      ['bbva-sueldo', 'bbva', 'Cobro de sueldo en BBVA', '¿Cobrás tu sueldo o jubilación en BBVA?'],
-      ['axion-on-level-1-2', 'axion-on', 'Axion ON nivel 1 o 2', '¿Tu nivel en Axion ON es 1 o 2?'],
-      ['axion-on-level-3-5', 'axion-on', 'Axion ON nivel 3, 4 o 5', '¿Tu nivel en Axion ON es 3, 4 o 5?'],
+    const groups: Array<[string, string, string, number, string | null]> = [
+      ['brubank-plan', 'brubank', 'Plan', 0, null],
+      ['bbva-paquete', 'bbva', 'Paquete', 1, 'Ninguno (cuenta base)'],
+      ['axion-on-nivel', 'axion-on', 'Nivel', 0, null],
     ];
-    for (const s of segments) run(db, 'INSERT OR IGNORE INTO customer_segment (id, provider_id, name, question) VALUES (?,?,?,?)', ...s);
+    for (const g of groups)
+      run(
+        db,
+        `INSERT INTO customer_segment_group (id, provider_id, label, allow_none, none_label) VALUES (?,?,?,?,?)
+         ON CONFLICT(id) DO UPDATE SET label = excluded.label, allow_none = excluded.allow_none, none_label = excluded.none_label`,
+        ...g,
+      );
+    // [id, proveedor, nombre, pregunta, grupo]. Los segmentos de un mismo grupo son excluyentes (se elige uno).
+    const segments: Array<[string, string | null, string, string, string | null]> = [
+      ['brubank-plan-one', 'brubank', 'Plan One', '¿Tu plan de Brubank es One?', 'brubank-plan'],
+      ['brubank-plan-plus', 'brubank', 'Plan Plus', '¿Tu plan de Brubank es Plus?', 'brubank-plan'],
+      ['brubank-plan-ultra', 'brubank', 'Plan Ultra', '¿Tu plan de Brubank es Ultra?', 'brubank-plan'],
+      ['bbva-black-save', 'bbva', 'Black+ Save', '¿Tenés el paquete BBVA Black+ Save?', 'bbva-paquete'],
+      ['bbva-black-all', 'bbva', 'Black+ All', '¿Tenés el paquete BBVA Black+ All?', 'bbva-paquete'],
+      ['bbva-sueldo', 'bbva', 'Cobro de sueldo en BBVA', '¿Cobrás tu sueldo o jubilación en BBVA?', null],
+      ['axion-on-level-1-2', 'axion-on', 'Nivel 1 o 2', '¿Tu nivel en Axion ON es 1 o 2?', 'axion-on-nivel'],
+      ['axion-on-level-3-5', 'axion-on', 'Nivel 3, 4 o 5', '¿Tu nivel en Axion ON es 3, 4 o 5?', 'axion-on-nivel'],
+    ];
+    for (const s of segments)
+      run(
+        db,
+        `INSERT INTO customer_segment (id, provider_id, name, question, group_id) VALUES (?,?,?,?,?)
+         ON CONFLICT(id) DO UPDATE SET name = excluded.name, question = excluded.question, group_id = excluded.group_id`,
+        ...s,
+      );
     const apps: Array<[string, string]> = [
       ['axion-on', 'Axion ON'],
       ['modo', 'MODO'],
@@ -401,8 +407,19 @@ export function seedCatalog(db: DB) {
       ['brubank', 'App Brubank'],
     ];
     for (const a of apps) run(db, 'INSERT OR IGNORE INTO app (id, name) VALUES (?,?)', ...a);
-    for (const s of SOURCE_CONFIGS)
+    for (const s of SOURCE_CONFIGS) {
+      if (s.id === AXION_BENEFITS_SOURCE.id) continue;
       run(db, 'INSERT OR IGNORE INTO source (id, name, kind, provider_id) VALUES (?,?,?,?)', s.id, s.name, 'OFFICIAL_PAGE', s.providerId);
+    }
+    for (const s of [AXION_BENEFITS_SOURCE, AXION_STATIONS_SOURCE])
+      run(
+        db,
+        `INSERT INTO source (id, name, kind, provider_id) VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET name = excluded.name, kind = excluded.kind`,
+        s.id,
+        s.name,
+        s.kind,
+        s.providerId,
+      );
   });
 }
 
@@ -413,10 +430,15 @@ export function seedUser(db: DB, clock: Clock) {
     run(db, `INSERT INTO user (id, created_at, updated_at) VALUES (?,?,?)`, DEFAULT_USER_ID, now, now);
     // Lo que se sabe del pedido: Brubank One, BBVA y Axion ON. El resto se confirma en Ajustes.
     for (const m of ['brubank-visa-debito', 'bbva-visa-credito']) run(db, 'INSERT INTO user_payment_method (user_id, payment_method_id) VALUES (?,?)', DEFAULT_USER_ID, m);
+    // Lo que indicaste: Brubank One, BBVA base (sin Black+) con Visa crédito, Axion ON nivel 4 o 5.
     const segs: Array<[string, string]> = [
       ['brubank-plan-one', 'YES'],
       ['brubank-plan-plus', 'NO'],
       ['brubank-plan-ultra', 'NO'],
+      ['bbva-black-save', 'NO'],
+      ['bbva-black-all', 'NO'],
+      ['axion-on-level-1-2', 'NO'],
+      ['axion-on-level-3-5', 'YES'],
     ];
     for (const [s, st] of segs) run(db, 'INSERT INTO user_segment (user_id, segment_id, status) VALUES (?,?,?)', DEFAULT_USER_ID, s, st);
     run(db, `INSERT INTO user_loyalty_membership (user_id, programme_id) VALUES (?, 'axion-on')`, DEFAULT_USER_ID);
@@ -425,7 +447,20 @@ export function seedUser(db: DB, clock: Clock) {
 }
 
 export function seedPromotions(db: DB, clock: Clock) {
-  upsertStations(db, BRUBANK_STATIONS.stations.map((st) => ({ ...st, latitude: null, longitude: null, active: true })));
+  upsertStations(db, AXION_STATIONS.stations, 'axion-estaciones');
+  // Línea de base de la página de Axion: la primera vigilancia ya detecta cambios posteriores.
+  for (const blk of AXION_BENEFITS.blocks)
+    run(
+      db,
+      'INSERT OR IGNORE INTO source_watch (source_id, block_key, title, text, text_hash, first_seen_at, last_seen_at) VALUES (?,?,?,?,?,?,?)',
+      'axion-beneficios',
+      blk.key,
+      blk.title,
+      blk.text,
+      blk.hash,
+      AXION_VERIFIED_AT,
+      AXION_VERIFIED_AT,
+    );
   for (const s of SEED_PROMOTIONS) {
     if (get(db, 'SELECT id FROM promotion WHERE id = ?', s.id)) continue;
     if (s.sourceId && s.sourceKey && get(db, 'SELECT id FROM promotion WHERE source_id = ? AND source_key = ?', s.sourceId, s.sourceKey)) continue;

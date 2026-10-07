@@ -216,7 +216,7 @@ export function createApi(ctx: AppContext) {
       name: s.name,
       kind: s.kind,
       enabled: !!s.enabled,
-      configured: ctx.sources.find((x) => x.id === s.id)?.isConfigured() ?? false,
+      configured: ctx.sources.find((x) => x.id === s.id)?.isConfigured() ?? s.kind === 'STRUCTURED_FEED',
       lastAttemptAt: s.last_attempt_at ?? null,
       lastSuccessAt: s.last_success_at ?? null,
       consecutiveFailures: Number(s.consecutive_failures),

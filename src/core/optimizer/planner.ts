@@ -66,6 +66,7 @@ export interface PlannedPromotion {
   versionId: string;
   name: string;
   providerId: string;
+  providerName: string;
   summary: string;
   discountAmount: Cents;
   cashbackAmount: Cents;
@@ -81,6 +82,8 @@ export interface PlannedTransaction {
   date: LocalDate;
   paymentMethodId: string;
   paymentMethodName: string;
+  /** false si ningún beneficio depende del medio de pago (p. ej. sólo un programa de la estación). */
+  paymentMethodMatters: boolean;
   promotions: PlannedPromotion[];
   amount: Cents;
   litres: number | null;
@@ -593,6 +596,7 @@ function simulate(chosen: Array<{ c: Candidate; amount: Cents }>, req: PlanReque
         versionId: p.versionId,
         name: p.name,
         providerId: p.providerId,
+        providerName: catalog.providerName(p.providerId),
         summary: describeBenefit(p),
         discountAmount: r.discountAmount,
         cashbackAmount: r.cashbackAmount,
@@ -608,6 +612,7 @@ function simulate(chosen: Array<{ c: Candidate; amount: Cents }>, req: PlanReque
       date: t.c.date,
       paymentMethodId: t.c.method.id,
       paymentMethodName: t.c.method.name,
+      paymentMethodMatters: t.c.promos.some((p) => p.rule.stage === 'PAYMENT' || p.rule.eligibleProviderIds !== null || p.rule.eligiblePaymentMethodIds !== null),
       promotions,
       amount: t.amount,
       litres,
@@ -644,6 +649,8 @@ function benefitWord(p: Promotion): string {
 
 function explainTransaction(t: PlannedTransaction, promos: Promotion[]): string[] {
   const lines: string[] = [];
+  if (!t.paymentMethodMatters)
+    lines.push('Este beneficio no depende del medio de pago: podés pagar con el que quieras.');
   for (const pp of t.promotions) {
     const p = promos.find((x) => x.id === pp.id)!;
     const r = p.rule;
@@ -716,6 +723,7 @@ export interface TentativeOption {
   promotionId: string;
   name: string;
   providerId: string;
+  providerName: string;
   summary: string;
   paymentMethodName: string | null;
   estimatedBenefit: Cents;
@@ -821,6 +829,7 @@ export function recommend(req: RecommendRequest): Recommendation {
         promotionId: p.id,
         name: p.name,
         providerId: p.providerId,
+        providerName: catalog.providerName(p.providerId),
         summary: describeBenefit(p),
         paymentMethodName: best.method.name,
         estimatedBenefit: est.totalBenefit,

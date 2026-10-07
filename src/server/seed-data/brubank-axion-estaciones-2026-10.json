@@ -6,3661 +6,529 @@
   "https://help.brubank.com/es/articles/12995968-todos-los-dias-30-off-en-axion-energy-compra-con-tu-tarjeta-de-debito-y-credito-visa-brubank"
  ],
  "retrievedAt": "2026-10-07T15:29:24.000Z",
- "note": "Las tres promociones de Brubank en Axion (octubre 2026) publican la misma lista (difieren sólo en un espacio).",
- "stations": [
-  {
-   "id": "axion-d4d72f2afad1",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Congreso 4801, Villa Urquiza CABA Buenos Aires 1431",
-   "address": "Av. Congreso 4801, Villa Urquiza CABA Buenos Aires 1431",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-17411ab01991",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Eva Perón 4350, Parque Avellaneda CABA Buenos Aires 1407",
-   "address": "Av. Eva Perón 4350, Parque Avellaneda CABA Buenos Aires 1407",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-81a264343ba2",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Francisco Beiró y Moliere CABA Buenos Aires 1719",
-   "address": "Av. Francisco Beiró y Moliere CABA Buenos Aires 1719",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-639e1f736ce0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Almafuerte 187, Parque Patricios CABA Buenos Aires 1437",
-   "address": "Av. Almafuerte 187, Parque Patricios CABA Buenos Aires 1437",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-1000f648d709",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Brasil 2984, Parque Patricios CABA Buenos Aires 1260",
-   "address": "Av. Brasil 2984, Parque Patricios CABA Buenos Aires 1260",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-1dc83b48f49f",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Emilio Castro 7541 CABA Buenos Aires 1408",
-   "address": "Av. Emilio Castro 7541 CABA Buenos Aires 1408",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-537bb374967d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gaona 2399 y Trelles, Caballito CABA Buenos Aires 1416",
-   "address": "Av. Gaona 2399 y Trelles, Caballito CABA Buenos Aires 1416",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-e3696f6d738d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral. Mosconi 2500, Pueyrredón CABA Buenos Aires 1419",
-   "address": "Av. Gral. Mosconi 2500, Pueyrredón CABA Buenos Aires 1419",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-bdc8d5b3650b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Juan de Garay 1302, Constitución CABA Buenos Aires 1153",
-   "address": "Av. Juan de Garay 1302, Constitución CABA Buenos Aires 1153",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-667fe4d2b39c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. La Plata 575, Almagro CABA Buenos Aires 1226",
-   "address": "Av. La Plata 575, Almagro CABA Buenos Aires 1226",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-32fc0e5c1ff1",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Libertador 2589, Palermo CABA Buenos Aires 1425",
-   "address": "Av. Libertador 2589, Palermo CABA Buenos Aires 1425",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-9c21333098e7",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Libertador 7112 y Manuela A. Pedraza, Nuñez CABA Buenos Aires 1429",
-   "address": "Av. Libertador 7112 y Manuela A. Pedraza, Nuñez CABA Buenos Aires 1429",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-e4d5895dc605",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia 3199 esquina Anchorena, Balvanera CABA Buenos Aires 1203",
-   "address": "Av. Rivadavia 3199 esquina Anchorena, Balvanera CABA Buenos Aires 1203",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-c1386572c469",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia y Joaquín V. Gonzalez, Floresta CABA Buenos Aires 1407",
-   "address": "Av. Rivadavia y Joaquín V. Gonzalez, Floresta CABA Buenos Aires 1407",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-f5a95a37c959",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín y Luis Viale, Villa Crespo CABA Buenos Aires 1416",
-   "address": "Av. San Martín y Luis Viale, Villa Crespo CABA Buenos Aires 1416",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-e344e98b2e9f",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Jujuy 164 Esq Alsina, Balvanera CABA Buenos Aires 1086",
-   "address": "Av. Jujuy 164 Esq Alsina, Balvanera CABA Buenos Aires 1086",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-6b388a3ea76a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Emilio Castro 6512, Liniers CABA Buenos Aires 1408",
-   "address": "Av. Emilio Castro 6512, Liniers CABA Buenos Aires 1408",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-f01b57b74857",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Los Incas 3550, Belgrano CABA Buenos Aires 1426",
-   "address": "Av. Los Incas 3550, Belgrano CABA Buenos Aires 1426",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-d5a1c56ee1ff",
-   "brandId": "axion",
-   "name": "Axion Energy Cabildo 695 esquina Olleros, Belgrano CABA Buenos Aires 1426",
-   "address": "Cabildo 695 esquina Olleros, Belgrano CABA Buenos Aires 1426",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-8fe1732180dd",
-   "brandId": "axion",
-   "name": "Axion Energy Chile 702 esquina Chacabuco, Monserrat CABA Buenos Aires 1098",
-   "address": "Chile 702 esquina Chacabuco, Monserrat CABA Buenos Aires 1098",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-72d15f4e3475",
-   "brandId": "axion",
-   "name": "Axion Energy Córdoba 5653/99 esquina Bompland, Palermo CABA Buenos Aires 1414",
-   "address": "Córdoba 5653/99 esquina Bompland, Palermo CABA Buenos Aires 1414",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-93def8a567d0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral. Francisco Fernández de la Cruz 1501, Nueva Pompeya CABA Buenos Aires 1437",
-   "address": "Av. Gral. Francisco Fernández de la Cruz 1501, Nueva Pompeya CABA Buenos Aires 1437",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-2611899dbbcd",
-   "brandId": "axion",
-   "name": "Axion Energy Directorio 1796, Caballito CABA Buenos Aires 1406",
-   "address": "Directorio 1796, Caballito CABA Buenos Aires 1406",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-aedaed56f46b",
-   "brandId": "axion",
-   "name": "Axion Energy Cnel. Ramón L. Falcón 6398, Liniers CABA Buenos Aires 1408",
-   "address": "Cnel. Ramón L. Falcón 6398, Liniers CABA Buenos Aires 1408",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-ac8c17a85dde",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Int. Francisco Rabanal 1733 CABA Buenos Aires 1437",
-   "address": "Av. Int. Francisco Rabanal 1733 CABA Buenos Aires 1437",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-fe150ec36a59",
-   "brandId": "axion",
-   "name": "Axion Energy Las Heras 2499, Recoleta CABA Buenos Aires 1425",
-   "address": "Las Heras 2499, Recoleta CABA Buenos Aires 1425",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-06f7bf8a5120",
-   "brandId": "axion",
-   "name": "Axion Energy Monroe 3078, Belgrano CABA Buenos Aires 1428",
-   "address": "Monroe 3078, Belgrano CABA Buenos Aires 1428",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-6794cc828d07",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia 10301, Villa Luro CABA Buenos Aires 1408",
-   "address": "Av. Rivadavia 10301, Villa Luro CABA Buenos Aires 1408",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-eecf211671f3",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Triunvirato esquina Av. Crisologo Larralde, Villa Urquiza CABA Buenos Aires 1407",
-   "address": "Av. Triunvirato esquina Av. Crisologo Larralde, Villa Urquiza CABA Buenos Aires 1407",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-5e08ca6a20fe",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mitre 1270/92, Avellaneda GBA Buenos Aires 1870",
-   "address": "Av. Mitre 1270/92, Avellaneda GBA Buenos Aires 1870",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-310c8fe413af",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 27 y Panamericana, Benavidez GBA Buenos Aires 1621",
-   "address": "Ruta 27 y Panamericana, Benavidez GBA Buenos Aires 1621",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-3f25f909deb4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 36 Km. 34, Berazategui GBA Buenos Aires 1890",
-   "address": "Ruta 36 Km. 34, Berazategui GBA Buenos Aires 1890",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a15a701b4bd0",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía Buenos Aires, Berazategui GBA Buenos Aires 1880",
-   "address": "Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía Buenos Aires, Berazategui GBA Buenos Aires 1880",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4f8eb7a06986",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía La Plata, Berazategui GBA Buenos Aires 1880",
-   "address": "Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía La Plata, Berazategui GBA Buenos Aires 1880",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c4afe805b11b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mitre y Güemes, Berisso GBA Buenos Aires 1923",
-   "address": "Av. Mitre y Güemes, Berisso GBA Buenos Aires 1923",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a0ada799d038",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Dardo Rocha 1683, Bernal GBA Buenos Aires 1883",
-   "address": "Av. Dardo Rocha 1683, Bernal GBA Buenos Aires 1883",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-93aa7b39bde9",
-   "brandId": "axion",
-   "name": "Axion Energy Amancio Alcorta 500, Boulogne GBA Buenos Aires 1609",
-   "address": "Amancio Alcorta 500, Boulogne GBA Buenos Aires 1609",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-06f621084544",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rolón 603, Boulogne GBA Buenos Aires 1609",
-   "address": "Av. Rolón 603, Boulogne GBA Buenos Aires 1609",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-472af2c051d9",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rolón y Blanco Encalada, Boulogne GBA Buenos Aires 1609",
-   "address": "Av. Rolón y Blanco Encalada, Boulogne GBA Buenos Aires 1609",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5d500395af34",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Hipólito Yrigoyen y Monteverde, Burzaco GBA Buenos Aires 1852",
-   "address": "Av. Hipólito Yrigoyen y Monteverde, Burzaco GBA Buenos Aires 1852",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9c22be7df6ad",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 1934, Caseros GBA Buenos Aires 1678",
-   "address": "Av. San Martín 1934, Caseros GBA Buenos Aires 1678",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f8a51df8bd89",
-   "brandId": "axion",
-   "name": "Axion Energy Blas Parera 1276, Castelar GBA Buenos Aires 1712",
-   "address": "Blas Parera 1276, Castelar GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0635d90acff6",
-   "brandId": "axion",
-   "name": "Axion Energy Inocencio Arias 3199, Castelar GBA Buenos Aires 1712",
-   "address": "Inocencio Arias 3199, Castelar GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-aa340da7b53a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gaona 4192, Ciudadela GBA Buenos Aires 1702",
-   "address": "Av. Gaona 4192, Ciudadela GBA Buenos Aires 1702",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f27ed8a5e2d8",
-   "brandId": "axion",
-   "name": "Axion Energy República Argentina 3205, Claypole GBA Buenos Aires 1852",
-   "address": "República Argentina 3205, Claypole GBA Buenos Aires 1852",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d2127a8748d2",
-   "brandId": "axion",
-   "name": "Axion Energy Arturo Umberto Illia Km. 44.300 esquina General Viamonte, Del Viso GBA Buenos Aires 1669",
-   "address": "Arturo Umberto Illia Km. 44.300 esquina General Viamonte, Del Viso GBA Buenos Aires 1669",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7d735a4c390c",
-   "brandId": "axion",
-   "name": "Axion Energy Panamericana y 202, Don Torcuato GBA Buenos Aires 1611",
-   "address": "Panamericana y 202, Don Torcuato GBA Buenos Aires 1611",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5a2b662b9256",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 202 esquina Juan De Garay, Don Torcuato GBA Buenos Aires 1611",
-   "address": "Ruta 202 esquina Juan De Garay, Don Torcuato GBA Buenos Aires 1611",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-62897b57b620",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 122 nro 716 entre Calles 46 y 47, Ensenada GBA Buenos Aires 1902",
-   "address": "Calle 122 nro 716 entre Calles 46 y 47, Ensenada GBA Buenos Aires 1902",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c636fc41af22",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 205 Km. 33,5, Ezeiza GBA Buenos Aires 1804",
-   "address": "Ruta 205 Km. 33,5, Ezeiza GBA Buenos Aires 1804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e220c8457e81",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Del Libertador esquina Corrientes, Olivos GBA Buenos Aires 1604",
-   "address": "Av. Del Libertador esquina Corrientes, Olivos GBA Buenos Aires 1604",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-fc162134537f",
-   "brandId": "axion",
-   "name": "Axion Energy 9 de Julio 202, Pilar GBA Buenos Aires 1629",
-   "address": "9 de Julio 202, Pilar GBA Buenos Aires 1629",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7c869f7ee869",
-   "brandId": "axion",
-   "name": "Axion Energy Agustín M. García 9647, Benavidez GBA Buenos Aires 1621",
-   "address": "Agustín M. García 9647, Benavidez GBA Buenos Aires 1621",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7cc175de3325",
-   "brandId": "axion",
-   "name": "Axion Energy Alvear 2080, Villa Ballester GBA Buenos Aires 1653",
-   "address": "Alvear 2080, Villa Ballester GBA Buenos Aires 1653",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-408c49358530",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Cap. Claudio Rosales, El Palomar GBA Buenos Aires 1685",
-   "address": "Av. Cap. Claudio Rosales, El Palomar GBA Buenos Aires 1685",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c7d5cdf1d88f",
-   "brandId": "axion",
-   "name": "Axion Energy Santa Rosa 1885, Castelar GBA Buenos Aires 1712",
-   "address": "Santa Rosa 1885, Castelar GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b0284ea76832",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento 2003, Castelar GBA Buenos Aires 1712",
-   "address": "Sarmiento 2003, Castelar GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-351140d8bf98",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento 338 (Ruta 205 Km. 40,3), Tristán Suarez GBA Buenos Aires 1806",
-   "address": "Sarmiento 338 (Ruta 205 Km. 40,3), Tristán Suarez GBA Buenos Aires 1806",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-35bf6111f4bc",
-   "brandId": "axion",
-   "name": "Axion Energy Triunvirato 1610 y Necochea, Quilmes GBA Buenos Aires 1878",
-   "address": "Triunvirato 1610 y Necochea, Quilmes GBA Buenos Aires 1878",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c1111fc650ca",
-   "brandId": "axion",
-   "name": "Axion Energy Vergara 3036, Hurlingham GBA Buenos Aires 1686",
-   "address": "Vergara 3036, Hurlingham GBA Buenos Aires 1686",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e027683a0a11",
-   "brandId": "axion",
-   "name": "Axion Energy Victorica 47, Moreno GBA Buenos Aires 1744",
-   "address": "Victorica 47, Moreno GBA Buenos Aires 1744",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-371398afe941",
-   "brandId": "axion",
-   "name": "Axion Energy Zeballos 2188, Castelar GBA Buenos Aires 1712",
-   "address": "Zeballos 2188, Castelar GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a475271f9c8c",
-   "brandId": "axion",
-   "name": "Axion Energy Bdo. De Irigoyen 1190, General Rodríguez GBA Buenos Aires 1072",
-   "address": "Bdo. De Irigoyen 1190, General Rodríguez GBA Buenos Aires 1072",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-663ce3c0c6ef",
-   "brandId": "axion",
-   "name": "Axion Energy José León Larre 806, Gonzalez Catán GBA Buenos Aires 1759",
-   "address": "José León Larre 806, Gonzalez Catán GBA Buenos Aires 1759",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ea90ffbbd40d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Villamayor y Rta 200, General Las Heras GBA Buenos Aires 1741",
-   "address": "Av. Villamayor y Rta 200, General Las Heras GBA Buenos Aires 1741",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-478bf30733c2",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 197 y Mozard, General Pacheco GBA Buenos Aires 1617",
-   "address": "Ruta 197 y Mozard, General Pacheco GBA Buenos Aires 1617",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0b8a0757d7cb",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 197 y el Callao 0, Grand Bourg GBA Buenos Aires 1615",
-   "address": "Ruta Nacional 197 y el Callao 0, Grand Bourg GBA Buenos Aires 1615",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ad879e726068",
-   "brandId": "axion",
-   "name": "Axion Energy Fasola y Gral. Actis, Haedo GBA Buenos Aires 1706",
-   "address": "Fasola y Gral. Actis, Haedo GBA Buenos Aires 1706",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9429bee749f0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Pte. Perón 4531 esquina G Donak 8, Hurlingham GBA Buenos Aires 1688",
-   "address": "Av. Pte. Perón 4531 esquina G Donak 8, Hurlingham GBA Buenos Aires 1688",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-eaadf25d44a6",
-   "brandId": "axion",
-   "name": "Axion Energy Av Roca (Ruta 201) esquina Paso Morale, Hurlingham GBA Buenos Aires 1686",
-   "address": "Av Roca (Ruta 201) esquina Paso Morale, Hurlingham GBA Buenos Aires 1686",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0a4d8fcc0798",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Provincias Unidas y Quesadas Ruta 3, Isidro Casanova GBA Buenos Aires 1765",
-   "address": "Av. Provincias Unidas y Quesadas Ruta 3, Isidro Casanova GBA Buenos Aires 1765",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-1b7e612fc5e5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gaona y Barcala, Ituzaingó GBA Buenos Aires 1714",
-   "address": "Av. Gaona y Barcala, Ituzaingó GBA Buenos Aires 1714",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6c4066c2552e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Ratti 2087, Ituzaingó GBA Buenos Aires 1714",
-   "address": "Av. Ratti 2087, Ituzaingó GBA Buenos Aires 1714",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5e47a571b4d3",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia 23190 esquina Pintos, Ituzaingó GBA Buenos Aires 1714",
-   "address": "Av. Rivadavia 23190 esquina Pintos, Ituzaingó GBA Buenos Aires 1714",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d96476e94d2b",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen 5731 (Ruta 197) esquina Saavedra Lamas, José C Paz GBA Buenos Aires 1616",
-   "address": "Hipólito Yrigoyen 5731 (Ruta 197) esquina Saavedra Lamas, José C Paz GBA Buenos Aires 1616",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d68021dc05af",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen 696 Ruta Provincial 24, José C Paz GBA Buenos Aires 1665",
-   "address": "Hipólito Yrigoyen 696 Ruta Provincial 24, José C Paz GBA Buenos Aires 1665",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-390a865a795f",
-   "brandId": "axion",
-   "name": "Axion Energy Rojo esquina Estanislao del Campo, Laferrere GBA Buenos Aires 1757",
-   "address": "Rojo esquina Estanislao del Campo, Laferrere GBA Buenos Aires 1757",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-eaf956ca3d26",
-   "brandId": "axion",
-   "name": "Axion Energy Remedios de Escalada 1389, Lanús GBA Buenos Aires 1823",
-   "address": "Remedios de Escalada 1389, Lanús GBA Buenos Aires 1823",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-91a71198fe1b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Mosconi 1015, Lomas del Mirador GBA Buenos Aires 1752",
-   "address": "Av. Gral Mosconi 1015, Lomas del Mirador GBA Buenos Aires 1752",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9584bed795a2",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 3694, Lomas del Mirador GBA Buenos Aires 1752",
-   "address": "Av. San Martín 3694, Lomas del Mirador GBA Buenos Aires 1752",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6636339d5361",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Provincias Unidas 1590, Lomas del Mirador GBA Buenos Aires 1752",
-   "address": "Av. Provincias Unidas 1590, Lomas del Mirador GBA Buenos Aires 1752",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f81bec866984",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Hipolito Yrigoyen 18501, Longchamps GBA Buenos Aires 1854",
-   "address": "Av. Hipolito Yrigoyen 18501, Longchamps GBA Buenos Aires 1854",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0c8a8a3d43c0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Dr. Marcos Paz 1222, Marcos Paz GBA Buenos Aires 1727",
-   "address": "Av. Dr. Marcos Paz 1222, Marcos Paz GBA Buenos Aires 1727",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8e437d189bc4",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Villanueva y Ruta 9, Ingeniero Maschwitz GBA Buenos Aires 1623",
-   "address": "Av. Villanueva y Ruta 9, Ingeniero Maschwitz GBA Buenos Aires 1623",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-20a24f7ed259",
-   "brandId": "axion",
-   "name": "Axion Energy Av. V. Fair 1021, Monte Grande GBA Buenos Aires 1842",
-   "address": "Av. V. Fair 1021, Monte Grande GBA Buenos Aires 1842",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2f08fe7e16cd",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Del Libertador y Graham Bell, Moreno GBA Buenos Aires 1743",
-   "address": "Av. Del Libertador y Graham Bell, Moreno GBA Buenos Aires 1743",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5946cc44a6a9",
-   "brandId": "axion",
-   "name": "Axion Energy Belisario Roldan y Martín Guemes, Moreno GBA Buenos Aires 1738",
-   "address": "Belisario Roldan y Martín Guemes, Moreno GBA Buenos Aires 1738",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-75ba17cbf021",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 25 y Don Bosco, Moreno GBA Buenos Aires 1738",
-   "address": "Ruta 25 y Don Bosco, Moreno GBA Buenos Aires 1738",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-556188153f45",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Eva Perón (Ex Pierrestegui) 4100, Morón GBA Buenos Aires 1712",
-   "address": "Av. Eva Perón (Ex Pierrestegui) 4100, Morón GBA Buenos Aires 1712",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b696c069dc3f",
-   "brandId": "axion",
-   "name": "Axion Energy Don Bosco 2285/89, Morón GBA Buenos Aires 1708",
-   "address": "Don Bosco 2285/89, Morón GBA Buenos Aires 1708",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6f1fe3cfb284",
-   "brandId": "axion",
-   "name": "Axion Energy Mendoza 205, Morón GBA Buenos Aires 1708",
-   "address": "Mendoza 205, Morón GBA Buenos Aires 1708",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-935d8434938e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mitre 3202, Munro GBA Buenos Aires 1605",
-   "address": "Av. Mitre 3202, Munro GBA Buenos Aires 1605",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-55c52754d154",
-   "brandId": "axion",
-   "name": "Axion Energy Paraná 3944 esquina Blas Parera, Olivos GBA Buenos Aires 1636",
-   "address": "Paraná 3944 esquina Blas Parera, Olivos GBA Buenos Aires 1636",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-cd3f126b8af3",
-   "brandId": "axion",
-   "name": "Axion Energy Pelliza 3892, Olivos GBA Buenos Aires 1636",
-   "address": "Pelliza 3892, Olivos GBA Buenos Aires 1636",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2053896bd403",
-   "brandId": "axion",
-   "name": "Axion Energy Av. J D Perón esquina De La Tropilla, Parque Leloir GBA Buenos Aires 1715",
-   "address": "Av. J D Perón esquina De La Tropilla, Parque Leloir GBA Buenos Aires 1715",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-09e1976f1d94",
-   "brandId": "axion",
-   "name": "Axion Energy Intendente Gnecco esquina Quilmes, Paso del Rey GBA Buenos Aires 1742",
-   "address": "Intendente Gnecco esquina Quilmes, Paso del Rey GBA Buenos Aires 1742",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d446860b392b",
-   "brandId": "axion",
-   "name": "Axion Energy Intendente Gnecco 1258, Paso del Rey GBA Buenos Aires 1742",
-   "address": "Intendente Gnecco 1258, Paso del Rey GBA Buenos Aires 1742",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2ef1ddbd9d72",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 8 Km. 50 esquina Acceso a Derqui, Pilar GBA Buenos Aires 1629",
-   "address": "Ruta 8 Km. 50 esquina Acceso a Derqui, Pilar GBA Buenos Aires 1629",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4c6d39ffd986",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 8 y Velez Sarfield, Pilar GBA Buenos Aires 1629",
-   "address": "Ruta Nacional 8 y Velez Sarfield, Pilar GBA Buenos Aires 1629",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0a4053db050f",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral. Mitre 880/92 esquina Brandsen, Quilmes GBA Buenos Aires 1602",
-   "address": "Av. Gral. Mitre 880/92 esquina Brandsen, Quilmes GBA Buenos Aires 1602",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-29c57c353666",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mosconi y Triunvirato 2700, Quilmes GBA Buenos Aires 1879",
-   "address": "Av. Mosconi y Triunvirato 2700, Quilmes GBA Buenos Aires 1879",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-45c54c2516a5",
-   "brandId": "axion",
-   "name": "Axion Energy Calchaqui Km. 22,3, Quilmes GBA Buenos Aires 1879",
-   "address": "Calchaqui Km. 22,3, Quilmes GBA Buenos Aires 1879",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f55b64dcd7cd",
-   "brandId": "axion",
-   "name": "Axion Energy Pres. Juan Domingo Perón 250, Quilmes GBA Buenos Aires 1878",
-   "address": "Pres. Juan Domingo Perón 250, Quilmes GBA Buenos Aires 1878",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e5d9e9609e9d",
-   "brandId": "axion",
-   "name": "Axion Energy Primera Junta 257, Quilmes GBA Buenos Aires 1878",
-   "address": "Primera Junta 257, Quilmes GBA Buenos Aires 1878",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0f33cc60f881",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 3 y Carlos Casares, Rafael Castillo GBA Buenos Aires 1767",
-   "address": "Ruta Nacional 3 y Carlos Casares, Rafael Castillo GBA Buenos Aires 1767",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-881c3e489f79",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gaona 502, Ramos Mejía GBA Buenos Aires 1704",
-   "address": "Av. Gaona 502, Ramos Mejía GBA Buenos Aires 1704",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-af39f5e23f6a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. República y Colombres 280, Ramos Mejía GBA Buenos Aires 1704",
-   "address": "Av. República y Colombres 280, Ramos Mejía GBA Buenos Aires 1704",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e8a1bb619f0d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. De Mayo 1601, esquina Pasco, Ramos Mejía GBA Buenos Aires 1704",
-   "address": "Av. De Mayo 1601, esquina Pasco, Ramos Mejía GBA Buenos Aires 1704",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5dbb1fe0a6c5",
-   "brandId": "axion",
-   "name": "Axion Energy Rivadavia 24498, San Antonio de Padua GBA Buenos Aires 1718",
-   "address": "Rivadavia 24498, San Antonio de Padua GBA Buenos Aires 1718",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2d27658784f7",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen y Acceso a Tigre, San Fernando GBA Buenos Aires 1646",
-   "address": "Hipólito Yrigoyen y Acceso a Tigre, San Fernando GBA Buenos Aires 1646",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-aa9b0e47dcd2",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 899 2690 (Don Alvarez/Iriarte), San Francisco Solano GBA Buenos Aires 1884",
-   "address": "Calle 899 2690 (Don Alvarez/Iriarte), San Francisco Solano GBA Buenos Aires 1884",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-1334fb294a4c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Andrés Rolón 1002, San Isidro GBA Buenos Aires 1642",
-   "address": "Av. Andrés Rolón 1002, San Isidro GBA Buenos Aires 1642",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ffde44c0fd13",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Illia y Perón San Justo GBA Buenos Aires 1754",
-   "address": "Av. Illia y Perón San Justo GBA Buenos Aires 1754",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-76166b4e6976",
-   "brandId": "axion",
-   "name": "Axion Energy Larralde 3186 Y Ruta 197, Talar del Pacheco GBA Buenos Aires 1617",
-   "address": "Larralde 3186 Y Ruta 197, Talar del Pacheco GBA Buenos Aires 1617",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-bb376e733467",
-   "brandId": "axion",
-   "name": "Axion Energy Camino De La Virgen Maria (Ex Av. De La Cooperacion) y Av. Los Nogales, Tapiales GBA Buenos Aires 1771",
-   "address": "Camino De La Virgen Maria (Ex Av. De La Cooperacion) y Av. Los Nogales, Tapiales GBA Buenos Aires 1771",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4fefa73cb3ec",
-   "brandId": "axion",
-   "name": "Axion Energy Av. de Circunvalación y Del Riego (Mercado Central), Tapiales GBA Buenos Aires 1771",
-   "address": "Av. de Circunvalación y Del Riego (Mercado Central), Tapiales GBA Buenos Aires 1771",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6c44891d5092",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Eva Perón 4199, Temperley GBA Buenos Aires 1834",
-   "address": "Av. Eva Perón 4199, Temperley GBA Buenos Aires 1834",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f2f7332fe280",
-   "brandId": "axion",
-   "name": "Axion Energy Av. de la Rivera 2902, Ituzaingó GBA Buenos Aires 1834",
-   "address": "Av. de la Rivera 2902, Ituzaingó GBA Buenos Aires 1834",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8976bc709d3e",
-   "brandId": "axion",
-   "name": "Axion Energy Eva Perón 3302, Temperley GBA Buenos Aires 1834",
-   "address": "Eva Perón 3302, Temperley GBA Buenos Aires 1834",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d0c0a0a03724",
-   "brandId": "axion",
-   "name": "Axion Energy Directorio 1394 y Callao, Tortuguitas GBA Buenos Aires 1667",
-   "address": "Directorio 1394 y Callao, Tortuguitas GBA Buenos Aires 1667",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d5fc7321011b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Pte. Perón y Rodriguez Peña, Villa Lynch GBA Buenos Aires 1834",
-   "address": "Av. Pte. Perón y Rodriguez Peña, Villa Lynch GBA Buenos Aires 1834",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-57ac6d6a2cf5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. del Libertador 285, Vicente López GBA Buenos Aires 1638",
-   "address": "Av. del Libertador 285, Vicente López GBA Buenos Aires 1638",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f111f6ccb046",
-   "brandId": "axion",
-   "name": "Axion Energy Bardi, Av. Maipú 1055, Vicente López GBA Buenos Aires 1638",
-   "address": "Bardi, Av. Maipú 1055, Vicente López GBA Buenos Aires 1638",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-decbcf2a7e66",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Lemos (Ruta 202 y Los Eucaliptos, Villa de Mayo GBA Buenos Aires 1614",
-   "address": "Av. Gral Lemos (Ruta 202 y Los Eucaliptos, Villa de Mayo GBA Buenos Aires 1614",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a397b0c4ae6a",
-   "brandId": "axion",
-   "name": "Axion Energy Camino Buen Ayre Km. 19, Ituzaingó GBA Buenos Aires 1655",
-   "address": "Camino Buen Ayre Km. 19, Ituzaingó GBA Buenos Aires 1655",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9e18336a1f2e",
-   "brandId": "axion",
-   "name": "Axion Energy Colectora de la Ruta 3 Km. 36,4, Virrey del Pino GBA Buenos Aires 1763",
-   "address": "Colectora de la Ruta 3 Km. 36,4, Virrey del Pino GBA Buenos Aires 1763",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a7181efac8a6",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mitre 5525, Wilde GBA Buenos Aires 1874",
-   "address": "Av. Mitre 5525, Wilde GBA Buenos Aires 1874",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-08f2e7056a13",
-   "brandId": "axion",
-   "name": "Axion Energy Gaspar Campos 1665, Bella Vista GBA Buenos Aires 1661",
-   "address": "Gaspar Campos 1665, Bella Vista GBA Buenos Aires 1661",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-76b8eb5f1245",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rolón 2701, Boulogne GBA Buenos Aires 1609",
-   "address": "Av. Rolón 2701, Boulogne GBA Buenos Aires 1609",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f69762b0d8f5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 3188, Florencio Varela GBA Buenos Aires 1888",
-   "address": "Av. San Martín 3188, Florencio Varela GBA Buenos Aires 1888",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-bf5722ca8d26",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Mitre 1630, Florida GBA Buenos Aires 1604",
-   "address": "Av. Mitre 1630, Florida GBA Buenos Aires 1604",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a405022295d2",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 830, San Martín GBA Buenos Aires 1650",
-   "address": "San Martín 830, San Martín GBA Buenos Aires 1650",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-acfae905d692",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 y Da Vinci, Laferrere GBA Buenos Aires 1757",
-   "address": "Ruta 3 y Da Vinci, Laferrere GBA Buenos Aires 1757",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ec0b0eeaaf1e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Santa Fe 2428, Martínez GBA Buenos Aires 1640",
-   "address": "Av. Santa Fe 2428, Martínez GBA Buenos Aires 1640",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-cf54e481650a",
-   "brandId": "axion",
-   "name": "Axion Energy Santa Marina y Vicente López, Monte Grande GBA Buenos Aires 1842",
-   "address": "Santa Marina y Vicente López, Monte Grande GBA Buenos Aires 1842",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2d1153918ab9",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Libertador 1291 y Gaona, Moreno GBA Buenos Aires 1744",
-   "address": "Av. Libertador 1291 y Gaona, Moreno GBA Buenos Aires 1744",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a8293ad5e2e6",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Don Bosco 2805, Morón GBA Buenos Aires 1708",
-   "address": "Av. Don Bosco 2805, Morón GBA Buenos Aires 1708",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f456bafa8d38",
-   "brandId": "axion",
-   "name": "Axion Energy Colectora 12 de Octubre y Chacabuco, Pilar GBA Buenos Aires 1629",
-   "address": "Colectora 12 de Octubre y Chacabuco, Pilar GBA Buenos Aires 1629",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6fcb27c106a5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Hipólito Yrigoyen 10101, Temperley GBA Buenos Aires 1834",
-   "address": "Av. Hipólito Yrigoyen 10101, Temperley GBA Buenos Aires 1834",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-60cb48100930",
-   "brandId": "axion",
-   "name": "Axion Energy Santos Vega y Palma, Villa Bosch GBA Buenos Aires 1682",
-   "address": "Santos Vega y Palma, Villa Bosch GBA Buenos Aires 1682",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f16f924d0ddb",
-   "brandId": "axion",
-   "name": "Axion Energy Camino de Cintura y Calle Olimpo 9 de Abril Buenos Aires 1839",
-   "address": "Camino de Cintura y Calle Olimpo 9 de Abril Buenos Aires 1839",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a6b511df04e3",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín y N L Robbio 9 de Julio Buenos Aires 6500",
-   "address": "Av. San Martín y N L Robbio 9 de Julio Buenos Aires 6500",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9b6374dd2e80",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 5 Km. 190,5 Alberti Buenos Aires 6640",
-   "address": "Ruta Nacional 5 Km. 190,5 Alberti Buenos Aires 6640",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-91cc95c8368c",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen 29213 Alejandro Korn Buenos Aires 1864",
-   "address": "Hipólito Yrigoyen 29213 Alejandro Korn Buenos Aires 1864",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-14ced80c2620",
-   "brandId": "axion",
-   "name": "Axion Energy Dindart 1302 esquina Miguens Ayacucho Buenos Aires 7150",
-   "address": "Dindart 1302 esquina Miguens Ayacucho Buenos Aires 7150",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-3d9bf8453284",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 29 y Ruta Provincial 74 Ayacucho Buenos Aires 7150",
-   "address": "Ruta Provincial 29 y Ruta Provincial 74 Ayacucho Buenos Aires 7150",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6c19cc90ca61",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 3 Km. 298 Azul Buenos Aires 7300",
-   "address": "Ruta Nacional 3 Km. 298 Azul Buenos Aires 7300",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b2919b704d66",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Alem 1086 Bahía Blanca Buenos Aires 8000",
-   "address": "Av. Alem 1086 Bahía Blanca Buenos Aires 8000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f95a634100dc",
-   "brandId": "axion",
-   "name": "Axion Energy Pilmayquen 30 Bahía Blanca Buenos Aires 8000",
-   "address": "Pilmayquen 30 Bahía Blanca Buenos Aires 8000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4d5a419fe0d3",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 y Ruta 252 Bahía Blanca Buenos Aires 8000",
-   "address": "Ruta 3 y Ruta 252 Bahía Blanca Buenos Aires 8000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-eb8adaa0e6f6",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento y R. Carrillo Bahía Blanca Buenos Aires 8000",
-   "address": "Sarmiento y R. Carrillo Bahía Blanca Buenos Aires 8000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-020e855a4a98",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Ameghino Baradero Buenos Aires 2942",
-   "address": "San Martín y Ameghino Baradero Buenos Aires 2942",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ce1169eb0e45",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Paz y Roca Bolivar Buenos Aires 6550",
-   "address": "Av. Gral Paz y Roca Bolivar Buenos Aires 6550",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e8ff327a4a49",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Sesquicentenario y Ruta Nacional 3 Bordeu Buenos Aires 8000",
-   "address": "Av. Sesquicentenario y Ruta Nacional 3 Bordeu Buenos Aires 8000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-12bd4c05b09d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia 975 Campana Buenos Aires 2804",
-   "address": "Av. Rivadavia 975 Campana Buenos Aires 2804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-95684398f29e",
-   "brandId": "axion",
-   "name": "Axion Energy Mitre 852 Campana Buenos Aires 2804",
-   "address": "Mitre 852 Campana Buenos Aires 2804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b11db23ed17a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 12 Km. 78.5 Campana Buenos Aires 2804",
-   "address": "Ruta Nacional 12 Km. 78.5 Campana Buenos Aires 2804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-208f1705d03f",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 y Coronel Larrabure Campana Buenos Aires 2804",
-   "address": "Ruta Nacional 9 y Coronel Larrabure Campana Buenos Aires 2804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e956980375f3",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 6 de Julio 1358 Campana Buenos Aires 2804",
-   "address": "Av. 6 de Julio 1358 Campana Buenos Aires 2804",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0d993bdf7d51",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 Km. 67.200 Cañuelas Buenos Aires 1814",
-   "address": "Ruta 3 Km. 67.200 Cañuelas Buenos Aires 1814",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-909e587dc072",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 y Ruta 205 Cañuelas Buenos Aires 1814",
-   "address": "Ruta 3 y Ruta 205 Cañuelas Buenos Aires 1814",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6987575682c2",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 5 Km 309 Carlos Casares Buenos Aires 6530",
-   "address": "Ruta 5 Km 309 Carlos Casares Buenos Aires 6530",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2fcec28c842c",
-   "brandId": "axion",
-   "name": "Axion Energy Comodoro Rivadavia 315 Carmen de Patagones Buenos Aires 8504",
-   "address": "Comodoro Rivadavia 315 Carmen de Patagones Buenos Aires 8504",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-3406b0917e02",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 33 Km. 233 Casbas Buenos Aires 6417",
-   "address": "Ruta Nacional 33 Km. 233 Casbas Buenos Aires 6417",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-cef163c90e1d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Sarmiento 93 Chivilcoy Buenos Aires 6620",
-   "address": "Av. Sarmiento 93 Chivilcoy Buenos Aires 6620",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-33882d7e5dfa",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Centenario y Calle 466 City Bell Buenos Aires 1896",
-   "address": "Av. Centenario y Calle 466 City Bell Buenos Aires 1896",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7f81c95a8d48",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 501 esquina Siria Coronel Coronel Dorrego Buenos Aires 8150",
-   "address": "San Martín 501 esquina Siria Coronel Coronel Dorrego Buenos Aires 8150",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-be16575fa65f",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 51 y Ruta 85 Km 108 Coronel Pringles Buenos Aires 7530",
-   "address": "Ruta 51 y Ruta 85 Km 108 Coronel Pringles Buenos Aires 7530",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4a28a3d9a9bd",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 299 Coronel Vidal Buenos Aires 7174",
-   "address": "San Martín 299 Coronel Vidal Buenos Aires 7174",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-11f18efe72ab",
-   "brandId": "axion",
-   "name": "Axion Energy Las Heras 611 General Lamadrid Buenos Aires 7406",
-   "address": "Las Heras 611 General Lamadrid Buenos Aires 7406",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8d588ec1735a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 11 y B Mitre 0 General Lavalle Buenos Aires 7103",
-   "address": "Ruta 11 y B Mitre 0 General Lavalle Buenos Aires 7103",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-65ab8244792a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 74 y Calle 26 General Madariaga Buenos Aires 7163",
-   "address": "Ruta 74 y Calle 26 General Madariaga Buenos Aires 7163",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8188a3e7892d",
-   "brandId": "axion",
-   "name": "Axion Energy Moreno y Mitre General Villegas Buenos Aires 1685",
-   "address": "Moreno y Mitre General Villegas Buenos Aires 1685",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8a0988768471",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 7 y Dr. Benito de Miguel Junín Buenos Aires 6000",
-   "address": "Ruta Nacional 7 y Dr. Benito de Miguel Junín Buenos Aires 6000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-16e687125794",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 66 esquina 143 La Plata Buenos Aires 1900",
-   "address": "Av. 66 esquina 143 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a1fc68b95551",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 131 esquina Calle 62 La Plata Buenos Aires 1900",
-   "address": "Calle 131 esquina Calle 62 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-34f563ddaf37",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 28 nro. 5 La Plata Buenos Aires 1902",
-   "address": "Calle 28 nro. 5 La Plata Buenos Aires 1902",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-75f053ae7e35",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 32 y 137 La Plata Buenos Aires 1900",
-   "address": "Calle 32 y 137 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-570652295a9c",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 7 y 511 La Plata Buenos Aires 1900",
-   "address": "Calle 7 y 511 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c50c7b08d027",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 7 y 85 La Plata Buenos Aires 1914",
-   "address": "Calle 7 y 85 La Plata Buenos Aires 1914",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b7ef1de6741e",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 72 N° 780 La Plata Buenos Aires 1900",
-   "address": "Calle 72 N° 780 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-bec3b7e5038f",
-   "brandId": "axion",
-   "name": "Axion Energy Diagonal 77 - 673 La Plata Buenos Aires 1902",
-   "address": "Diagonal 77 - 673 La Plata Buenos Aires 1902",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-25bafa2d8022",
-   "brandId": "axion",
-   "name": "Axion Energy Cno. De Cintura y M. Sastre Lavallol Buenos Aires 1836",
-   "address": "Cno. De Cintura y M. Sastre Lavallol Buenos Aires 1836",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-b4480f355388",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Antártida Argentina y FRM Lavallol Buenos Aires 1836",
-   "address": "Av. Antártida Argentina y FRM Lavallol Buenos Aires 1836",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f869bc4f01d0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Massey y Ameghino Lincoln Buenos Aires 6070",
-   "address": "Av. Massey y Ameghino Lincoln Buenos Aires 6070",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-09eb66a30ea0",
-   "brandId": "axion",
-   "name": "Axion Energy García Tuñon 802 Lincoln Buenos Aires 6070",
-   "address": "García Tuñon 802 Lincoln Buenos Aires 6070",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7666b5d9f169",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Campos 102 Lobería Buenos Aires 7635",
-   "address": "Av. Campos 102 Lobería Buenos Aires 7635",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7146de4f95f6",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen y Arevalo Lobos Buenos Aires 7240",
-   "address": "Hipólito Yrigoyen y Arevalo Lobos Buenos Aires 7240",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d04c4f029a08",
-   "brandId": "axion",
-   "name": "Axion Energy Acceso Oeste Km. 65,5 Luján Buenos Aires 6702",
-   "address": "Acceso Oeste Km. 65,5 Luján Buenos Aires 6702",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0ac6e410eb88",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Constitución 1885 Luján Buenos Aires 6700",
-   "address": "Av. Constitución 1885 Luján Buenos Aires 6700",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a37e43c62967",
-   "brandId": "axion",
-   "name": "Axion Energy Carlos Pellegrini esquina Las Orquideas Luján Buenos Aires 6702",
-   "address": "Carlos Pellegrini esquina Las Orquideas Luján Buenos Aires 6702",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-448d6f9b2b13",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 5 Km. 66,200 Luján Buenos Aires 6702",
-   "address": "Ruta 5 Km. 66,200 Luján Buenos Aires 6702",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-32e1f3f0c86c",
-   "brandId": "axion",
-   "name": "Axion Energy Constitución 4703 Mar del Plata Buenos Aires 7600",
-   "address": "Constitución 4703 Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-8c32141b6bdb",
-   "brandId": "axion",
-   "name": "Axion Energy Juan B. Justo y M. De Hoz Mar del Plata Buenos Aires 7600",
-   "address": "Juan B. Justo y M. De Hoz Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-bec5f5c07b22",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 226 Km. 7,5 Mar del Plata Buenos Aires 7600",
-   "address": "Ruta 226 Km. 7,5 Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ffdd8643e969",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Juan B Justo 6065 Mar del Plata Buenos Aires 7600",
-   "address": "Av. Juan B Justo 6065 Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d2e8aaed88d1",
-   "brandId": "axion",
-   "name": "Axion Energy Colón 5002 Mar del Plata Buenos Aires 7600",
-   "address": "Colón 5002 Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-de004fd6e19d",
-   "brandId": "axion",
-   "name": "Axion Energy Moreno 3151 esquina Catamarca Mar del Plata Buenos Aires 7600",
-   "address": "Moreno 3151 esquina Catamarca Mar del Plata Buenos Aires 7600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2f5bbd8bb5ec",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 11 Km. 327,6 Mar del Tuyú Buenos Aires 7108",
-   "address": "Ruta Nacional 11 Km. 327,6 Mar del Tuyú Buenos Aires 7108",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-38e88c129ce2",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Sarmiento (Ruta Nacional 25 Km. 25) esquina San Alejandro Matheu Buenos Aires 1627",
-   "address": "Av. Sarmiento (Ruta Nacional 25 Km. 25) esquina San Alejandro Matheu Buenos Aires 1627",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-795bd8a1e6fd",
-   "brandId": "axion",
-   "name": "Axion Energy Ex Ruta 5 Km. 100 Mercedes Buenos Aires 6600",
-   "address": "Ex Ruta 5 Km. 100 Mercedes Buenos Aires 6600",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-c884c0f20468",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Calle Real 464 esquina Aristobulo del Valle Merlo Buenos Aires 1722",
-   "address": "Av. Calle Real 464 esquina Aristobulo del Valle Merlo Buenos Aires 1722",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7422fc8d6dc6",
-   "brandId": "axion",
-   "name": "Axion Energy Irigoyen y San Juan Merlo Buenos Aires 1072",
-   "address": "Irigoyen y San Juan Merlo Buenos Aires 1072",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a4ea2f49df81",
-   "brandId": "axion",
-   "name": "Axion Energy Ricardo Balbin 7520 Merlo Buenos Aires 1724",
-   "address": "Ricardo Balbin 7520 Merlo Buenos Aires 1724",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4d03364debb6",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 200 y Mendoza Merlo Buenos Aires 1722",
-   "address": "Ruta 200 y Mendoza Merlo Buenos Aires 1722",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-29d78a6c874f",
-   "brandId": "axion",
-   "name": "Axion Energy Eva Perón 6205 Merlo Buenos Aires 1716",
-   "address": "Eva Perón 6205 Merlo Buenos Aires 1716",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-cf7f090a51f3",
-   "brandId": "axion",
-   "name": "Axion Energy Emilio Zola 21 Merlo Buenos Aires 1722",
-   "address": "Emilio Zola 21 Merlo Buenos Aires 1722",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-059bff48413b",
-   "brandId": "axion",
-   "name": "Axion Energy Calle 59 esquina 80 Necochea Buenos Aires 7630",
-   "address": "Calle 59 esquina 80 Necochea Buenos Aires 7630",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-ce2041095e6b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Colón 1588 Olavarría Buenos Aires 7400",
-   "address": "Av. Colón 1588 Olavarría Buenos Aires 7400",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-01e33991947e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Avellaneda y Urquiza 970 Olavarría Buenos Aires 7400",
-   "address": "Av. Avellaneda y Urquiza 970 Olavarría Buenos Aires 7400",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-2d1c6a419d59",
-   "brandId": "axion",
-   "name": "Axion Energy Moreno y Belgrano Olavarría Buenos Aires 7400",
-   "address": "Moreno y Belgrano Olavarría Buenos Aires 7400",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-250de439a5f5",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 226 y Rivadavia Olavarría Buenos Aires 7400",
-   "address": "Ruta Nacional 226 y Rivadavia Olavarría Buenos Aires 7400",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-e728a5325103",
-   "brandId": "axion",
-   "name": "Axion Energy Acceso Güemes 410 esquina Martín Coronado Pehuajo Buenos Aires 6450",
-   "address": "Acceso Güemes 410 esquina Martín Coronado Pehuajo Buenos Aires 6450",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-6b7c2c20b63e",
-   "brandId": "axion",
-   "name": "Axion Energy Avellaneda y Neuquén Pehuajo Buenos Aires 6450",
-   "address": "Avellaneda y Neuquén Pehuajo Buenos Aires 6450",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5f3fc97197a1",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 5 Km 366 Pehuajó Buenos Aires 6450",
-   "address": "Ruta Nacional 5 Km 366 Pehuajó Buenos Aires 6450",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7efc68cd8ce7",
-   "brandId": "axion",
-   "name": "Axion Energy Ameghino 799 Pergamino Buenos Aires 2700",
-   "address": "Ameghino 799 Pergamino Buenos Aires 2700",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4bb3869129c1",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Colón 499 Pergamino Buenos Aires 2700",
-   "address": "Av. Colón 499 Pergamino Buenos Aires 2700",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9d8bca71de3f",
-   "brandId": "axion",
-   "name": "Axion Energy H. Irigoyen 200 Pergamino Buenos Aires 2700",
-   "address": "H. Irigoyen 200 Pergamino Buenos Aires 2700",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-7983fee6e022",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 33 Km. 464,8 Piedritas Buenos Aires 6241",
-   "address": "Ruta 33 Km. 464,8 Piedritas Buenos Aires 6241",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-69657e2ab89c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Avellaneda y Numa Ayrinhac Pigüe Buenos Aires 8170",
-   "address": "Av. Avellaneda y Numa Ayrinhac Pigüe Buenos Aires 8170",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-eec1359df693",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Bunge e Intermedanos Pinamar Buenos Aires 7167",
-   "address": "Av. Bunge e Intermedanos Pinamar Buenos Aires 7167",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-33129860b364",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 3 Km. 810,5 Pradere Buenos Aires 8255",
-   "address": "Ruta Nacional 3 Km. 810,5 Pradere Buenos Aires 8255",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-76296b9aa9f9",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 206 Ramallo Buenos Aires 2915",
-   "address": "Ruta Nacional 9 Km. 206 Ramallo Buenos Aires 2915",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-56c9614df626",
-   "brandId": "axion",
-   "name": "Axion Energy Tarigo 1109 Roque Perez Buenos Aires 7245",
-   "address": "Tarigo 1109 Roque Perez Buenos Aires 7245",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-070e436128da",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 7 Km. 101,8 San Andres de Giles Buenos Aires 6720",
-   "address": "Ruta 7 Km. 101,8 San Andres de Giles Buenos Aires 6720",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-da7c7fa6f66e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Alvear y Ruta 8 San Antonio de Areco Buenos Aires 2760",
-   "address": "Av. Alvear y Ruta 8 San Antonio de Areco Buenos Aires 2760",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4f66172c6758",
-   "brandId": "axion",
-   "name": "Axion Energy Mitre y San Lorenzo, San Miguel San Miguel Buenos Aires 1663",
-   "address": "Mitre y San Lorenzo, San Miguel San Miguel Buenos Aires 1663",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f9bf47de5203",
-   "brandId": "axion",
-   "name": "Axion Energy Presidente Perón 2538, San Miguel San Miguel Buenos Aires 1663",
-   "address": "Presidente Perón 2538, San Miguel San Miguel Buenos Aires 1663",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-559d5cb547ea",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Salvio 665 San Nicolás Buenos Aires 2900",
-   "address": "Av. Gral Salvio 665 San Nicolás Buenos Aires 2900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-82d13604ba4a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Santamarina 699 Tandil Buenos Aires 7000",
-   "address": "Av. Santamarina 699 Tandil Buenos Aires 7000",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-3b7a9b3b0e94",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 228 y Av. Monteagudo Tres Arroyos Buenos Aires 7500",
-   "address": "Ruta 228 y Av. Monteagudo Tres Arroyos Buenos Aires 7500",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a3e608eeeb3f",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 3 y Gral. San Martín Tres Arroyos Buenos Aires 7500",
-   "address": "Ruta Nacional 3 y Gral. San Martín Tres Arroyos Buenos Aires 7500",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d6858ad10321",
-   "brandId": "axion",
-   "name": "Axion Energy G. del Soldato 417 Tres Lomas Buenos Aires 6409",
-   "address": "G. del Soldato 417 Tres Lomas Buenos Aires 6409",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-9bd42b1de362",
-   "brandId": "axion",
-   "name": "Axion Energy Camino Centenario 785 y calle 422 Villa Elisa Buenos Aires 1894",
-   "address": "Camino Centenario 785 y calle 422 Villa Elisa Buenos Aires 1894",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-0c1f97bbd6fc",
-   "brandId": "axion",
-   "name": "Axion Energy Camino Gral. Belgrano y Av. Arana Villa Elisa Buenos Aires 1894",
-   "address": "Camino Gral. Belgrano y Av. Arana Villa Elisa Buenos Aires 1894",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4cf61b11cf0f",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Silvio Gesell y Paseo 107 Villa Gesell Buenos Aires 7165",
-   "address": "Bv. Silvio Gesell y Paseo 107 Villa Gesell Buenos Aires 7165",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-355a5190b15c",
-   "brandId": "axion",
-   "name": "Axion Energy 19 de Marzo e Ituzaingó Zárate Buenos Aires 2800",
-   "address": "19 de Marzo e Ituzaingó Zárate Buenos Aires 2800",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-a079cdc38d8a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 193 y Ruta Nacional 12 Zárate Buenos Aires 2800",
-   "address": "Ruta Nacional 193 y Ruta Nacional 12 Zárate Buenos Aires 2800",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-f387deb97669",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 92 Zárate Buenos Aires 2800",
-   "address": "Ruta Nacional 9 Km. 92 Zárate Buenos Aires 2800",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-d98fce81012a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 157 Km. 969 y Pje. Güemes Recreo Catamarca 5260",
-   "address": "Ruta Nacional 157 Km. 969 y Pje. Güemes Recreo Catamarca 5260",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-bf8994ad4eee",
-   "brandId": "axion",
-   "name": "Axion Energy Av Güemes 1275 San Fernando del Valle de Catamarca Catamarca 4700",
-   "address": "Av Güemes 1275 San Fernando del Valle de Catamarca Catamarca 4700",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-a3674062fd98",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Guemes y Junín San Fernando del Valle de Catamarca Catamarca 4700",
-   "address": "Av. Guemes y Junín San Fernando del Valle de Catamarca Catamarca 4700",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-05795bb27e3f",
-   "brandId": "axion",
-   "name": "Axion Energy Belgrano y Tucumán San Fernando del Valle de Catamarca Catamarca 4700",
-   "address": "Belgrano y Tucumán San Fernando del Valle de Catamarca Catamarca 4700",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-9b44ea8bc0b9",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Pres. Castillo 1160 San Fernando del Valle de Catamarca Catamarca 4700",
-   "address": "Av. Pres. Castillo 1160 San Fernando del Valle de Catamarca Catamarca 4700",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-8edf576b817b",
-   "brandId": "axion",
-   "name": "Axion Energy Yriyoyen esquina Córdoba San Fernando del Valle de Catamarca Catamarca 4700",
-   "address": "Yriyoyen esquina Córdoba San Fernando del Valle de Catamarca Catamarca 4700",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-bc6124a7b902",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 38 y Circunvalación San Isidro Catamarca 4707",
-   "address": "Ruta 38 y Circunvalación San Isidro Catamarca 4707",
-   "region": "CATAMARCA"
-  },
-  {
-   "id": "axion-11f0d209296f",
-   "brandId": "axion",
-   "name": "Axion Energy Diag. Eva Perón 750 Barranqueras Chaco 3503",
-   "address": "Diag. Eva Perón 750 Barranqueras Chaco 3503",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-6bed41ddaf60",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Belgrano Casteli Chaco 3705",
-   "address": "San Martín y Belgrano Casteli Chaco 3705",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-87a77be36f48",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 90 y Acceso General San Martín Chaco 3509",
-   "address": "Ruta 90 y Acceso General San Martín Chaco 3509",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-81f2b38447b9",
-   "brandId": "axion",
-   "name": "Axion Energy 25 de Mayo 201 esquina Vedia Resistencia Chaco 3500",
-   "address": "25 de Mayo 201 esquina Vedia Resistencia Chaco 3500",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-ca35b7af0af5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 25 de Mayo 4060 Resistencia Chaco 3500",
-   "address": "Av. 25 de Mayo 4060 Resistencia Chaco 3500",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-37acb8c7eb5b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 9 de Julio 1501 Resistencia Chaco 3508",
-   "address": "Av. 9 de Julio 1501 Resistencia Chaco 3508",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-e7aa949beb73",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 16 Km. 14.5 Resistencia Chaco 3500",
-   "address": "Ruta Nacional 16 Km. 14.5 Resistencia Chaco 3500",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-3e08ac137a1d",
-   "brandId": "axion",
-   "name": "Axion Energy M Belgrano 802 Rodríguez S Peña Chaco 3700",
-   "address": "M Belgrano 802 Rodríguez S Peña Chaco 3700",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-041297ccd504",
-   "brandId": "axion",
-   "name": "Axion Energy Mariano Moreno y esq. Pueyrredón Roque Saenz Peña Chaco 3700",
-   "address": "Mariano Moreno y esq. Pueyrredón Roque Saenz Peña Chaco 3700",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-c7154b918268",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Uruguay y Av. Kennedy Villa Angela Chaco 3540",
-   "address": "Av. Uruguay y Av. Kennedy Villa Angela Chaco 3540",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-ceaea519c690",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Julio Argentino Roca 21 Comodoro Rivadavia Chubut 9000",
-   "address": "Av. Julio Argentino Roca 21 Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-45347d9c44a6",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Kennedy e Islas Leones Comodoro Rivadavia Chubut 9003",
-   "address": "Av. Kennedy e Islas Leones Comodoro Rivadavia Chubut 9003",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-da0c762140d0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia 2750 Comodoro Rivadavia Chubut 9002",
-   "address": "Av. Rivadavia 2750 Comodoro Rivadavia Chubut 9002",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-a09b628dfacc",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia y Alvear Comodoro Rivadavia Chubut 9000",
-   "address": "Av. Rivadavia y Alvear Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-a6ed31db3b19",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Hipólito Yrigoyen y Juan B. Justo Comodoro Rivadavia Chubut 9000",
-   "address": "Av. Hipólito Yrigoyen y Juan B. Justo Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-44921237254b",
-   "brandId": "axion",
-   "name": "Axion Energy Hipólito Yrigoyen (Ruta 3 Km. 1848) 5353 Comodoro Rivadavia Chubut 9000",
-   "address": "Hipólito Yrigoyen (Ruta 3 Km. 1848) 5353 Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-2ff6f351b2dd",
-   "brandId": "axion",
-   "name": "Axion Energy Av. John F. Kennedy 3398 Comodoro Rivadavia Chubut 9000",
-   "address": "Av. John F. Kennedy 3398 Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-2020828257e6",
-   "brandId": "axion",
-   "name": "Axion Energy Rivadavia 38 Comodoro Rivadavia Chubut 9000",
-   "address": "Rivadavia 38 Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-8947ce152a84",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 y acceso Aeropuerto Comodoro Rivadavia Chubut 9000",
-   "address": "Ruta 3 y acceso Aeropuerto Comodoro Rivadavia Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-aff6cf089fa7",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 1 Km 80 Escalante Chubut 9000",
-   "address": "Ruta 1 Km 80 Escalante Chubut 9000",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-17e107d6d998",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 259 y J. Lezama Esquel Chubut 9200",
-   "address": "Ruta Nacional 259 y J. Lezama Esquel Chubut 9200",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-08131403dd8c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral. Roca y Villarino Puerto Madryn Chubut 9120",
-   "address": "Av. Gral. Roca y Villarino Puerto Madryn Chubut 9120",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-3e818477eca0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Muzzio y Fte. San José 429 Puerto Madryn Chubut 9120",
-   "address": "Av. Muzzio y Fte. San José 429 Puerto Madryn Chubut 9120",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-6797e93fa19b",
-   "brandId": "axion",
-   "name": "Axion Energy María Eva Duarte 949 Rawson Chubut 9103",
-   "address": "María Eva Duarte 949 Rawson Chubut 9103",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-fd70b3f2484b",
-   "brandId": "axion",
-   "name": "Axion Energy Rivadavia y Federici Rawson Chubut 9103",
-   "address": "Rivadavia y Federici Rawson Chubut 9103",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-577fcab30f4c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Estrada y Roca Sarmiento Chubut 9120",
-   "address": "Av. Estrada y Roca Sarmiento Chubut 9120",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-a072f15e5486",
-   "brandId": "axion",
-   "name": "Axion EnergyRuta Provincial 20 y Av. Regimiento de Infantería N°25 Sarmiento Chubut 9120",
-   "address": "Ruta Provincial 20 y Av. Regimiento de Infantería N°25 Sarmiento Chubut 9120",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-0258e1a058f7",
-   "brandId": "axion",
-   "name": "Axion Energy Centenario y Sob. Nación Trelew Chubut 9100",
-   "address": "Centenario y Sob. Nación Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-a040ee798db3",
-   "brandId": "axion",
-   "name": "Axion Energy Colombia 440 Trelew Chubut 9100",
-   "address": "Colombia 440 Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-0d49b00745f6",
-   "brandId": "axion",
-   "name": "Axion Energy Pellegrini 1480 Trelew Chubut 9100",
-   "address": "Pellegrini 1480 Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-0d9e1de8e908",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 Km. 1453 Trelew Chubut 9100",
-   "address": "Ruta 3 Km. 1453 Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-55a20d9b465a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 Km. 1470 (Provincial 25) Trelew Chubut 9100",
-   "address": "Ruta 3 Km. 1470 (Provincial 25) Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-e760a56db841",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 1312 esquina Entre Ríos Trelew Chubut 9100",
-   "address": "San Martín 1312 esquina Entre Ríos Trelew Chubut 9100",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-2ec953f12f6e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Patagonia y Rhis Thomas Trevelin Chubut 9203",
-   "address": "Av. Patagonia y Rhis Thomas Trevelin Chubut 9203",
-   "region": "CHUBUT"
-  },
-  {
-   "id": "axion-acc3f66b0f5c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. del Libertador Gral. San Martín 1980 Alta Gracia Córdoba 5186",
-   "address": "Av. del Libertador Gral. San Martín 1980 Alta Gracia Córdoba 5186",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-96b44c8d133b",
-   "brandId": "axion",
-   "name": "Axion Energy Lucio V. Rossi 41 esquina Ruta Prov 45 Alta Gracia Córdoba 5186",
-   "address": "Lucio V. Rossi 41 esquina Ruta Prov 45 Alta Gracia Córdoba 5186",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-b1c1d7cec642",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 5 y Calle 14 Alta Gracia Córdoba 5186",
-   "address": "Ruta 5 y Calle 14 Alta Gracia Córdoba 5186",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-6a1bb4fdaa54",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 45 y Guemes (Rotonda) Alta Gracia Córdoba 5186",
-   "address": "Ruta 45 y Guemes (Rotonda) Alta Gracia Córdoba 5186",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-0e7a490b6e31",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Recta Martinolli 7365 Argüello Córdoba 5021",
-   "address": "Av. Recta Martinolli 7365 Argüello Córdoba 5021",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-a3872b7a0a02",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 19 Km. 222 Arroyito Córdoba 2434",
-   "address": "Ruta Nacional 19 Km. 222 Arroyito Córdoba 2434",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-28f799bb7cf1",
-   "brandId": "axion",
-   "name": "Axion Energy Tucumán esquina Viqueira Bell Ville Córdoba 2550",
-   "address": "Tucumán esquina Viqueira Bell Ville Córdoba 2550",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-75d130d86778",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Int. Giaveno 11 Brinckmann Córdoba 2419",
-   "address": "Bv. Int. Giaveno 11 Brinckmann Córdoba 2419",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-a3c487057092",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 751 Colonia Caroya Córdoba 5223",
-   "address": "Ruta Nacional 9 Km. 751 Colonia Caroya Córdoba 5223",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-25f6ecd65bb6",
-   "brandId": "axion",
-   "name": "Axion Energy Av. O´Higgins 5375 Córdoba Córdoba 5014",
-   "address": "Av. O´Higgins 5375 Córdoba Córdoba 5014",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-1338fb4d96a0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 11 de Septiembre 2990 Córdoba Córdoba 5000",
-   "address": "Av. 11 de Septiembre 2990 Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-6c338251da48",
-   "brandId": "axion",
-   "name": "Axion Energy A. Sabattini 4720 Córdoba Córdoba 5006",
-   "address": "A. Sabattini 4720 Córdoba Córdoba 5006",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-d3eb566c6ba0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Armada Argentina 787 Córdoba Córdoba 5000",
-   "address": "Av. Armada Argentina 787 Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-0013684a1b0c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Fuerza Aerea 1699 Córdoba Córdoba 5000",
-   "address": "Av. Fuerza Aerea 1699 Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-237778a05fea",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Juan B. Justo mano al Norte, esquina Nuestra Sra. de los Milagros Córdoba Córdoba 5000",
-   "address": "Av. Juan B. Justo mano al Norte, esquina Nuestra Sra. de los Milagros Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-b56831fbac97",
-   "brandId": "axion",
-   "name": "Axion Energy Av. las Malvinas 2145 Córdoba Córdoba 5012",
-   "address": "Av. las Malvinas 2145 Córdoba Córdoba 5012",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-da4f72293983",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Malagueño 2818 esquina Haucha 2615 Córdoba Córdoba 5000",
-   "address": "Av. Malagueño 2818 esquina Haucha 2615 Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-bb3a0e2d2107",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Amadeo Sabattini 5815 Córdoba Córdoba 5123",
-   "address": "Av. Amadeo Sabattini 5815 Córdoba Córdoba 5123",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-00818d74725d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Vélez Sarsfield 5030 Córdoba Córdoba 5016",
-   "address": "Av. Vélez Sarsfield 5030 Córdoba Córdoba 5016",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-26ef469e2e28",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Colón y Cayetano Silva Córdoba Córdoba 5003",
-   "address": "Av. Colón y Cayetano Silva Córdoba Córdoba 5003",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-6a77c2a19028",
-   "brandId": "axion",
-   "name": "Axion Energy Av. E. Bodereau 9185 esquina Agua Sacha Córdoba Córdoba 5018",
-   "address": "Av. E. Bodereau 9185 esquina Agua Sacha Córdoba Córdoba 5018",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-64962ea44339",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Fuerza Aerea Argentina 4510 Córdoba Córdoba 5010",
-   "address": "Av. Fuerza Aerea Argentina 4510 Córdoba Córdoba 5010",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-a95985d67ec4",
-   "brandId": "axion",
-   "name": "Axion Energy Manuel Baigorria 1300 Córdoba Córdoba 5016",
-   "address": "Manuel Baigorria 1300 Córdoba Córdoba 5016",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-4038664982f0",
-   "brandId": "axion",
-   "name": "Axion Energy Bulnes 1108 esquina Luque Córdoba Córdoba 5000",
-   "address": "Bulnes 1108 esquina Luque Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-99240bf3ed30",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Guzman y Alvear Córdoba Córdoba 2580",
-   "address": "Bv. Guzman y Alvear Córdoba Córdoba 2580",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-1707ad9b91c5",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Juan B. Justo 5225 Córdoba Córdoba 5001",
-   "address": "Av. Juan B. Justo 5225 Córdoba Córdoba 5001",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-3f1fbf5fcfcf",
-   "brandId": "axion",
-   "name": "Axion Energy Monseñor Pablo Cabrera 1807 Córdoba Córdoba 5000",
-   "address": "Monseñor Pablo Cabrera 1807 Córdoba Córdoba 5000",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-4727127ff77a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 9 de Julio y Av. Ranqueles Coronel Moldes Córdoba 5847",
-   "address": "Av. 9 de Julio y Av. Ranqueles Coronel Moldes Córdoba 5847",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-c309e2f37895",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 158 y Ruta Nacional 6 s/n Dalmacio Córdoba 5919",
-   "address": "Ruta Nacional 158 y Ruta Nacional 6 s/n Dalmacio Córdoba 5919",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-2a5e4c0eadfc",
-   "brandId": "axion",
-   "name": "Axion Energy Pasaje Mitre y Ruta 19 Devoto Córdoba 6273",
-   "address": "Pasaje Mitre y Ruta 19 Devoto Córdoba 6273",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-034b9285f16c",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 158 y Acceso a Freyre Freyre Córdoba 2413",
-   "address": "Ruta 158 y Acceso a Freyre Freyre Córdoba 2413",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-a062132d53b4",
-   "brandId": "axion",
-   "name": "Axion Energy Buenos Aires 720 General Deheza Córdoba 5923",
-   "address": "Buenos Aires 720 General Deheza Córdoba 5923",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-daf543f03eae",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. Moreno 850 esquina J.B. Alberdi Hernando Córdoba 5929",
-   "address": "Blvd. Moreno 850 esquina J.B. Alberdi Hernando Córdoba 5929",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-33b900abe9b9",
-   "brandId": "axion",
-   "name": "Axion Energy Beltrán e Yrigoyen Huinca Renanco Córdoba 5974",
-   "address": "Beltrán e Yrigoyen Huinca Renanco Córdoba 5974",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-2c22ea1e7443",
-   "brandId": "axion",
-   "name": "Axion Energy Av. España 643 La Falda Córdoba 5172",
-   "address": "Av. España 643 La Falda Córdoba 5172",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-01a0d6af67f0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Buenos Aires 397 La Falda Córdoba 5172",
-   "address": "Av. Buenos Aires 397 La Falda Córdoba 5172",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-74376abeee66",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 7 Km. 487 Laboulaye Córdoba 6120",
-   "address": "Ruta Nacional 7 Km. 487 Laboulaye Córdoba 6120",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-7fc0c4bf1d4b",
-   "brandId": "axion",
-   "name": "Axion Energy Muñiz y Ruta 158 Las Higueras Córdoba 5805",
-   "address": "Muñiz y Ruta 158 Las Higueras Córdoba 5805",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-c83876671bef",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 463 Leones Córdoba 2594",
-   "address": "Ruta Nacional 9 Km. 463 Leones Córdoba 2594",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-b806186da498",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Hipólito Yrigoyen 1101 esquina Moreno Morteros Córdoba 2421",
-   "address": "Bv. Hipólito Yrigoyen 1101 esquina Moreno Morteros Córdoba 2421",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-50d11a897e6b",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 629,5 Oncativo Córdoba 5986",
-   "address": "Ruta Nacional 9 Km. 629,5 Oncativo Córdoba 5986",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-d41d8467ed1a",
-   "brandId": "axion",
-   "name": "Axion Energy 25 de Mayo y Pasaje Colón Porteña Córdoba 2415",
-   "address": "25 de Mayo y Pasaje Colón Porteña Córdoba 2415",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-65bd376e373b",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 158 esquina Diagonal Este Pozo de Molle Córdoba 5913",
-   "address": "Ruta Nacional 158 esquina Diagonal Este Pozo de Molle Córdoba 5913",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-f5e585be3af4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta E53 y Amadeo Sabattini Río Ceballos Córdoba 5111",
-   "address": "Ruta E53 y Amadeo Sabattini Río Ceballos Córdoba 5111",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-de6b1f0692d0",
-   "brandId": "axion",
-   "name": "Axion Energy Pedro Goyena 495 Río Cuarto Córdoba 5808",
-   "address": "Pedro Goyena 495 Río Cuarto Córdoba 5808",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-426e793d998b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín esquina Enlace Rutas 8 Río Cuarto Córdoba 5808",
-   "address": "Av. San Martín esquina Enlace Rutas 8 Río Cuarto Córdoba 5808",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-61375d169a4d",
-   "brandId": "axion",
-   "name": "Axion Energy Cmte. Martín Quenon esquina José Manuel Estrada Río Cuarto Córdoba 5808",
-   "address": "Cmte. Martín Quenon esquina José Manuel Estrada Río Cuarto Córdoba 5808",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-2fdfeff0711c",
-   "brandId": "axion",
-   "name": "Axion Energy Tierras del Fuego 2019 y Ruta A005 Río Cuarto Córdoba 5808",
-   "address": "Tierras del Fuego 2019 y Ruta A005 Río Cuarto Córdoba 5808",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-a1e25dfb5514",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Perón (Ruta 9) y Santa Fé Río Segundo Córdoba 5960",
-   "address": "Av. Perón (Ruta 9) y Santa Fé Río Segundo Córdoba 5960",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-83f0ccf2c509",
-   "brandId": "axion",
-   "name": "Axion Energy Av. General Savio 2801 Río Tercero Córdoba 5850",
-   "address": "Av. General Savio 2801 Río Tercero Córdoba 5850",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-da6cddbda9b7",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Libertador 1398 San Francisco Córdoba 2400",
-   "address": "Av. Libertador 1398 San Francisco Córdoba 2400",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-d931f0f117d3",
-   "brandId": "axion",
-   "name": "Axion Energy Caseros y Ruta 19 San Francisco Córdoba 2400",
-   "address": "Caseros y Ruta 19 San Francisco Córdoba 2400",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-1fabf821e90c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Goycochea 1235 Villa Allende Córdoba 5105",
-   "address": "Av. Goycochea 1235 Villa Allende Córdoba 5105",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-30e68aa924aa",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Ramón J. Cárcano 1048 Villa Carlos Paz Córdoba 5152",
-   "address": "Av. Ramón J. Cárcano 1048 Villa Carlos Paz Córdoba 5152",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-b0aedfafd22d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 1010 Villa Carlos Paz Córdoba 5152",
-   "address": "Av. San Martín 1010 Villa Carlos Paz Córdoba 5152",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-0f4f461b76d1",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 38 esquina Empalme Tanti Villa del Lago Córdoba 5152",
-   "address": "Ruta Nacional 38 esquina Empalme Tanti Villa del Lago Córdoba 5152",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-0f9e45775159",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento 200 Villa Dolores Córdoba 5870",
-   "address": "Sarmiento 200 Villa Dolores Córdoba 5870",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-cc07ce273430",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial N5 y, Ojo de Agua Villa General Belgrano Córdoba 5194",
-   "address": "Ruta Provincial N5 y, Ojo de Agua Villa General Belgrano Córdoba 5194",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-6c43f68e2bcd",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 38 Km. 63.5 Villa Giardino Córdoba 5176",
-   "address": "Ruta Nacional 38 Km. 63.5 Villa Giardino Córdoba 5176",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-491baf892d1e",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 552 Villa María Córdoba 5900",
-   "address": "Ruta Nacional 9 Km. 552 Villa María Córdoba 5900",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-dbf753f4ac73",
-   "brandId": "axion",
-   "name": "Axion Energy Buenos Aires 2100 e Intendente Arine Villa María Córdoba 5900",
-   "address": "Buenos Aires 2100 e Intendente Arine Villa María Córdoba 5900",
-   "region": "CORDOBA"
-  },
-  {
-   "id": "axion-f1f0d6c4d225",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 600 Alvear Corrientes 3344",
-   "address": "Ruta Nacional 14 Km. 600 Alvear Corrientes 3344",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-39e83efacca4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 429 Colonia Libertad Corrientes 3400",
-   "address": "Ruta Nacional 14 Km. 429 Colonia Libertad Corrientes 3400",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-25955685671a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Centenario 5042 Corrientes Corrientes 3400",
-   "address": "Av. Centenario 5042 Corrientes Corrientes 3400",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-f8de3a1d0e67",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Paisandú esquina Cruz del Sur Corrientes Corrientes 3500",
-   "address": "Av. Paisandú esquina Cruz del Sur Corrientes Corrientes 3500",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-8d383e78ec7b",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 12 Km. 1028 Corrientes Corrientes 3400",
-   "address": "Ruta 12 Km. 1028 Corrientes Corrientes 3400",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-2d7365ba18f5",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 12 y Acceso Itati Itati Corrientes 3414",
-   "address": "Ruta Nacional 12 y Acceso Itati Itati Corrientes 3414",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-a8990046b69f",
-   "brandId": "axion",
-   "name": "Axion Energy 25 de Mayo 681 Paso de la Patria Corrientes 3409",
-   "address": "25 de Mayo 681 Paso de la Patria Corrientes 3409",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-0f3a6b204463",
-   "brandId": "axion",
-   "name": "Axion Energy Juan Romero esquina Ruta 5 San Luis del Palmar Corrientes 3403",
-   "address": "Juan Romero esquina Ruta 5 San Luis del Palmar Corrientes 3403",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-783ef8592194",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 118 Km. 64,5 Santa Rosa Corrientes 3421",
-   "address": "Ruta Nacional 118 Km. 64,5 Santa Rosa Corrientes 3421",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-49ac1b7ceec0",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 686 Santo Tomé Corrientes 3340",
-   "address": "Ruta Nacional 14 Km. 686 Santo Tomé Corrientes 3340",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-88faa27b201d",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 747 Visaroro Corrientes 3342",
-   "address": "Ruta Nacional 14 Km. 747 Visaroro Corrientes 3342",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-57e5dc17d446",
-   "brandId": "axion",
-   "name": "Axion Estrada 806 Basavilbaso Entre Ríos 3170",
-   "address": "Estrada 806 Basavilbaso Entre Ríos 3170",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-99bbc95854de",
-   "brandId": "axion",
-   "name": "Axion Energy Pte. Perón 141 Bovril Entre Ríos 3142",
-   "address": "Pte. Perón 141 Bovril Entre Ríos 3142",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-2d5a515fc4c1",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 39 esquina Calle 23 Caseros Entre Ríos 3262",
-   "address": "Ruta Provincial 39 esquina Calle 23 Caseros Entre Ríos 3262",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-8411ef9c294b",
-   "brandId": "axion",
-   "name": "Axion Energy Dr. Borsotti 285 Cerrito Entre Ríos 3122",
-   "address": "Dr. Borsotti 285 Cerrito Entre Ríos 3122",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-3e3077ba60b4",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Dr. Casillas 1010 Chajarí Entre Ríos 3228",
-   "address": "Av. Dr. Casillas 1010 Chajarí Entre Ríos 3228",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-37d444661f2d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 9 de Julio y Av. Belgrano Chajarí Entre Ríos 3228",
-   "address": "Av. 9 de Julio y Av. Belgrano Chajarí Entre Ríos 3228",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-3491691ac065",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 320,8 Chajarí Entre Ríos 3228",
-   "address": "Ruta Nacional 14 Km. 320,8 Chajarí Entre Ríos 3228",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-728ca8f5c41b",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 150,5 y acceso a Colón Colón Entre Ríos 3280",
-   "address": "Ruta Nacional 14 Km. 150,5 y acceso a Colón Colón Entre Ríos 3280",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-b70688b27b15",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. San Lorenzo 1049 Concordia Entre Ríos 3202",
-   "address": "Bv. San Lorenzo 1049 Concordia Entre Ríos 3202",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-dd6f61522e0c",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. San Lorenzo 24 esquina Av. Eva Perón Concordia Entre Ríos 3200",
-   "address": "Bv. San Lorenzo 24 esquina Av. Eva Perón Concordia Entre Ríos 3200",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-f9b2c7e717ce",
-   "brandId": "axion",
-   "name": "Axion Energy Entre Ríos 997 Concordia Entre Ríos 3202",
-   "address": "Entre Ríos 997 Concordia Entre Ríos 3202",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-dd27a7356763",
-   "brandId": "axion",
-   "name": "Axion Energy Vélez Sarsfield y Diamante Concordia Entre Ríos 3202",
-   "address": "Vélez Sarsfield y Diamante Concordia Entre Ríos 3202",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-43c87df7fbcb",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Estrada Crespo Entre Ríos 3116",
-   "address": "San Martín y Estrada Crespo Entre Ríos 3116",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-83104eeddc49",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. Antonio Daneri 718 Gualeguachú Entre Ríos 2820",
-   "address": "Blvd. Antonio Daneri 718 Gualeguachú Entre Ríos 2820",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-0510ba76f126",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 46.5 Gualeguachú Entre Ríos 2820",
-   "address": "Ruta Nacional 14 Km. 46.5 Gualeguachú Entre Ríos 2820",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-015ae5126516",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 83 Gualeguachú Entre Ríos 2820",
-   "address": "Ruta Nacional 14 Km. 83 Gualeguachú Entre Ríos 2820",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-afc965b0e71a",
-   "brandId": "axion",
-   "name": "Axion Energy Marchini y Ruta Nacional 12 Nogoyá Entre Ríos 3150",
-   "address": "Marchini y Ruta Nacional 12 Nogoyá Entre Ríos 3150",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-2884107d450f",
-   "brandId": "axion",
-   "name": "Axion Energy Cervantes y Buenos Aires Paraná Entre Ríos 3100",
-   "address": "Cervantes y Buenos Aires Paraná Entre Ríos 3100",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-48c01a6eb755",
-   "brandId": "axion",
-   "name": "Axion Energy Bvrd. Concordia 885 San Salvador Entre Ríos 3218",
-   "address": "Bvrd. Concordia 885 San Salvador Entre Ríos 3218",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-d9bbcfd6b4cb",
-   "brandId": "axion",
-   "name": "Axion Energy Urquiza 1375 y Ruta 127 Villa Federal Entre Ríos 3180",
-   "address": "Urquiza 1375 y Ruta 127 Villa Federal Entre Ríos 3180",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-c0ddd3d08cb2",
-   "brandId": "axion",
-   "name": "Axion Energy Tucumán 165 Clorinda Formosa 3610",
-   "address": "Tucumán 165 Clorinda Formosa 3610",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-b1a6f32e265f",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 3, Av. Crisólogo Larralde El Colorado Formosa 3603",
-   "address": "Ruta Provincial 3, Av. Crisólogo Larralde El Colorado Formosa 3603",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-015faf12027f",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gendarmería Nacional, Av. Dr. Luis Gutniski Formosa Formosa 3600",
-   "address": "Av. Gendarmería Nacional, Av. Dr. Luis Gutniski Formosa Formosa 3600",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-562cef3cee76",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Italia 955 Formosa Formosa 3600",
-   "address": "Av. Italia 955 Formosa Formosa 3600",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-07581b197792",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Néstor Kirchner y Blas Parera Formosa Formosa 3600",
-   "address": "Av. Néstor Kirchner y Blas Parera Formosa Formosa 3600",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-33f738013aa2",
-   "brandId": "axion",
-   "name": "Axion Energy España 495 Formosa Formosa 3600",
-   "address": "España 495 Formosa Formosa 3600",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-32eb74a6e6a9",
-   "brandId": "axion",
-   "name": "Axion Energy Rutas 81 y 11 Formosa Formosa 3600",
-   "address": "Rutas 81 y 11 Formosa Formosa 3600",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-0d67e76bbe3f",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 81 Las Lomitas Formosa 3630",
-   "address": "Ruta Nacional 81 Las Lomitas Formosa 3630",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-5f78a5207092",
-   "brandId": "axion",
-   "name": "Axion Energy Carlos Pellegrini 705 Pirane Formosa 3606",
-   "address": "Carlos Pellegrini 705 Pirane Formosa 3606",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-a3f9ac882cf4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta N° 3 Entre Saavedra y Lopez Pirane Formosa 3606",
-   "address": "Ruta N° 3 Entre Saavedra y Lopez Pirane Formosa 3606",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-aedd3053ee51",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 3 y República de Alemania Villa Dos Trece Formosa 3602",
-   "address": "Ruta Provincial 3 y República de Alemania Villa Dos Trece Formosa 3602",
-   "region": "FORMOSA"
-  },
-  {
-   "id": "axion-48221c42ed2f",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Wollmann Y Ruta Nacional 34 General San Martín Jujuy 4512",
-   "address": "Av. Wollmann Y Ruta Nacional 34 General San Martín Jujuy 4512",
-   "region": "JUJUY"
-  },
-  {
-   "id": "axion-2cf19e9c8da7",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín Perico Jujuy 4610",
-   "address": "Av. San Martín Perico Jujuy 4610",
-   "region": "JUJUY"
-  },
-  {
-   "id": "axion-997ed6e3d88b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Doctor Arturo Illia y El Palenque San Salvador de Jujuy Jujuy 4602",
-   "address": "Av. Doctor Arturo Illia y El Palenque San Salvador de Jujuy Jujuy 4602",
-   "region": "JUJUY"
-  },
-  {
-   "id": "axion-6a004cae8eb9",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 y Provincial 66 0 San Salvador de Jujuy Jujuy 4600",
-   "address": "Ruta Nacional 9 y Provincial 66 0 San Salvador de Jujuy Jujuy 4600",
-   "region": "JUJUY"
-  },
-  {
-   "id": "axion-e07af7d3d8d8",
-   "brandId": "axion",
-   "name": "Axion Energy Almirante Brown 899 San Salvador de Jujuy Jujuy 4600",
-   "address": "Almirante Brown 899 San Salvador de Jujuy Jujuy 4600",
-   "region": "JUJUY"
-  },
-  {
-   "id": "axion-db9ac65d027f",
-   "brandId": "axion",
-   "name": "Axion Energy Diagonal 9 De Julio 1275 Eduardo Castex La Pampa 6300",
-   "address": "Diagonal 9 De Julio 1275 Eduardo Castex La Pampa 6300",
-   "region": "LA_PAMPA"
-  },
-  {
-   "id": "axion-7eacb0cfe0c7",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 152 Km. 28 General Acha La Pampa 8200",
-   "address": "Ruta Nacional 152 Km. 28 General Acha La Pampa 8200",
-   "region": "LA_PAMPA"
-  },
-  {
-   "id": "axion-fdf1d23cc750",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Circunvalación y Calle 440 General Pizo La Pampa 6360",
-   "address": "Av. Circunvalación y Calle 440 General Pizo La Pampa 6360",
-   "region": "LA_PAMPA"
-  },
-  {
-   "id": "axion-ce23f0d69237",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 1 Acceso Sur Macachin La Pampa 6307",
-   "address": "Ruta 1 Acceso Sur Macachin La Pampa 6307",
-   "region": "LA_PAMPA"
-  },
-  {
-   "id": "axion-a92cd4937327",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Circunvalación y Calle Schmidt Santa Rosa La Pampa 6300",
-   "address": "Av. Circunvalación y Calle Schmidt Santa Rosa La Pampa 6300",
-   "region": "LA_PAMPA"
-  },
-  {
-   "id": "axion-7a6c567590ee",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 38 y Manuel Villanueva Chamical La Rioja 5380",
-   "address": "Ruta Nacional 38 y Manuel Villanueva Chamical La Rioja 5380",
-   "region": "LA_RIOJA"
-  },
-  {
-   "id": "axion-b5347e024472",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Ángel Vicente Peñaloza 820 La Rioja La Rioja 5300",
-   "address": "Av. Ángel Vicente Peñaloza 820 La Rioja La Rioja 5300",
-   "region": "LA_RIOJA"
-  },
-  {
-   "id": "axion-bdc1261fb9d4",
-   "brandId": "axion",
-   "name": "Axion Energy San Nicolás de Bari esquina Portezue La Rioja La Rioja 5300",
-   "address": "San Nicolás de Bari esquina Portezue La Rioja La Rioja 5300",
-   "region": "LA_RIOJA"
-  },
-  {
-   "id": "axion-ce27f4388c9e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Ortiz de Ocampo y Cerro Azul La Rioja La Rioja 5300",
-   "address": "Av. Ortiz de Ocampo y Cerro Azul La Rioja La Rioja 5300",
-   "region": "LA_RIOJA"
-  },
-  {
-   "id": "axion-61fbde1751fd",
-   "brandId": "axion",
-   "name": "Axion Energy Belgrano 541 Apostoles Misiones 3350",
-   "address": "Belgrano 541 Apostoles Misiones 3350",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-c38c2b70f200",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 913,5 Campo Grande Misiones 3362",
-   "address": "Ruta Nacional 14 Km. 913,5 Campo Grande Misiones 3362",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-5d6d57355d8c",
-   "brandId": "axion",
-   "name": "Axion Energy Padre L. Sarley 0 Colonia 25 de Mayo Misiones 3379",
-   "address": "Padre L. Sarley 0 Colonia 25 de Mayo Misiones 3379",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-47598eecc4f2",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 2 y Almafuerte Concepción de las Sierras Misiones 3355",
-   "address": "Ruta Nacional 2 y Almafuerte Concepción de las Sierras Misiones 3355",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-4fe0cf64525a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 12 Km 1541 El Dorado Misiones 3380",
-   "address": "Ruta 12 Km 1541 El Dorado Misiones 3380",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-17a0ae1a75d1",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 9 de Julio y Ruta 12 Jardín de América Misiones 3328",
-   "address": "Av. 9 de Julio y Ruta 12 Jardín de América Misiones 3328",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-e14d0f16e099",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 1120 Oberá Misiones 3361",
-   "address": "Ruta Nacional 14 Km. 1120 Oberá Misiones 3361",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-cbc4e5d6eabb",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento 1281 Oberá Misiones 3361",
-   "address": "Sarmiento 1281 Oberá Misiones 3361",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-a89935c26b6e",
-   "brandId": "axion",
-   "name": "Axion Energy Monteagudo 1824 Posadas Misiones 3301",
-   "address": "Monteagudo 1824 Posadas Misiones 3301",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-eaf0a031366d",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Quaranta 4150 Posadas Misiones 3300",
-   "address": "Av. Quaranta 4150 Posadas Misiones 3300",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-ff8976570c11",
-   "brandId": "axion",
-   "name": "Axion Energy Av. República Oriental del Uruguay 3794 (y Av. Cabred) Posadas Misiones 3300",
-   "address": "Av. República Oriental del Uruguay 3794 (y Av. Cabred) Posadas Misiones 3300",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-d701e9934ae0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Tambor de Tacuarí 4951 Posadas Misiones 3301",
-   "address": "Av. Tambor de Tacuarí 4951 Posadas Misiones 3301",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-02db2c941de4",
-   "brandId": "axion",
-   "name": "Axion Energy Energy La Rioja 2024 Posadas Misiones 3300",
-   "address": "Energy La Rioja 2024 Posadas Misiones 3300",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-d6f9f9e16cb1",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional N° 12 y Av. 147 Posadas Misiones 3300",
-   "address": "Ruta Nacional N° 12 y Av. 147 Posadas Misiones 3300",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-a6ce69f274d4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 1048 y Acceso a San Pedro San Pedro Misiones 3352",
-   "address": "Ruta Nacional 14 Km. 1048 y Acceso a San Pedro San Pedro Misiones 3352",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-68d37838391a",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 14 Km. 1260 San Vicente Misiones 3364",
-   "address": "Ruta Nacional 14 Km. 1260 San Vicente Misiones 3364",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-dc5544eb9b30",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 13 y Néstor Kirchner San Vicente Misiones 3364",
-   "address": "Ruta Provincial 13 y Néstor Kirchner San Vicente Misiones 3364",
-   "region": "MISIONES"
-  },
-  {
-   "id": "axion-3024a3b2a05b",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 40 y Ruta Provincial 319 Media Agua San Juan 5435",
-   "address": "Ruta Nacional 40 y Ruta Provincial 319 Media Agua San Juan 5435",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-000b568b99dc",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín y Urquiza San Juan San Juan 5400",
-   "address": "Av. San Martín y Urquiza San Juan San Juan 5400",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-a031eb23d08c",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Guillermo Rawson Norte 1251 San Juan San Juan 5400",
-   "address": "Av. Guillermo Rawson Norte 1251 San Juan San Juan 5400",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-9c6568a5e7f4",
-   "brandId": "axion",
-   "name": "Axion Energy Av. José Ignacio de La Rosa y Av. Paula Albarracín de Sarmiento San Juan San Juan 5400",
-   "address": "Av. José Ignacio de La Rosa y Av. Paula Albarracín de Sarmiento San Juan San Juan 5400",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-8014841f3e0e",
-   "brandId": "axion",
-   "name": "Axion Energy Paula Albarracín de Sarmiento 555 Norte San Juan San Juan 5400",
-   "address": "Paula Albarracín de Sarmiento 555 Norte San Juan San Juan 5400",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-5b5fa2b7060c",
-   "brandId": "axion",
-   "name": "Axion Energy Lavalle y Yrigoyen Mercedes San Luis 5730",
-   "address": "Lavalle y Yrigoyen Mercedes San Luis 5730",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-0f7cef76eec3",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 7 Km. 695.2 Mercedes San Luis 5730",
-   "address": "Ruta 7 Km. 695.2 Mercedes San Luis 5730",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-19bb2f048451",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 7 Km. 694 Mercedes San Luis 5730",
-   "address": "Ruta Nacional 7 Km. 694 Mercedes San Luis 5730",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-faa550b66483",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 1 y Enlaceruta Prov. 5 Merlo San Luis 5881",
-   "address": "Ruta Provincial 1 y Enlaceruta Prov. 5 Merlo San Luis 5881",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-15232de5581a",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Centenario y Riobamba San Luis San Luis 5700",
-   "address": "Av. Centenario y Riobamba San Luis San Luis 5700",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-08b665b928e4",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Eva Perón y Av. Fuerza Aerea Argentina San Luis San Luis 5702",
-   "address": "Av. Eva Perón y Av. Fuerza Aerea Argentina San Luis San Luis 5702",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-c5b67633023d",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 3 Sur Km. 2,5 San Luis San Luis 5700",
-   "address": "Ruta 3 Sur Km. 2,5 San Luis San Luis 5700",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-8f60f92d4d66",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 3 esquina Av. Costanera San Luis San Luis 5700",
-   "address": "Ruta Provincial 3 esquina Av. Costanera San Luis San Luis 5700",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-23ff674fbf7d",
-   "brandId": "axion",
-   "name": "Axion Energy Falucho y Av. Parque San Luis San Luis 5700",
-   "address": "Falucho y Av. Parque San Luis San Luis 5700",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-83d7526f1a04",
-   "brandId": "axion",
-   "name": "Axion Energy Ituzaingó 42 San Luis San Luis 5700",
-   "address": "Ituzaingó 42 San Luis San Luis 5700",
-   "region": "SAN_LUIS"
-  },
-  {
-   "id": "axion-dd9f7292bd2d",
-   "brandId": "axion",
-   "name": "Axion Energy Nuevo trazado de la Ruta N°3 Caleta Olivia Santa Cruz 9011",
-   "address": "Nuevo trazado de la Ruta N°3 Caleta Olivia Santa Cruz 9011",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-995ea4a4f58e",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 590 Caleta Olivia Santa Cruz 9011",
-   "address": "San Martín 590 Caleta Olivia Santa Cruz 9011",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-d58e509b466b",
-   "brandId": "axion",
-   "name": "Axion Av. del Libertador y Guillermo Eike El Calafate Santa Cruz 9405",
-   "address": "Av. del Libertador y Guillermo Eike El Calafate Santa Cruz 9405",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-d78817cde9c0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Perito Moreno 260 Las Heras Santa Cruz 9017",
-   "address": "Av. Perito Moreno 260 Las Heras Santa Cruz 9017",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-a99de0831aed",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 52 y camino a aeropuerto Perito Moreno Santa Cruz 9040",
-   "address": "Ruta Provincial 52 y camino a aeropuerto Perito Moreno Santa Cruz 9040",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-45886e84a559",
-   "brandId": "axion",
-   "name": "Axion Energy Rivadavia e Irigoyen Pico Truncado Santa Cruz 9015",
-   "address": "Rivadavia e Irigoyen Pico Truncado Santa Cruz 9015",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-5af93a18e8b2",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Pueyrredón Puerto Deseado Santa Cruz 9050",
-   "address": "San Martín y Pueyrredón Puerto Deseado Santa Cruz 9050",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-34f8b2ee1ed4",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Marcelino Álvarez 65 Río Gallegos Santa Cruz 9402",
-   "address": "Av. Marcelino Álvarez 65 Río Gallegos Santa Cruz 9402",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-6257bbf723b7",
-   "brandId": "axion",
-   "name": "Axion Energy Mariano Moreno 921 Río Gallegos Santa Cruz 9403",
-   "address": "Mariano Moreno 921 Río Gallegos Santa Cruz 9403",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-e3d7b4886dbd",
-   "brandId": "axion",
-   "name": "Axion Energy Roca y Ameghino Río Gallegos Santa Cruz 9400",
-   "address": "Roca y Ameghino Río Gallegos Santa Cruz 9400",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-9e2740628da4",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 3 y Castelli Río Gallegos Santa Cruz 9400",
-   "address": "Ruta Nacional 3 y Castelli Río Gallegos Santa Cruz 9400",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-606ee3f77240",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Pres. Dr. Nestor C. Kirchner 1794 Río Gallegos Santa Cruz 9400",
-   "address": "Av. Pres. Dr. Nestor C. Kirchner 1794 Río Gallegos Santa Cruz 9400",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-25afe7313540",
-   "brandId": "axion",
-   "name": "Axion Energy Av. De Los Mineros y J. A. Roca Río Turbio Santa Cruz 9407",
-   "address": "Av. De Los Mineros y J. A. Roca Río Turbio Santa Cruz 9407",
-   "region": "SANTA_CRUZ"
-  },
-  {
-   "id": "axion-d5a470ef43e2",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 9 Km. 272 Arroyo Seco Santa Fe 2128",
-   "address": "Ruta Nacional 9 Km. 272 Arroyo Seco Santa Fe 2128",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-597dfc1e8ee8",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 11 Km. 793 Avellaneda Santa Fe 3561",
-   "address": "Ruta Nacional 11 Km. 793 Avellaneda Santa Fe 3561",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-88154f59bc72",
-   "brandId": "axion",
-   "name": "Axion Energy Autopista Santa Fe Acceso Barrancas Barrancas Santa Fe 2246",
-   "address": "Autopista Santa Fe Acceso Barrancas Barrancas Santa Fe 2246",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a1c4e07b2731",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Santa Fe 1845 Cañada de Gomez Santa Fe 2500",
-   "address": "Av. Santa Fe 1845 Cañada de Gomez Santa Fe 2500",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-33e0b0aabf60",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 6 de Julio 1358 Cañada de Gomez Santa Fe 2500",
-   "address": "Av. 6 de Julio 1358 Cañada de Gomez Santa Fe 2500",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-6b39ab5860cd",
-   "brandId": "axion",
-   "name": "Axion Energy Buenos Aires 2902 Casilda Santa Fe 2170",
-   "address": "Buenos Aires 2902 Casilda Santa Fe 2170",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-d955b305ea5c",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Bernardo de Irigoyen y Juan de Garay Ceres Santa Fe 2340",
-   "address": "Bv. Bernardo de Irigoyen y Juan de Garay Ceres Santa Fe 2340",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-00781a91a5e3",
-   "brandId": "axion",
-   "name": "Axion Energy Kreder 2544 Esperanza Santa Fe 3080",
-   "address": "Kreder 2544 Esperanza Santa Fe 3080",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a4152c18ca07",
-   "brandId": "axion",
-   "name": "Axion Energy Los Olmos 727 Funes Santa Fe 2132",
-   "address": "Los Olmos 727 Funes Santa Fe 2132",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-f074a0735d62",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 11 Km. 620 Gobernador Crespo Santa Fe 3044",
-   "address": "Ruta Nacional 11 Km. 620 Gobernador Crespo Santa Fe 3044",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-f8eccfa84555",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 11 Km. 891,5 Las Toscas Santa Fe 3586",
-   "address": "Ruta Provincial 11 Km. 891,5 Las Toscas Santa Fe 3586",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-be629ec071e9",
-   "brandId": "axion",
-   "name": "Axion Energy Sarmiento 1215 Malabrigo Santa Fe 3572",
-   "address": "Sarmiento 1215 Malabrigo Santa Fe 3572",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-aa04d46b232d",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 5951 Ruta Provincial 2 Montevera Santa Fe 3014",
-   "address": "San Martín 5951 Ruta Provincial 2 Montevera Santa Fe 3014",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-285532577940",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y San Juan Pilar Santa Fe 3085",
-   "address": "San Martín y San Juan Pilar Santa Fe 3085",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-4f393bccebee",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Lemman y Maipú Rafaela Santa Fe 2300",
-   "address": "Av. Lemman y Maipú Rafaela Santa Fe 2300",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-081268f1a8f9",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. Hipólito Yrigoyen 901 Rafaela Santa Fe 2300",
-   "address": "Blvd. Hipólito Yrigoyen 901 Rafaela Santa Fe 2300",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-2d6604e53433",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 34 y Ruta 70 Rafaela Santa Fe 2300",
-   "address": "Ruta Nacional 34 y Ruta 70 Rafaela Santa Fe 2300",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-2b5c4c6cb520",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 11 Km. 787 y Ruta Provincial 98 Reconquista Santa Fe 3560",
-   "address": "Ruta Nacional 11 Km. 787 y Ruta Provincial 98 Reconquista Santa Fe 3560",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-26ccf26eaf0b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 5399 Rosario Santa Fe 2011",
-   "address": "Av. San Martín 5399 Rosario Santa Fe 2011",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a174b1a6d3e8",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Eva Perón 8159 Rosario Santa Fe 2008",
-   "address": "Av. Eva Perón 8159 Rosario Santa Fe 2008",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-7f473afa494e",
-   "brandId": "axion",
-   "name": "Axion Energy Av. San Martín 3502 Rosario Santa Fe 2001",
-   "address": "Av. San Martín 3502 Rosario Santa Fe 2001",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-36374bc58cdf",
-   "brandId": "axion",
-   "name": "Axion Energy Baigorria 1870 Rosario Santa Fe 2005",
-   "address": "Baigorria 1870 Rosario Santa Fe 2005",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-2e2d1d1f169d",
-   "brandId": "axion",
-   "name": "Axion Energy Bvd. Avellaneda 1698 Rosario Santa Fe 2002",
-   "address": "Bvd. Avellaneda 1698 Rosario Santa Fe 2002",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a698881a8184",
-   "brandId": "axion",
-   "name": "Axion Energy Bvd. Oroño, Av. José Batlle y Ordóñez 6190 Rosario Santa Fe 2000",
-   "address": "Bvd. Oroño, Av. José Batlle y Ordóñez 6190 Rosario Santa Fe 2000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-db837a4d8807",
-   "brandId": "axion",
-   "name": "Axion Energy Córdoba 2790 Rosario Santa Fe 2002",
-   "address": "Córdoba 2790 Rosario Santa Fe 2002",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-6dae10051457",
-   "brandId": "axion",
-   "name": "Axion Energy Eva Perón 5303 Rosario Santa Fe 2000",
-   "address": "Eva Perón 5303 Rosario Santa Fe 2000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-ea41a9ba2059",
-   "brandId": "axion",
-   "name": "Axion Energy Provincias Unidas 2902 Rosario Santa Fe 2009",
-   "address": "Provincias Unidas 2902 Rosario Santa Fe 2009",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-22ad55f0de4e",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 1983 Rosario Santa Fe 2000",
-   "address": "San Martín 1983 Rosario Santa Fe 2000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-25929461af7b",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín 911 San Carlos Sud Santa Fe 3017",
-   "address": "San Martín 911 San Carlos Sud Santa Fe 3017",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-2ef0dd1b9c20",
-   "brandId": "axion",
-   "name": "Axion Energy Santa Fe y Angela de la Casa San Guillermo Santa Fe 2347",
-   "address": "Santa Fe y Angela de la Casa San Guillermo Santa Fe 2347",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-2ab6eafeb22a",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Güemes San Jeronimo Norte Santa Fe 3015",
-   "address": "San Martín y Güemes San Jeronimo Norte Santa Fe 3015",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-4138bc3cc298",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Falucho (Ruta Prov.13) y Albe San Jorge Santa Fe 2451",
-   "address": "Av. Falucho (Ruta Prov.13) y Albe San Jorge Santa Fe 2451",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-ef0a2f9fb71e",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 1 Km. 5.5 San José del Rincón Santa Fe 2185",
-   "address": "Ruta 1 Km. 5.5 San José del Rincón Santa Fe 2185",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-ea733fcc908b",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. Urquiza esquina Mandolini San Lorenzo Santa Fe 2200",
-   "address": "Blvd. Urquiza esquina Mandolini San Lorenzo Santa Fe 2200",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-78bdde626839",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 34 y Acceso San Vicente Santa Fe 2447",
-   "address": "Ruta Nacional 34 y Acceso San Vicente Santa Fe 2447",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-e1c6b2019e06",
-   "brandId": "axion",
-   "name": "Axion Energy 27 de Febrero y Mendoza Santa Fe Santa Fe 3000",
-   "address": "27 de Febrero y Mendoza Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-c1828f86bb75",
-   "brandId": "axion",
-   "name": "Axion Energy Aristobulo del Valle 5621 Santa Fe Santa Fe 3000",
-   "address": "Aristobulo del Valle 5621 Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-88125a3afa98",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Facundo Zubiria 4517 esquina Calle Pedro Ferré Santa Fe Santa Fe 3002",
-   "address": "Av. Facundo Zubiria 4517 esquina Calle Pedro Ferré Santa Fe Santa Fe 3002",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-985b54433a28",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Freyre 1647 Santa Fe Santa Fe 3000",
-   "address": "Av. Freyre 1647 Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-d8bb03c333c2",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Freyre 2300 Santa Fe Santa Fe 3000",
-   "address": "Av. Freyre 2300 Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-24170966e64e",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. Galvez 1599 Santa Fe Santa Fe 3002",
-   "address": "Blvd. Galvez 1599 Santa Fe Santa Fe 3002",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a91a8e264db5",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 168 Km. 476 Santa Fe Santa Fe 3000",
-   "address": "Ruta 168 Km. 476 Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-127cf556dcb6",
-   "brandId": "axion",
-   "name": "Axion Energy General Paz 7500 Santa Fe Santa Fe 3000",
-   "address": "General Paz 7500 Santa Fe Santa Fe 3000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-f839219ec3da",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial Nro. 1 Km. 38 Santa Rosa Santa Fe 3001",
-   "address": "Ruta Provincial Nro. 1 Km. 38 Santa Rosa Santa Fe 3001",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-a52f3b380129",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 7 de Marzo 1491 Santo Tomé Santa Fe 3016",
-   "address": "Av. 7 de Marzo 1491 Santo Tomé Santa Fe 3016",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-26715baa2d60",
-   "brandId": "axion",
-   "name": "Axion Energy Alem e Iturbide Venado Tuerto Santa Fe 2600",
-   "address": "Alem e Iturbide Venado Tuerto Santa Fe 2600",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-f862640ccbcc",
-   "brandId": "axion",
-   "name": "Axion Energy Ovidio Lagos 56 Venado Tuerto Santa Fe 2600",
-   "address": "Ovidio Lagos 56 Venado Tuerto Santa Fe 2600",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-134deebd7eb6",
-   "brandId": "axion",
-   "name": "Axion Energy Santa Fe y Brown Venado Tuerto Santa Fe 2600",
-   "address": "Santa Fe y Brown Venado Tuerto Santa Fe 2600",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-baf19b4f7ee2",
-   "brandId": "axion",
-   "name": "Axion Energy D. Segundo 1940 Villa Constitución Santa Fe 2919",
-   "address": "D. Segundo 1940 Villa Constitución Santa Fe 2919",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-9684116b7e25",
-   "brandId": "axion",
-   "name": "Axion Energy Blvd. San Martín y José Ingeniero Zenon Pereyra Santa Fe 2409",
-   "address": "Blvd. San Martín y José Ingeniero Zenon Pereyra Santa Fe 2409",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-98a05dedf11d",
-   "brandId": "axion",
-   "name": "Axion Energy Senador Salim Y Ruta 157 Frias Santiago del Estero 4230",
-   "address": "Senador Salim Y Ruta 157 Frias Santiago del Estero 4230",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-b15003820065",
-   "brandId": "axion",
-   "name": "Axion Energy Av. 2 de Septiembre La Banda Santiago del Estero 4300",
-   "address": "Av. 2 de Septiembre La Banda Santiago del Estero 4300",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-d1f4156a0f22",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 157 Km. 1094 Lavalle Santiago del Estero 5264",
-   "address": "Ruta Nacional 157 Km. 1094 Lavalle Santiago del Estero 5264",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-da203703cd47",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 34 Km 495 Pinto Santiago del Estero 4208",
-   "address": "Ruta Nacional 34 Km 495 Pinto Santiago del Estero 4208",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-023ab7a5bdd6",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Rivadavia (S, Av. Julio A Roca) Quimili Santiago del Estero 3740",
-   "address": "Av. Rivadavia (S, Av. Julio A Roca) Quimili Santiago del Estero 3740",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-5a91772590b1",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 89 Km. 384 Quimili Santiago del Estero 3740",
-   "address": "Ruta Nacional 89 Km. 384 Quimili Santiago del Estero 3740",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-8562034ba218",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Belgrano 4051 esquina Paraguay Santiago del Estero Santiago del Estero 4200",
-   "address": "Av. Belgrano 4051 esquina Paraguay Santiago del Estero Santiago del Estero 4200",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-1e1bfca5b728",
-   "brandId": "axion",
-   "name": "Axion Energy Av.Rivadavia, Pje. Oeste 595 Santiago del Estero Santiago del Estero 4200",
-   "address": "Av.Rivadavia, Pje. Oeste 595 Santiago del Estero Santiago del Estero 4200",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-0bdba26577db",
-   "brandId": "axion",
-   "name": "Axion Energy Independencia 3478 Santiago del Estero Santiago del Estero 4200",
-   "address": "Independencia 3478 Santiago del Estero Santiago del Estero 4200",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-6942dcae43c5",
-   "brandId": "axion",
-   "name": "Axion Energy Independencia 908 Santiago del Estero Santiago del Estero 4200",
-   "address": "Independencia 908 Santiago del Estero Santiago del Estero 4200",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-8f68d1240f78",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional N° 9 y Ruta Naxional N° 208 Santiago del Estero Santiago del Estero 4200",
-   "address": "Ruta Nacional N° 9 y Ruta Naxional N° 208 Santiago del Estero Santiago del Estero 4200",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-0aa24832782d",
-   "brandId": "axion",
-   "name": "Axion Energy J. B Alberdi y España Termas de Río Hondo Santiago del Estero 4220",
-   "address": "J. B Alberdi y España Termas de Río Hondo Santiago del Estero 4220",
-   "region": "SANTIAGO_DEL_ESTERO"
-  },
-  {
-   "id": "axion-0be228adcecf",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Presidente Néstor Kirchner 3450 San Miguel de Tucumán Tucumán 4000",
-   "address": "Av. Presidente Néstor Kirchner 3450 San Miguel de Tucumán Tucumán 4000",
-   "region": "TUCUMAN"
-  },
-  {
-   "id": "axion-8b6b8eb3ba5c",
-   "brandId": "axion",
-   "name": "Axion Energy Calle E. Castellar 1003 y Suipacha San Miguel de Tucumán Tucumán 4001",
-   "address": "Calle E. Castellar 1003 y Suipacha San Miguel de Tucumán Tucumán 4001",
-   "region": "TUCUMAN"
-  },
-  {
-   "id": "axion-a5a1e975b158",
-   "brandId": "axion",
-   "name": "Axion Energy 9 de Julio 2170 San Miguel de Tucumán Tucumán 4000",
-   "address": "9 de Julio 2170 San Miguel de Tucumán Tucumán 4000",
-   "region": "TUCUMAN"
-  },
-  {
-   "id": "axion-ca116a58ccc7",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 301 Km. 201San Miguel de TucumánTucumán 4000",
-   "address": "Ruta Provincial 301 Km. 201San Miguel de TucumánTucumán 4000",
-   "region": "TUCUMAN"
-  },
-  {
-   "id": "axion-a19630c189c9",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Paz 2399 Km 15 CABA Buenos Aires 1416",
-   "address": "Av. Gral Paz 2399 Km 15 CABA Buenos Aires 1416",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-4c7e875055c2",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Gral Paz 11200 Km 15, Lado Ciudadela CABA Buenos Aires 1408",
-   "address": "Av. Gral Paz 11200 Km 15, Lado Ciudadela CABA Buenos Aires 1408",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-02609564c285",
-   "brandId": "axion",
-   "name": "Axion Energy JB Justo y Lope de Vega, Villa Luro CABA Buenos Aires 1407",
-   "address": "JB Justo y Lope de Vega, Villa Luro CABA Buenos Aires 1407",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-2736e0c5340b",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Arturo Frondizi 2501 Paso de los Libres Corrientes 3230",
-   "address": "Av. Arturo Frondizi 2501 Paso de los Libres Corrientes 3230",
-   "region": "CORRIENTES"
-  },
-  {
-   "id": "axion-cb22afa11810",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Warnes 2040, Chacarita CABA Buenos Aires 1416",
-   "address": "Av. Warnes 2040, Chacarita CABA Buenos Aires 1416",
-   "region": "CABA"
-  },
-  {
-   "id": "axion-399f3ef30fcc",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Don Bosco y Blas Parera Paraná Entre Ríos 3100",
-   "address": "Av. Don Bosco y Blas Parera Paraná Entre Ríos 3100",
-   "region": "ENTRE_RIOS"
-  },
-  {
-   "id": "axion-05cfb80d31f0",
-   "brandId": "axion",
-   "name": "Axion Energy Av. Sarmiento 1510 Resistencia Chaco 3500",
-   "address": "Av. Sarmiento 1510 Resistencia Chaco 3500",
-   "region": "CHACO"
-  },
-  {
-   "id": "axion-d4b080939471",
-   "brandId": "axion",
-   "name": "Axion Energy Bv. Seguí y Avellaneda Rosario Santa Fe 2000",
-   "address": "Bv. Seguí y Avellaneda Rosario Santa Fe 2000",
-   "region": "SANTA_FE"
-  },
-  {
-   "id": "axion-0e30a08a16f2",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 20 y Acceso Aeropuerto San Juan San Juan San Juan 5400",
-   "address": "Ruta Nacional 20 y Acceso Aeropuerto San Juan San Juan San Juan 5400",
-   "region": "SAN_JUAN"
-  },
-  {
-   "id": "axion-4220ed93fe11",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Nacional 5 Km 368,5 y Ruta 226 Pehuajó Buenos Aires 6450",
-   "address": "Ruta Nacional 5 Km 368,5 y Ruta 226 Pehuajó Buenos Aires 6450",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-4a150ff58d08",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta Provincial 51 y Acceso Sur de la Ciudad de Olavarría Olavarría Buenos Aires 7400",
-   "address": "Ruta Provincial 51 y Acceso Sur de la Ciudad de Olavarría Olavarría Buenos Aires 7400",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-5473ac9b8c63",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 2 Km. 51,5 La Plata Buenos Aires 1900",
-   "address": "Ruta 2 Km. 51,5 La Plata Buenos Aires 1900",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-62efb96909e3",
-   "brandId": "axion",
-   "name": "Axion Energy Ruta 226 y Ruta 55 Balcarce Buenos Aires 7620",
-   "address": "Ruta 226 y Ruta 55 Balcarce Buenos Aires 7620",
-   "region": "BUENOS_AIRES"
-  },
-  {
-   "id": "axion-150dff772556",
-   "brandId": "axion",
-   "name": "Axion Energy San Martín y Ruta Provincial 210 Domselaar Buenos Aires 1984",
-   "address": "San Martín y Ruta Provincial 210 Domselaar Buenos Aires 1984",
-   "region": "BUENOS_AIRES"
-  }
+ "note": "Texto de cada línea del Anexo I tal como figura en las bases. Las tres promociones de Brubank en Axion (octubre 2026) publican la misma lista.",
+ "lines": [
+  "Axion Energy Av. Congreso 4801, Villa Urquiza CABA Buenos Aires 1431",
+  "Axion Energy Av. Eva Perón 4350, Parque Avellaneda CABA Buenos Aires 1407",
+  "Axion Energy Av. Francisco Beiró y Moliere CABA Buenos Aires 1719",
+  "Axion Energy Av. Almafuerte 187, Parque Patricios CABA Buenos Aires 1437",
+  "Axion Energy Av. Brasil 2984, Parque Patricios CABA Buenos Aires 1260",
+  "Axion Energy Av. Emilio Castro 7541 CABA Buenos Aires 1408",
+  "Axion Energy Av. Gaona 2399 y Trelles, Caballito CABA Buenos Aires 1416",
+  "Axion Energy Av. Gral. Mosconi 2500, Pueyrredón CABA Buenos Aires 1419",
+  "Axion Energy Av. Juan de Garay 1302, Constitución CABA Buenos Aires 1153",
+  "Axion Energy Av. La Plata 575, Almagro CABA Buenos Aires 1226",
+  "Axion Energy Av. Libertador 2589, Palermo CABA Buenos Aires 1425",
+  "Axion Energy Av. Libertador 7112 y Manuela A. Pedraza, Nuñez CABA Buenos Aires 1429",
+  "Axion Energy Av. Rivadavia 3199 esquina Anchorena, Balvanera CABA Buenos Aires 1203",
+  "Axion Energy Av. Rivadavia y Joaquín V. Gonzalez, Floresta CABA Buenos Aires 1407",
+  "Axion Energy Av. San Martín y Luis Viale, Villa Crespo CABA Buenos Aires 1416",
+  "Axion Energy Av. Jujuy 164 Esq Alsina, Balvanera CABA Buenos Aires 1086",
+  "Axion Energy Av. Emilio Castro 6512, Liniers CABA Buenos Aires 1408",
+  "Axion Energy Av. Los Incas 3550, Belgrano CABA Buenos Aires 1426",
+  "Axion Energy Cabildo 695 esquina Olleros, Belgrano CABA Buenos Aires 1426",
+  "Axion Energy Chile 702 esquina Chacabuco, Monserrat CABA Buenos Aires 1098",
+  "Axion Energy Córdoba 5653/99 esquina Bompland, Palermo CABA Buenos Aires 1414",
+  "Axion Energy Av. Gral. Francisco Fernández de la Cruz 1501, Nueva Pompeya CABA Buenos Aires 1437",
+  "Axion Energy Directorio 1796, Caballito CABA Buenos Aires 1406",
+  "Axion Energy Cnel. Ramón L. Falcón 6398, Liniers CABA Buenos Aires 1408",
+  "Axion Energy Av. Int. Francisco Rabanal 1733 CABA Buenos Aires 1437",
+  "Axion Energy Las Heras 2499, Recoleta CABA Buenos Aires 1425",
+  "Axion Energy Monroe 3078, Belgrano CABA Buenos Aires 1428",
+  "Axion Energy Av. Rivadavia 10301, Villa Luro CABA Buenos Aires 1408",
+  "Axion Energy Av. Triunvirato esquina Av. Crisologo Larralde, Villa Urquiza CABA Buenos Aires 1407",
+  "Axion Energy Av. Mitre 1270/92, Avellaneda GBA Buenos Aires 1870",
+  "Axion Energy Ruta 27 y Panamericana, Benavidez GBA Buenos Aires 1621",
+  "Axion Energy Ruta 36 Km. 34, Berazategui GBA Buenos Aires 1890",
+  "Axion Energy Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía Buenos Aires, Berazategui GBA Buenos Aires 1880",
+  "Axion Energy Ruta Nacional 1 - Autopista Dr. Ricardo Balbín Km. 28 Vía La Plata, Berazategui GBA Buenos Aires 1880",
+  "Axion Energy Av. Mitre y Güemes, Berisso GBA Buenos Aires 1923",
+  "Axion Energy Av. Dardo Rocha 1683, Bernal GBA Buenos Aires 1883",
+  "Axion Energy Amancio Alcorta 500, Boulogne GBA Buenos Aires 1609",
+  "Axion Energy Av. Rolón 603, Boulogne GBA Buenos Aires 1609",
+  "Axion Energy Av. Rolón y Blanco Encalada, Boulogne GBA Buenos Aires 1609",
+  "Axion Energy Av. Hipólito Yrigoyen y Monteverde, Burzaco GBA Buenos Aires 1852",
+  "Axion Energy Av. San Martín 1934, Caseros GBA Buenos Aires 1678",
+  "Axion Energy Blas Parera 1276, Castelar GBA Buenos Aires 1712",
+  "Axion Energy Inocencio Arias 3199, Castelar GBA Buenos Aires 1712",
+  "Axion Energy Av. Gaona 4192, Ciudadela GBA Buenos Aires 1702",
+  "Axion Energy República Argentina 3205, Claypole GBA Buenos Aires 1852",
+  "Axion Energy Arturo Umberto Illia Km. 44.300 esquina General Viamonte, Del Viso GBA Buenos Aires 1669",
+  "Axion Energy Panamericana y 202, Don Torcuato GBA Buenos Aires 1611",
+  "Axion Energy Ruta 202 esquina Juan De Garay, Don Torcuato GBA Buenos Aires 1611",
+  "Axion Energy Calle 122 nro 716 entre Calles 46 y 47, Ensenada GBA Buenos Aires 1902",
+  "Axion Energy Ruta 205 Km. 33,5, Ezeiza GBA Buenos Aires 1804",
+  "Axion Energy Av. Del Libertador esquina Corrientes, Olivos GBA Buenos Aires 1604",
+  "Axion Energy 9 de Julio 202, Pilar GBA Buenos Aires 1629",
+  "Axion Energy Agustín M. García 9647, Benavidez GBA Buenos Aires 1621",
+  "Axion Energy Alvear 2080, Villa Ballester GBA Buenos Aires 1653",
+  "Axion Energy Av. Cap. Claudio Rosales, El Palomar GBA Buenos Aires 1685",
+  "Axion Energy Santa Rosa 1885, Castelar GBA Buenos Aires 1712",
+  "Axion Energy Sarmiento 2003, Castelar GBA Buenos Aires 1712",
+  "Axion Energy Sarmiento 338 (Ruta 205 Km. 40,3), Tristán Suarez GBA Buenos Aires 1806",
+  "Axion Energy Triunvirato 1610 y Necochea, Quilmes GBA Buenos Aires 1878",
+  "Axion Energy Vergara 3036, Hurlingham GBA Buenos Aires 1686",
+  "Axion Energy Victorica 47, Moreno GBA Buenos Aires 1744",
+  "Axion Energy Zeballos 2188, Castelar GBA Buenos Aires 1712",
+  "Axion Energy Bdo. De Irigoyen 1190, General Rodríguez GBA Buenos Aires 1072",
+  "Axion Energy José León Larre 806, Gonzalez Catán GBA Buenos Aires 1759",
+  "Axion Energy Av. Villamayor y Rta 200, General Las Heras GBA Buenos Aires 1741",
+  "Axion Energy Ruta 197 y Mozard, General Pacheco GBA Buenos Aires 1617",
+  "Axion Energy Ruta Nacional 197 y el Callao 0, Grand Bourg GBA Buenos Aires 1615",
+  "Axion Energy Fasola y Gral. Actis, Haedo GBA Buenos Aires 1706",
+  "Axion Energy Av. Pte. Perón 4531 esquina G Donak 8, Hurlingham GBA Buenos Aires 1688",
+  "Axion Energy Av Roca (Ruta 201) esquina Paso Morale, Hurlingham GBA Buenos Aires 1686",
+  "Axion Energy Av. Provincias Unidas y Quesadas Ruta 3, Isidro Casanova GBA Buenos Aires 1765",
+  "Axion Energy Av. Gaona y Barcala, Ituzaingó GBA Buenos Aires 1714",
+  "Axion Energy Av. Ratti 2087, Ituzaingó GBA Buenos Aires 1714",
+  "Axion Energy Av. Rivadavia 23190 esquina Pintos, Ituzaingó GBA Buenos Aires 1714",
+  "Axion Energy Hipólito Yrigoyen 5731 (Ruta 197) esquina Saavedra Lamas, José C Paz GBA Buenos Aires 1616",
+  "Axion Energy Hipólito Yrigoyen 696 Ruta Provincial 24, José C Paz GBA Buenos Aires 1665",
+  "Axion Energy Rojo esquina Estanislao del Campo, Laferrere GBA Buenos Aires 1757",
+  "Axion Energy Remedios de Escalada 1389, Lanús GBA Buenos Aires 1823",
+  "Axion Energy Av. Gral Mosconi 1015, Lomas del Mirador GBA Buenos Aires 1752",
+  "Axion Energy Av. San Martín 3694, Lomas del Mirador GBA Buenos Aires 1752",
+  "Axion Energy Av. Provincias Unidas 1590, Lomas del Mirador GBA Buenos Aires 1752",
+  "Axion Energy Av. Hipolito Yrigoyen 18501, Longchamps GBA Buenos Aires 1854",
+  "Axion Energy Av. Dr. Marcos Paz 1222, Marcos Paz GBA Buenos Aires 1727",
+  "Axion Energy Av. Villanueva y Ruta 9, Ingeniero Maschwitz GBA Buenos Aires 1623",
+  "Axion Energy Av. V. Fair 1021, Monte Grande GBA Buenos Aires 1842",
+  "Axion Energy Av. Del Libertador y Graham Bell, Moreno GBA Buenos Aires 1743",
+  "Axion Energy Belisario Roldan y Martín Guemes, Moreno GBA Buenos Aires 1738",
+  "Axion Energy Ruta 25 y Don Bosco, Moreno GBA Buenos Aires 1738",
+  "Axion Energy Av. Eva Perón (Ex Pierrestegui) 4100, Morón GBA Buenos Aires 1712",
+  "Axion Energy Don Bosco 2285/89, Morón GBA Buenos Aires 1708",
+  "Axion Energy Mendoza 205, Morón GBA Buenos Aires 1708",
+  "Axion Energy Av. Mitre 3202, Munro GBA Buenos Aires 1605",
+  "Axion Energy Paraná 3944 esquina Blas Parera, Olivos GBA Buenos Aires 1636",
+  "Axion Energy Pelliza 3892, Olivos GBA Buenos Aires 1636",
+  "Axion Energy Av. J D Perón esquina De La Tropilla, Parque Leloir GBA Buenos Aires 1715",
+  "Axion Energy Intendente Gnecco esquina Quilmes, Paso del Rey GBA Buenos Aires 1742",
+  "Axion Energy Intendente Gnecco 1258, Paso del Rey GBA Buenos Aires 1742",
+  "Axion Energy Ruta 8 Km. 50 esquina Acceso a Derqui, Pilar GBA Buenos Aires 1629",
+  "Axion Energy Ruta Nacional 8 y Velez Sarfield, Pilar GBA Buenos Aires 1629",
+  "Axion Energy Av. Gral. Mitre 880/92 esquina Brandsen, Quilmes GBA Buenos Aires 1602",
+  "Axion Energy Av. Mosconi y Triunvirato 2700, Quilmes GBA Buenos Aires 1879",
+  "Axion Energy Calchaqui Km. 22,3, Quilmes GBA Buenos Aires 1879",
+  "Axion Energy Pres. Juan Domingo Perón 250, Quilmes GBA Buenos Aires 1878",
+  "Axion Energy Primera Junta 257, Quilmes GBA Buenos Aires 1878",
+  "Axion Energy Ruta Nacional 3 y Carlos Casares, Rafael Castillo GBA Buenos Aires 1767",
+  "Axion Energy Av. Gaona 502, Ramos Mejía GBA Buenos Aires 1704",
+  "Axion Energy Av. República y Colombres 280, Ramos Mejía GBA Buenos Aires 1704",
+  "Axion Energy Av. De Mayo 1601, esquina Pasco, Ramos Mejía GBA Buenos Aires 1704",
+  "Axion Energy Rivadavia 24498, San Antonio de Padua GBA Buenos Aires 1718",
+  "Axion Energy Hipólito Yrigoyen y Acceso a Tigre, San Fernando GBA Buenos Aires 1646",
+  "Axion Energy Calle 899 2690 (Don Alvarez/Iriarte), San Francisco Solano GBA Buenos Aires 1884",
+  "Axion Energy Av. Andrés Rolón 1002, San Isidro GBA Buenos Aires 1642",
+  "Axion Energy Av. Illia y Perón San Justo GBA Buenos Aires 1754",
+  "Axion Energy Larralde 3186 Y Ruta 197, Talar del Pacheco GBA Buenos Aires 1617",
+  "Axion Energy Camino De La Virgen Maria (Ex Av. De La Cooperacion) y Av. Los Nogales, Tapiales GBA Buenos Aires 1771",
+  "Axion Energy Av. de Circunvalación y Del Riego (Mercado Central), Tapiales GBA Buenos Aires 1771",
+  "Axion Energy Av. Eva Perón 4199, Temperley GBA Buenos Aires 1834",
+  "Axion Energy Av. de la Rivera 2902, Ituzaingó GBA Buenos Aires 1834",
+  "Axion Energy Eva Perón 3302, Temperley GBA Buenos Aires 1834",
+  "Axion Energy Directorio 1394 y Callao, Tortuguitas GBA Buenos Aires 1667",
+  "Axion Energy Av. Pte. Perón y Rodriguez Peña, Villa Lynch GBA Buenos Aires 1834",
+  "Axion Energy Av. del Libertador 285, Vicente López GBA Buenos Aires 1638",
+  "Axion Energy Bardi, Av. Maipú 1055, Vicente López GBA Buenos Aires 1638",
+  "Axion Energy Av. Gral Lemos (Ruta 202 y Los Eucaliptos, Villa de Mayo GBA Buenos Aires 1614",
+  "Axion Energy Camino Buen Ayre Km. 19, Ituzaingó GBA Buenos Aires 1655",
+  "Axion Energy Colectora de la Ruta 3 Km. 36,4, Virrey del Pino GBA Buenos Aires 1763",
+  "Axion Energy Av. Mitre 5525, Wilde GBA Buenos Aires 1874",
+  "Axion Energy Gaspar Campos 1665, Bella Vista GBA Buenos Aires 1661",
+  "Axion Energy Av. Rolón 2701, Boulogne GBA Buenos Aires 1609",
+  "Axion Energy Av. San Martín 3188, Florencio Varela GBA Buenos Aires 1888",
+  "Axion Energy Av. Mitre 1630, Florida GBA Buenos Aires 1604",
+  "Axion Energy San Martín 830, San Martín GBA Buenos Aires 1650",
+  "Axion Energy Ruta 3 y Da Vinci, Laferrere GBA Buenos Aires 1757",
+  "Axion Energy Av. Santa Fe 2428, Martínez GBA Buenos Aires 1640",
+  "Axion Energy Santa Marina y Vicente López, Monte Grande GBA Buenos Aires 1842",
+  "Axion Energy Av. Libertador 1291 y Gaona, Moreno GBA Buenos Aires 1744",
+  "Axion Energy Av. Don Bosco 2805, Morón GBA Buenos Aires 1708",
+  "Axion Energy Colectora 12 de Octubre y Chacabuco, Pilar GBA Buenos Aires 1629",
+  "Axion Energy Av. Hipólito Yrigoyen 10101, Temperley GBA Buenos Aires 1834",
+  "Axion Energy Santos Vega y Palma, Villa Bosch GBA Buenos Aires 1682",
+  "Axion Energy Camino de Cintura y Calle Olimpo 9 de Abril Buenos Aires 1839",
+  "Axion Energy Av. San Martín y N L Robbio 9 de Julio Buenos Aires 6500",
+  "Axion Energy Ruta Nacional 5 Km. 190,5 Alberti Buenos Aires 6640",
+  "Axion Energy Hipólito Yrigoyen 29213 Alejandro Korn Buenos Aires 1864",
+  "Axion Energy Dindart 1302 esquina Miguens Ayacucho Buenos Aires 7150",
+  "Axion Energy Ruta Provincial 29 y Ruta Provincial 74 Ayacucho Buenos Aires 7150",
+  "Axion Energy Ruta Nacional 3 Km. 298 Azul Buenos Aires 7300",
+  "Axion Energy Av. Alem 1086 Bahía Blanca Buenos Aires 8000",
+  "Axion Energy Pilmayquen 30 Bahía Blanca Buenos Aires 8000",
+  "Axion Energy Ruta 3 y Ruta 252 Bahía Blanca Buenos Aires 8000",
+  "Axion Energy Sarmiento y R. Carrillo Bahía Blanca Buenos Aires 8000",
+  "Axion Energy San Martín y Ameghino Baradero Buenos Aires 2942",
+  "Axion Energy Av. Gral Paz y Roca Bolivar Buenos Aires 6550",
+  "Axion Energy Av. Sesquicentenario y Ruta Nacional 3 Bordeu Buenos Aires 8000",
+  "Axion Energy Av. Rivadavia 975 Campana Buenos Aires 2804",
+  "Axion Energy Mitre 852 Campana Buenos Aires 2804",
+  "Axion Energy Ruta Nacional 12 Km. 78.5 Campana Buenos Aires 2804",
+  "Axion Energy Ruta Nacional 9 y Coronel Larrabure Campana Buenos Aires 2804",
+  "Axion Energy Av. 6 de Julio 1358 Campana Buenos Aires 2804",
+  "Axion Energy Ruta 3 Km. 67.200 Cañuelas Buenos Aires 1814",
+  "Axion Energy Ruta 3 y Ruta 205 Cañuelas Buenos Aires 1814",
+  "Axion Energy Ruta 5 Km 309 Carlos Casares Buenos Aires 6530",
+  "Axion Energy Comodoro Rivadavia 315 Carmen de Patagones Buenos Aires 8504",
+  "Axion Energy Ruta Nacional 33 Km. 233 Casbas Buenos Aires 6417",
+  "Axion Energy Av. Sarmiento 93 Chivilcoy Buenos Aires 6620",
+  "Axion Energy Av. Centenario y Calle 466 City Bell Buenos Aires 1896",
+  "Axion Energy San Martín 501 esquina Siria Coronel Coronel Dorrego Buenos Aires 8150",
+  "Axion Energy Ruta 51 y Ruta 85 Km 108 Coronel Pringles Buenos Aires 7530",
+  "Axion Energy San Martín 299 Coronel Vidal Buenos Aires 7174",
+  "Axion Energy Las Heras 611 General Lamadrid Buenos Aires 7406",
+  "Axion Energy Ruta 11 y B Mitre 0 General Lavalle Buenos Aires 7103",
+  "Axion Energy Ruta 74 y Calle 26 General Madariaga Buenos Aires 7163",
+  "Axion Energy Moreno y Mitre General Villegas Buenos Aires 1685",
+  "Axion Energy Ruta Nacional 7 y Dr. Benito de Miguel Junín Buenos Aires 6000",
+  "Axion Energy Av. 66 esquina 143 La Plata Buenos Aires 1900",
+  "Axion Energy Calle 131 esquina Calle 62 La Plata Buenos Aires 1900",
+  "Axion Energy Calle 28 nro. 5 La Plata Buenos Aires 1902",
+  "Axion Energy Calle 32 y 137 La Plata Buenos Aires 1900",
+  "Axion Energy Calle 7 y 511 La Plata Buenos Aires 1900",
+  "Axion Energy Calle 7 y 85 La Plata Buenos Aires 1914",
+  "Axion Energy Calle 72 N° 780 La Plata Buenos Aires 1900",
+  "Axion Energy Diagonal 77 - 673 La Plata Buenos Aires 1902",
+  "Axion Energy Cno. De Cintura y M. Sastre Lavallol Buenos Aires 1836",
+  "Axion Energy Av. Antártida Argentina y FRM Lavallol Buenos Aires 1836",
+  "Axion Energy Av. Massey y Ameghino Lincoln Buenos Aires 6070",
+  "Axion Energy García Tuñon 802 Lincoln Buenos Aires 6070",
+  "Axion Energy Av. Campos 102 Lobería Buenos Aires 7635",
+  "Axion Energy Hipólito Yrigoyen y Arevalo Lobos Buenos Aires 7240",
+  "Axion Energy Acceso Oeste Km. 65,5 Luján Buenos Aires 6702",
+  "Axion Energy Av. Constitución 1885 Luján Buenos Aires 6700",
+  "Axion Energy Carlos Pellegrini esquina Las Orquideas Luján Buenos Aires 6702",
+  "Axion Energy Ruta 5 Km. 66,200 Luján Buenos Aires 6702",
+  "Axion Energy Constitución 4703 Mar del Plata Buenos Aires 7600",
+  "Axion Energy Juan B. Justo y M. De Hoz Mar del Plata Buenos Aires 7600",
+  "Axion Energy Ruta 226 Km. 7,5 Mar del Plata Buenos Aires 7600",
+  "Axion Energy Av. Juan B Justo 6065 Mar del Plata Buenos Aires 7600",
+  "Axion Energy Colón 5002 Mar del Plata Buenos Aires 7600",
+  "Axion Energy Moreno 3151 esquina Catamarca Mar del Plata Buenos Aires 7600",
+  "Axion Energy Ruta Nacional 11 Km. 327,6 Mar del Tuyú Buenos Aires 7108",
+  "Axion Energy Av. Sarmiento (Ruta Nacional 25 Km. 25) esquina San Alejandro Matheu Buenos Aires 1627",
+  "Axion Energy Ex Ruta 5 Km. 100 Mercedes Buenos Aires 6600",
+  "Axion Energy Av. Calle Real 464 esquina Aristobulo del Valle Merlo Buenos Aires 1722",
+  "Axion Energy Irigoyen y San Juan Merlo Buenos Aires 1072",
+  "Axion Energy Ricardo Balbin 7520 Merlo Buenos Aires 1724",
+  "Axion Energy Ruta 200 y Mendoza Merlo Buenos Aires 1722",
+  "Axion Energy Eva Perón 6205 Merlo Buenos Aires 1716",
+  "Axion Energy Emilio Zola 21 Merlo Buenos Aires 1722",
+  "Axion Energy Calle 59 esquina 80 Necochea Buenos Aires 7630",
+  "Axion Energy Av. Colón 1588 Olavarría Buenos Aires 7400",
+  "Axion Energy Av. Avellaneda y Urquiza 970 Olavarría Buenos Aires 7400",
+  "Axion Energy Moreno y Belgrano Olavarría Buenos Aires 7400",
+  "Axion Energy Ruta Nacional 226 y Rivadavia Olavarría Buenos Aires 7400",
+  "Axion Energy Acceso Güemes 410 esquina Martín Coronado Pehuajo Buenos Aires 6450",
+  "Axion Energy Avellaneda y Neuquén Pehuajo Buenos Aires 6450",
+  "Axion Energy Ruta Nacional 5 Km 366 Pehuajó Buenos Aires 6450",
+  "Axion Energy Ameghino 799 Pergamino Buenos Aires 2700",
+  "Axion Energy Av. Colón 499 Pergamino Buenos Aires 2700",
+  "Axion Energy H. Irigoyen 200 Pergamino Buenos Aires 2700",
+  "Axion Energy Ruta 33 Km. 464,8 Piedritas Buenos Aires 6241",
+  "Axion Energy Av. Avellaneda y Numa Ayrinhac Pigüe Buenos Aires 8170",
+  "Axion Energy Av. Bunge e Intermedanos Pinamar Buenos Aires 7167",
+  "Axion Energy Ruta Nacional 3 Km. 810,5 Pradere Buenos Aires 8255",
+  "Axion Energy Ruta Nacional 9 Km. 206 Ramallo Buenos Aires 2915",
+  "Axion Energy Tarigo 1109 Roque Perez Buenos Aires 7245",
+  "Axion Energy Ruta 7 Km. 101,8 San Andres de Giles Buenos Aires 6720",
+  "Axion Energy Av. Alvear y Ruta 8 San Antonio de Areco Buenos Aires 2760",
+  "Axion Energy Mitre y San Lorenzo, San Miguel San Miguel Buenos Aires 1663",
+  "Axion Energy Presidente Perón 2538, San Miguel San Miguel Buenos Aires 1663",
+  "Axion Energy Av. Gral Salvio 665 San Nicolás Buenos Aires 2900",
+  "Axion Energy Av. Santamarina 699 Tandil Buenos Aires 7000",
+  "Axion Energy Ruta 228 y Av. Monteagudo Tres Arroyos Buenos Aires 7500",
+  "Axion Energy Ruta Nacional 3 y Gral. San Martín Tres Arroyos Buenos Aires 7500",
+  "Axion Energy G. del Soldato 417 Tres Lomas Buenos Aires 6409",
+  "Axion Energy Camino Centenario 785 y calle 422 Villa Elisa Buenos Aires 1894",
+  "Axion Energy Camino Gral. Belgrano y Av. Arana Villa Elisa Buenos Aires 1894",
+  "Axion Energy Bv. Silvio Gesell y Paseo 107 Villa Gesell Buenos Aires 7165",
+  "Axion Energy 19 de Marzo e Ituzaingó Zárate Buenos Aires 2800",
+  "Axion Energy Ruta Nacional 193 y Ruta Nacional 12 Zárate Buenos Aires 2800",
+  "Axion Energy Ruta Nacional 9 Km. 92 Zárate Buenos Aires 2800",
+  "Axion Energy Ruta Nacional 157 Km. 969 y Pje. Güemes Recreo Catamarca 5260",
+  "Axion Energy Av Güemes 1275 San Fernando del Valle de Catamarca Catamarca 4700",
+  "Axion Energy Av. Guemes y Junín San Fernando del Valle de Catamarca Catamarca 4700",
+  "Axion Energy Belgrano y Tucumán San Fernando del Valle de Catamarca Catamarca 4700",
+  "Axion Energy Av. Pres. Castillo 1160 San Fernando del Valle de Catamarca Catamarca 4700",
+  "Axion Energy Yriyoyen esquina Córdoba San Fernando del Valle de Catamarca Catamarca 4700",
+  "Axion Energy Ruta 38 y Circunvalación San Isidro Catamarca 4707",
+  "Axion Energy Diag. Eva Perón 750 Barranqueras Chaco 3503",
+  "Axion Energy San Martín y Belgrano Casteli Chaco 3705",
+  "Axion Energy Ruta 90 y Acceso General San Martín Chaco 3509",
+  "Axion Energy 25 de Mayo 201 esquina Vedia Resistencia Chaco 3500",
+  "Axion Energy Av. 25 de Mayo 4060 Resistencia Chaco 3500",
+  "Axion Energy Av. 9 de Julio 1501 Resistencia Chaco 3508",
+  "Axion Energy Ruta Nacional 16 Km. 14.5 Resistencia Chaco 3500",
+  "Axion Energy M Belgrano 802 Rodríguez S Peña Chaco 3700",
+  "Axion Energy Mariano Moreno y esq. Pueyrredón Roque Saenz Peña Chaco 3700",
+  "Axion Energy Av. Uruguay y Av. Kennedy Villa Angela Chaco 3540",
+  "Axion Energy Av. Julio Argentino Roca 21 Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Av. Kennedy e Islas Leones Comodoro Rivadavia Chubut 9003",
+  "Axion Energy Av. Rivadavia 2750 Comodoro Rivadavia Chubut 9002",
+  "Axion Energy Av. Rivadavia y Alvear Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Av. Hipólito Yrigoyen y Juan B. Justo Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Hipólito Yrigoyen (Ruta 3 Km. 1848) 5353 Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Av. John F. Kennedy 3398 Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Rivadavia 38 Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Ruta 3 y acceso Aeropuerto Comodoro Rivadavia Chubut 9000",
+  "Axion Energy Ruta 1 Km 80 Escalante Chubut 9000",
+  "Axion Energy Ruta Nacional 259 y J. Lezama Esquel Chubut 9200",
+  "Axion Energy Av. Gral. Roca y Villarino Puerto Madryn Chubut 9120",
+  "Axion Energy Av. Muzzio y Fte. San José 429 Puerto Madryn Chubut 9120",
+  "Axion Energy María Eva Duarte 949 Rawson Chubut 9103",
+  "Axion Energy Rivadavia y Federici Rawson Chubut 9103",
+  "Axion Energy Av. Estrada y Roca Sarmiento Chubut 9120",
+  "Axion EnergyRuta Provincial 20 y Av. Regimiento de Infantería N°25 Sarmiento Chubut 9120",
+  "Axion Energy Centenario y Sob. Nación Trelew Chubut 9100",
+  "Axion Energy Colombia 440 Trelew Chubut 9100",
+  "Axion Energy Pellegrini 1480 Trelew Chubut 9100",
+  "Axion Energy Ruta 3 Km. 1453 Trelew Chubut 9100",
+  "Axion Energy Ruta 3 Km. 1470 (Provincial 25) Trelew Chubut 9100",
+  "Axion Energy San Martín 1312 esquina Entre Ríos Trelew Chubut 9100",
+  "Axion Energy Av. Patagonia y Rhis Thomas Trevelin Chubut 9203",
+  "Axion Energy Av. del Libertador Gral. San Martín 1980 Alta Gracia Córdoba 5186",
+  "Axion Energy Lucio V. Rossi 41 esquina Ruta Prov 45 Alta Gracia Córdoba 5186",
+  "Axion Energy Ruta 5 y Calle 14 Alta Gracia Córdoba 5186",
+  "Axion Energy Ruta 45 y Guemes (Rotonda) Alta Gracia Córdoba 5186",
+  "Axion Energy Av. Recta Martinolli 7365 Argüello Córdoba 5021",
+  "Axion Energy Ruta Nacional 19 Km. 222 Arroyito Córdoba 2434",
+  "Axion Energy Tucumán esquina Viqueira Bell Ville Córdoba 2550",
+  "Axion Energy Bv. Int. Giaveno 11 Brinckmann Córdoba 2419",
+  "Axion Energy Ruta Nacional 9 Km. 751 Colonia Caroya Córdoba 5223",
+  "Axion Energy Av. O´Higgins 5375 Córdoba Córdoba 5014",
+  "Axion Energy Av. 11 de Septiembre 2990 Córdoba Córdoba 5000",
+  "Axion Energy A. Sabattini 4720 Córdoba Córdoba 5006",
+  "Axion Energy Av. Armada Argentina 787 Córdoba Córdoba 5000",
+  "Axion Energy Av. Fuerza Aerea 1699 Córdoba Córdoba 5000",
+  "Axion Energy Av. Juan B. Justo mano al Norte, esquina Nuestra Sra. de los Milagros Córdoba Córdoba 5000",
+  "Axion Energy Av. las Malvinas 2145 Córdoba Córdoba 5012",
+  "Axion Energy Av. Malagueño 2818 esquina Haucha 2615 Córdoba Córdoba 5000",
+  "Axion Energy Av. Amadeo Sabattini 5815 Córdoba Córdoba 5123",
+  "Axion Energy Av. Vélez Sarsfield 5030 Córdoba Córdoba 5016",
+  "Axion Energy Av. Colón y Cayetano Silva Córdoba Córdoba 5003",
+  "Axion Energy Av. E. Bodereau 9185 esquina Agua Sacha Córdoba Córdoba 5018",
+  "Axion Energy Av. Fuerza Aerea Argentina 4510 Córdoba Córdoba 5010",
+  "Axion Energy Manuel Baigorria 1300 Córdoba Córdoba 5016",
+  "Axion Energy Bulnes 1108 esquina Luque Córdoba Córdoba 5000",
+  "Axion Energy Bv. Guzman y Alvear Córdoba Córdoba 2580",
+  "Axion Energy Av. Juan B. Justo 5225 Córdoba Córdoba 5001",
+  "Axion Energy Monseñor Pablo Cabrera 1807 Córdoba Córdoba 5000",
+  "Axion Energy Av. 9 de Julio y Av. Ranqueles Coronel Moldes Córdoba 5847",
+  "Axion Energy Ruta Nacional 158 y Ruta Nacional 6 s/n Dalmacio Córdoba 5919",
+  "Axion Energy Pasaje Mitre y Ruta 19 Devoto Córdoba 6273",
+  "Axion Energy Ruta 158 y Acceso a Freyre Freyre Córdoba 2413",
+  "Axion Energy Buenos Aires 720 General Deheza Córdoba 5923",
+  "Axion Energy Blvd. Moreno 850 esquina J.B. Alberdi Hernando Córdoba 5929",
+  "Axion Energy Beltrán e Yrigoyen Huinca Renanco Córdoba 5974",
+  "Axion Energy Av. España 643 La Falda Córdoba 5172",
+  "Axion Energy Av. Buenos Aires 397 La Falda Córdoba 5172",
+  "Axion Energy Ruta Nacional 7 Km. 487 Laboulaye Córdoba 6120",
+  "Axion Energy Muñiz y Ruta 158 Las Higueras Córdoba 5805",
+  "Axion Energy Ruta Nacional 9 Km. 463 Leones Córdoba 2594",
+  "Axion Energy Bv. Hipólito Yrigoyen 1101 esquina Moreno Morteros Córdoba 2421",
+  "Axion Energy Ruta Nacional 9 Km. 629,5 Oncativo Córdoba 5986",
+  "Axion Energy 25 de Mayo y Pasaje Colón Porteña Córdoba 2415",
+  "Axion Energy Ruta Nacional 158 esquina Diagonal Este Pozo de Molle Córdoba 5913",
+  "Axion Energy Ruta E53 y Amadeo Sabattini Río Ceballos Córdoba 5111",
+  "Axion Energy Pedro Goyena 495 Río Cuarto Córdoba 5808",
+  "Axion Energy Av. San Martín esquina Enlace Rutas 8 Río Cuarto Córdoba 5808",
+  "Axion Energy Cmte. Martín Quenon esquina José Manuel Estrada Río Cuarto Córdoba 5808",
+  "Axion Energy Tierras del Fuego 2019 y Ruta A005 Río Cuarto Córdoba 5808",
+  "Axion Energy Av. Perón (Ruta 9) y Santa Fé Río Segundo Córdoba 5960",
+  "Axion Energy Av. General Savio 2801 Río Tercero Córdoba 5850",
+  "Axion Energy Av. Libertador 1398 San Francisco Córdoba 2400",
+  "Axion Energy Caseros y Ruta 19 San Francisco Córdoba 2400",
+  "Axion Energy Av. Goycochea 1235 Villa Allende Córdoba 5105",
+  "Axion Energy Av. Ramón J. Cárcano 1048 Villa Carlos Paz Córdoba 5152",
+  "Axion Energy Av. San Martín 1010 Villa Carlos Paz Córdoba 5152",
+  "Axion Energy Ruta Nacional 38 esquina Empalme Tanti Villa del Lago Córdoba 5152",
+  "Axion Energy Sarmiento 200 Villa Dolores Córdoba 5870",
+  "Axion Energy Ruta Provincial N5 y, Ojo de Agua Villa General Belgrano Córdoba 5194",
+  "Axion Energy Ruta Nacional 38 Km. 63.5 Villa Giardino Córdoba 5176",
+  "Axion Energy Ruta Nacional 9 Km. 552 Villa María Córdoba 5900",
+  "Axion Energy Buenos Aires 2100 e Intendente Arine Villa María Córdoba 5900",
+  "Axion Energy Ruta Nacional 14 Km. 600 Alvear Corrientes 3344",
+  "Axion Energy Ruta Nacional 14 Km. 429 Colonia Libertad Corrientes 3400",
+  "Axion Energy Av. Centenario 5042 Corrientes Corrientes 3400",
+  "Axion Energy Av. Paisandú esquina Cruz del Sur Corrientes Corrientes 3500",
+  "Axion Energy Ruta 12 Km. 1028 Corrientes Corrientes 3400",
+  "Axion Energy Ruta Nacional 12 y Acceso Itati Itati Corrientes 3414",
+  "Axion Energy 25 de Mayo 681 Paso de la Patria Corrientes 3409",
+  "Axion Energy Juan Romero esquina Ruta 5 San Luis del Palmar Corrientes 3403",
+  "Axion Energy Ruta Nacional 118 Km. 64,5 Santa Rosa Corrientes 3421",
+  "Axion Energy Ruta Nacional 14 Km. 686 Santo Tomé Corrientes 3340",
+  "Axion Energy Ruta Nacional 14 Km. 747 Visaroro Corrientes 3342",
+  "Axion Estrada 806 Basavilbaso Entre Ríos 3170",
+  "Axion Energy Pte. Perón 141 Bovril Entre Ríos 3142",
+  "Axion Energy Ruta Provincial 39 esquina Calle 23 Caseros Entre Ríos 3262",
+  "Axion Energy Dr. Borsotti 285 Cerrito Entre Ríos 3122",
+  "Axion Energy Av. Dr. Casillas 1010 Chajarí Entre Ríos 3228",
+  "Axion Energy Av. 9 de Julio y Av. Belgrano Chajarí Entre Ríos 3228",
+  "Axion Energy Ruta Nacional 14 Km. 320,8 Chajarí Entre Ríos 3228",
+  "Axion Energy Ruta Nacional 14 Km. 150,5 y acceso a Colón Colón Entre Ríos 3280",
+  "Axion Energy Bv. San Lorenzo 1049 Concordia Entre Ríos 3202",
+  "Axion Energy Bv. San Lorenzo 24 esquina Av. Eva Perón Concordia Entre Ríos 3200",
+  "Axion Energy Entre Ríos 997 Concordia Entre Ríos 3202",
+  "Axion Energy Vélez Sarsfield y Diamante Concordia Entre Ríos 3202",
+  "Axion Energy San Martín y Estrada Crespo Entre Ríos 3116",
+  "Axion Energy Blvd. Antonio Daneri 718 Gualeguachú Entre Ríos 2820",
+  "Axion Energy Ruta Nacional 14 Km. 46.5 Gualeguachú Entre Ríos 2820",
+  "Axion Energy Ruta Nacional 14 Km. 83 Gualeguachú Entre Ríos 2820",
+  "Axion Energy Marchini y Ruta Nacional 12 Nogoyá Entre Ríos 3150",
+  "Axion Energy Cervantes y Buenos Aires Paraná Entre Ríos 3100",
+  "Axion Energy Bvrd. Concordia 885 San Salvador Entre Ríos 3218",
+  "Axion Energy Urquiza 1375 y Ruta 127 Villa Federal Entre Ríos 3180",
+  "Axion Energy Tucumán 165 Clorinda Formosa 3610",
+  "Axion Energy Ruta Provincial 3, Av. Crisólogo Larralde El Colorado Formosa 3603",
+  "Axion Energy Av. Gendarmería Nacional, Av. Dr. Luis Gutniski Formosa Formosa 3600",
+  "Axion Energy Av. Italia 955 Formosa Formosa 3600",
+  "Axion Energy Av. Néstor Kirchner y Blas Parera Formosa Formosa 3600",
+  "Axion Energy España 495 Formosa Formosa 3600",
+  "Axion Energy Rutas 81 y 11 Formosa Formosa 3600",
+  "Axion Energy Ruta Nacional 81 Las Lomitas Formosa 3630",
+  "Axion Energy Carlos Pellegrini 705 Pirane Formosa 3606",
+  "Axion Energy Ruta N° 3 Entre Saavedra y Lopez Pirane Formosa 3606",
+  "Axion Energy Ruta Provincial 3 y República de Alemania Villa Dos Trece Formosa 3602",
+  "Axion Energy Av. Wollmann Y Ruta Nacional 34 General San Martín Jujuy 4512",
+  "Axion Energy Av. San Martín Perico Jujuy 4610",
+  "Axion Energy Av. Doctor Arturo Illia y El Palenque San Salvador de Jujuy Jujuy 4602",
+  "Axion Energy Ruta Nacional 9 y Provincial 66 0 San Salvador de Jujuy Jujuy 4600",
+  "Axion Energy Almirante Brown 899 San Salvador de Jujuy Jujuy 4600",
+  "Axion Energy Diagonal 9 De Julio 1275 Eduardo Castex La Pampa 6300",
+  "Axion Energy Ruta Nacional 152 Km. 28 General Acha La Pampa 8200",
+  "Axion Energy Av. Circunvalación y Calle 440 General Pizo La Pampa 6360",
+  "Axion Energy Ruta 1 Acceso Sur Macachin La Pampa 6307",
+  "Axion Energy Av. Circunvalación y Calle Schmidt Santa Rosa La Pampa 6300",
+  "Axion Energy Ruta Nacional 38 y Manuel Villanueva Chamical La Rioja 5380",
+  "Axion Energy Av. Ángel Vicente Peñaloza 820 La Rioja La Rioja 5300",
+  "Axion Energy San Nicolás de Bari esquina Portezue La Rioja La Rioja 5300",
+  "Axion Energy Av. Ortiz de Ocampo y Cerro Azul La Rioja La Rioja 5300",
+  "Axion Energy Belgrano 541 Apostoles Misiones 3350",
+  "Axion Energy Ruta Nacional 14 Km. 913,5 Campo Grande Misiones 3362",
+  "Axion Energy Padre L. Sarley 0 Colonia 25 de Mayo Misiones 3379",
+  "Axion Energy Ruta Nacional 2 y Almafuerte Concepción de las Sierras Misiones 3355",
+  "Axion Energy Ruta 12 Km 1541 El Dorado Misiones 3380",
+  "Axion Energy Av. 9 de Julio y Ruta 12 Jardín de América Misiones 3328",
+  "Axion Energy Ruta Nacional 14 Km. 1120 Oberá Misiones 3361",
+  "Axion Energy Sarmiento 1281 Oberá Misiones 3361",
+  "Axion Energy Monteagudo 1824 Posadas Misiones 3301",
+  "Axion Energy Av. Quaranta 4150 Posadas Misiones 3300",
+  "Axion Energy Av. República Oriental del Uruguay 3794 (y Av. Cabred) Posadas Misiones 3300",
+  "Axion Energy Av. Tambor de Tacuarí 4951 Posadas Misiones 3301",
+  "Axion Energy Energy La Rioja 2024 Posadas Misiones 3300",
+  "Axion Energy Ruta Nacional N° 12 y Av. 147 Posadas Misiones 3300",
+  "Axion Energy Ruta Nacional 14 Km. 1048 y Acceso a San Pedro San Pedro Misiones 3352",
+  "Axion Energy Ruta Nacional 14 Km. 1260 San Vicente Misiones 3364",
+  "Axion Energy Ruta Provincial 13 y Néstor Kirchner San Vicente Misiones 3364",
+  "Axion Energy Ruta Nacional 40 y Ruta Provincial 319 Media Agua San Juan 5435",
+  "Axion Energy Av. San Martín y Urquiza San Juan San Juan 5400",
+  "Axion Energy Av. Guillermo Rawson Norte 1251 San Juan San Juan 5400",
+  "Axion Energy Av. José Ignacio de La Rosa y Av. Paula Albarracín de Sarmiento San Juan San Juan 5400",
+  "Axion Energy Paula Albarracín de Sarmiento 555 Norte San Juan San Juan 5400",
+  "Axion Energy Lavalle y Yrigoyen Mercedes San Luis 5730",
+  "Axion Energy Ruta 7 Km. 695.2 Mercedes San Luis 5730",
+  "Axion Energy Ruta Nacional 7 Km. 694 Mercedes San Luis 5730",
+  "Axion Energy Ruta Provincial 1 y Enlaceruta Prov. 5 Merlo San Luis 5881",
+  "Axion Energy Av. Centenario y Riobamba San Luis San Luis 5700",
+  "Axion Energy Av. Eva Perón y Av. Fuerza Aerea Argentina San Luis San Luis 5702",
+  "Axion Energy Ruta 3 Sur Km. 2,5 San Luis San Luis 5700",
+  "Axion Energy Ruta Provincial 3 esquina Av. Costanera San Luis San Luis 5700",
+  "Axion Energy Falucho y Av. Parque San Luis San Luis 5700",
+  "Axion Energy Ituzaingó 42 San Luis San Luis 5700",
+  "Axion Energy Nuevo trazado de la Ruta N°3 Caleta Olivia Santa Cruz 9011",
+  "Axion Energy San Martín 590 Caleta Olivia Santa Cruz 9011",
+  "Axion Av. del Libertador y Guillermo Eike El Calafate Santa Cruz 9405",
+  "Axion Energy Av. Perito Moreno 260 Las Heras Santa Cruz 9017",
+  "Axion Energy Ruta Provincial 52 y camino a aeropuerto Perito Moreno Santa Cruz 9040",
+  "Axion Energy Rivadavia e Irigoyen Pico Truncado Santa Cruz 9015",
+  "Axion Energy San Martín y Pueyrredón Puerto Deseado Santa Cruz 9050",
+  "Axion Energy Av. Marcelino Álvarez 65 Río Gallegos Santa Cruz 9402",
+  "Axion Energy Mariano Moreno 921 Río Gallegos Santa Cruz 9403",
+  "Axion Energy Roca y Ameghino Río Gallegos Santa Cruz 9400",
+  "Axion Energy Ruta Nacional 3 y Castelli Río Gallegos Santa Cruz 9400",
+  "Axion Energy Av. Pres. Dr. Nestor C. Kirchner 1794 Río Gallegos Santa Cruz 9400",
+  "Axion Energy Av. De Los Mineros y J. A. Roca Río Turbio Santa Cruz 9407",
+  "Axion Energy Ruta Nacional 9 Km. 272 Arroyo Seco Santa Fe 2128",
+  "Axion Energy Ruta Nacional 11 Km. 793 Avellaneda Santa Fe 3561",
+  "Axion Energy Autopista Santa Fe Acceso Barrancas Barrancas Santa Fe 2246",
+  "Axion Energy Av. Santa Fe 1845 Cañada de Gomez Santa Fe 2500",
+  "Axion Energy Av. 6 de Julio 1358 Cañada de Gomez Santa Fe 2500",
+  "Axion Energy Buenos Aires 2902 Casilda Santa Fe 2170",
+  "Axion Energy Bv. Bernardo de Irigoyen y Juan de Garay Ceres Santa Fe 2340",
+  "Axion Energy Kreder 2544 Esperanza Santa Fe 3080",
+  "Axion Energy Los Olmos 727 Funes Santa Fe 2132",
+  "Axion Energy Ruta Nacional 11 Km. 620 Gobernador Crespo Santa Fe 3044",
+  "Axion Energy Ruta Provincial 11 Km. 891,5 Las Toscas Santa Fe 3586",
+  "Axion Energy Sarmiento 1215 Malabrigo Santa Fe 3572",
+  "Axion Energy San Martín 5951 Ruta Provincial 2 Montevera Santa Fe 3014",
+  "Axion Energy San Martín y San Juan Pilar Santa Fe 3085",
+  "Axion Energy Av. Lemman y Maipú Rafaela Santa Fe 2300",
+  "Axion Energy Blvd. Hipólito Yrigoyen 901 Rafaela Santa Fe 2300",
+  "Axion Energy Ruta Nacional 34 y Ruta 70 Rafaela Santa Fe 2300",
+  "Axion Energy Ruta Nacional 11 Km. 787 y Ruta Provincial 98 Reconquista Santa Fe 3560",
+  "Axion Energy Av. San Martín 5399 Rosario Santa Fe 2011",
+  "Axion Energy Av. Eva Perón 8159 Rosario Santa Fe 2008",
+  "Axion Energy Av. San Martín 3502 Rosario Santa Fe 2001",
+  "Axion Energy Baigorria 1870 Rosario Santa Fe 2005",
+  "Axion Energy Bvd. Avellaneda 1698 Rosario Santa Fe 2002",
+  "Axion Energy Bvd. Oroño, Av. José Batlle y Ordóñez 6190 Rosario Santa Fe 2000",
+  "Axion Energy Córdoba 2790 Rosario Santa Fe 2002",
+  "Axion Energy Eva Perón 5303 Rosario Santa Fe 2000",
+  "Axion Energy Provincias Unidas 2902 Rosario Santa Fe 2009",
+  "Axion Energy San Martín 1983 Rosario Santa Fe 2000",
+  "Axion Energy San Martín 911 San Carlos Sud Santa Fe 3017",
+  "Axion Energy Santa Fe y Angela de la Casa San Guillermo Santa Fe 2347",
+  "Axion Energy San Martín y Güemes San Jeronimo Norte Santa Fe 3015",
+  "Axion Energy Av. Falucho (Ruta Prov.13) y Albe San Jorge Santa Fe 2451",
+  "Axion Energy Ruta 1 Km. 5.5 San José del Rincón Santa Fe 2185",
+  "Axion Energy Blvd. Urquiza esquina Mandolini San Lorenzo Santa Fe 2200",
+  "Axion Energy Ruta Nacional 34 y Acceso San Vicente Santa Fe 2447",
+  "Axion Energy 27 de Febrero y Mendoza Santa Fe Santa Fe 3000",
+  "Axion Energy Aristobulo del Valle 5621 Santa Fe Santa Fe 3000",
+  "Axion Energy Av. Facundo Zubiria 4517 esquina Calle Pedro Ferré Santa Fe Santa Fe 3002",
+  "Axion Energy Av. Freyre 1647 Santa Fe Santa Fe 3000",
+  "Axion Energy Av. Freyre 2300 Santa Fe Santa Fe 3000",
+  "Axion Energy Blvd. Galvez 1599 Santa Fe Santa Fe 3002",
+  "Axion Energy Ruta 168 Km. 476 Santa Fe Santa Fe 3000",
+  "Axion Energy General Paz 7500 Santa Fe Santa Fe 3000",
+  "Axion Energy Ruta Provincial Nro. 1 Km. 38 Santa Rosa Santa Fe 3001",
+  "Axion Energy Av. 7 de Marzo 1491 Santo Tomé Santa Fe 3016",
+  "Axion Energy Alem e Iturbide Venado Tuerto Santa Fe 2600",
+  "Axion Energy Ovidio Lagos 56 Venado Tuerto Santa Fe 2600",
+  "Axion Energy Santa Fe y Brown Venado Tuerto Santa Fe 2600",
+  "Axion Energy D. Segundo 1940 Villa Constitución Santa Fe 2919",
+  "Axion Energy Blvd. San Martín y José Ingeniero Zenon Pereyra Santa Fe 2409",
+  "Axion Energy Senador Salim Y Ruta 157 Frias Santiago del Estero 4230",
+  "Axion Energy Av. 2 de Septiembre La Banda Santiago del Estero 4300",
+  "Axion Energy Ruta Nacional 157 Km. 1094 Lavalle Santiago del Estero 5264",
+  "Axion Energy Ruta Nacional 34 Km 495 Pinto Santiago del Estero 4208",
+  "Axion Energy Av. Rivadavia (S, Av. Julio A Roca) Quimili Santiago del Estero 3740",
+  "Axion Energy Ruta Nacional 89 Km. 384 Quimili Santiago del Estero 3740",
+  "Axion Energy Av. Belgrano 4051 esquina Paraguay Santiago del Estero Santiago del Estero 4200",
+  "Axion Energy Av.Rivadavia, Pje. Oeste 595 Santiago del Estero Santiago del Estero 4200",
+  "Axion Energy Independencia 3478 Santiago del Estero Santiago del Estero 4200",
+  "Axion Energy Independencia 908 Santiago del Estero Santiago del Estero 4200",
+  "Axion Energy Ruta Nacional N° 9 y Ruta Naxional N° 208 Santiago del Estero Santiago del Estero 4200",
+  "Axion Energy J. B Alberdi y España Termas de Río Hondo Santiago del Estero 4220",
+  "Axion Energy Av. Presidente Néstor Kirchner 3450 San Miguel de Tucumán Tucumán 4000",
+  "Axion Energy Calle E. Castellar 1003 y Suipacha San Miguel de Tucumán Tucumán 4001",
+  "Axion Energy 9 de Julio 2170 San Miguel de Tucumán Tucumán 4000",
+  "Axion Energy Ruta Provincial 301 Km. 201San Miguel de TucumánTucumán 4000",
+  "Axion Energy Av. Gral Paz 2399 Km 15 CABA Buenos Aires 1416",
+  "Axion Energy Av. Gral Paz 11200 Km 15, Lado Ciudadela CABA Buenos Aires 1408",
+  "Axion Energy JB Justo y Lope de Vega, Villa Luro CABA Buenos Aires 1407",
+  "Axion Energy Av. Arturo Frondizi 2501 Paso de los Libres Corrientes 3230",
+  "Axion Energy Av. Warnes 2040, Chacarita CABA Buenos Aires 1416",
+  "Axion Energy Av. Don Bosco y Blas Parera Paraná Entre Ríos 3100",
+  "Axion Energy Av. Sarmiento 1510 Resistencia Chaco 3500",
+  "Axion Energy Bv. Seguí y Avellaneda Rosario Santa Fe 2000",
+  "Axion Energy Ruta Nacional 20 y Acceso Aeropuerto San Juan San Juan San Juan 5400",
+  "Axion Energy Ruta Nacional 5 Km 368,5 y Ruta 226 Pehuajó Buenos Aires 6450",
+  "Axion Energy Ruta Provincial 51 y Acceso Sur de la Ciudad de Olavarría Olavarría Buenos Aires 7400",
+  "Axion Energy Ruta 2 Km. 51,5 La Plata Buenos Aires 1900",
+  "Axion Energy Ruta 226 y Ruta 55 Balcarce Buenos Aires 7620",
+  "Axion Energy San Martín y Ruta Provincial 210 Domselaar Buenos Aires 1984"
  ]
 }

@@ -200,6 +200,8 @@ export interface Station {
   latitude: number | null;
   longitude: number | null;
   active: boolean;
+  /** Datos publicados por la fuente (servicios, programas, combustibles). */
+  attributes?: Record<string, unknown>;
 }
 
 export interface UserProfile {

@@ -135,8 +135,17 @@ export function checkStaticEligibility(promotion: Promotion, ctx: StaticContext)
 
   // Estación
   if (r.eligibleStationIds && r.eligibleStationIds.length > 0) {
+    const uncertainStations = Array.isArray(r.extra?.uncertainStationIds) ? (r.extra.uncertainStationIds as string[]) : [];
     if (!ctx.stationId) maybe('STATION_UNKNOWN', 'Sólo aplica en algunas estaciones y no indicaste en cuál cargás.');
-    else if (!r.eligibleStationIds.includes(ctx.stationId)) no('WRONG_STATION', 'No aplica en esta estación.');
+    else if (!r.eligibleStationIds.includes(ctx.stationId)) {
+      // La fuente no informa si esta estación adhiere, o su lista no se pudo cruzar completa
+      // con el catálogo: no se puede afirmar que NO aplique.
+      if (uncertainStations.includes(ctx.stationId))
+        maybe('STATION_UNCONFIRMED', 'La fuente no informa si tu estación adhiere a esta promoción.');
+      else if (r.extra?.stationListIncomplete === true)
+        maybe('STATION_UNCONFIRMED', 'No pude confirmar que tu estación figure en la lista de estaciones adheridas: revisala en las bases.');
+      else no('WRONG_STATION', 'No aplica en esta estación.');
+    }
   }
 
   // Región

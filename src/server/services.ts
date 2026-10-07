@@ -5,7 +5,7 @@
 import { type Cents, formatARS } from '../core/money';
 import { optimizePlan, planPeriod, recommend, type Recommendation } from '../core/optimizer/planner';
 import { evaluateTransaction } from '../core/rules/combine';
-import { type Clock, endOfMonth, formatLongDate, type LocalDate, startOfMonth, today } from '../core/time';
+import { addDays, type Clock, endOfMonth, formatLongDate, type LocalDate, startOfMonth, today } from '../core/time';
 import { CONFIRMED_STATUSES, type FuelType, type Promotion, type UserState } from '../core/types';
 import { usageFromHistory } from '../core/usage';
 import { all, type DB } from './db/db';
@@ -68,7 +68,7 @@ export function dataFreshness(ctx: AppContext, promotions: Promotion[]): DataFre
     lastSuccessAt: s.last_success_at ?? null,
     consecutiveFailures: Number(s.consecutive_failures),
     lastError: s.last_error ?? null,
-    configured: ctx.sources.find((x) => x.id === s.id)?.isConfigured() ?? false,
+    configured: ctx.sources.find((x) => x.id === s.id)?.isConfigured() ?? s.kind === 'STRUCTURED_FEED',
   }));
   const confirmed = promotions.filter((p) => CONFIRMED_STATUSES.includes(p.status) && !p.pendingReview).length;
   const stale = promotions.filter((p) => p.status === 'STALE').length;
@@ -142,7 +142,11 @@ export function home(ctx: AppContext, input: RecommendInput): HomeResponse {
     amount = Math.round(input.litres * pricePerLitre);
     amountSource = 'USER';
   } else {
-    const suggested = suggestAmount(date, fuelType, pricePerLitre, promotions, state, catalog, profile.maxLoadAmount, input.stationId ?? profile.defaultStationId);
+    // Si hoy no hay beneficio confirmado, se sugiere el monto del mejor día de la próxima semana
+    // (así la recomendación puede decir "si podés esperar…").
+    let suggested: Cents | null = null;
+    for (let i = 0; i <= 6 && !suggested; i++)
+      suggested = suggestAmount(addDays(date, i), fuelType, pricePerLitre, promotions, state, catalog, profile.maxLoadAmount, input.stationId ?? profile.defaultStationId);
     if (suggested) {
       amount = suggested;
       amountSource = 'SUGGESTED';

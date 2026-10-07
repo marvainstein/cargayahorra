@@ -10,11 +10,11 @@ PWA para iPhone que responde **«Necesito cargar combustible. ¿Qué hago?»**: 
 
 Detalle completo en [`docs/VERIFICACION.md`](docs/VERIFICACION.md).
 
-- **Brubank:** verificado contra las bases oficiales (7/10/2026), con la lista de 522 estaciones adheridas. La importación automática funciona.
-- **Axion ON y BBVA:** **sin verificar**. Sus sitios no se pudieron leer: Axion tiene un certificado HTTPS incompleto y BBVA bloquea servidores. La app no usa promociones sin verificar para recomendar; las muestra aparte como «sin confirmar».
-- Para BBVA (o cualquier fuente que no se pueda leer sola): **Administración → + Nueva → «Pegar bases y condiciones»**. Revisá lo interpretado y verificá.
+- **Brubank y Axion ON:** verificados contra sus fuentes oficiales (7/10/2026), con estaciones adheridas. La importación y vigilancia automáticas funcionan.
+- **BBVA:** **sin verificar**: su sitio bloquea servidores. Usá **Administración → + Nueva → «Pegar bases y condiciones»**.
+- Lo que no está verificado no se usa para recomendar; se muestra aparte como «sin confirmar».
 
-En **Ajustes**, elegí tu **estación** (las promos de Brubank sólo valen en estaciones adheridas) y respondé las preguntas de perfil.
+En **Ajustes → ¿Qué tenés?** elegí tus tarjetas, planes y nivel de Axion ON, tu **estación** y tu combustible: la recomendación se calcula sólo con eso.
 
 ## Levantarlo
 
@@ -36,14 +36,14 @@ npm run build && npm start   # todo en http://localhost:8787
 ## Tests
 
 ```bash
-npm test            # 91 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
+npm test            # 93 tests: dinero, fechas, motor, optimizador (incl. fuerza bruta), API, importación, parser
 npm run typecheck
 ```
 
 ## Actualizar promociones
 
 - **Automático:** el servidor corre los jobs solo (importación cada 6 h, detección de desactualizadas cada 1 h, precios cada 24 h). Desactivable con `ENABLE_SCHEDULER=false`.
-- **A mano:** `npm run import` (todas las fuentes), `npm run import -- brubank-help` (una), `npm run jobs` (todos los jobs), o desde Administración → «Ejecutar …».
+- **A mano:** `npm run import` (todas las fuentes), `npm run import -- brubank-help` (una), `npm run axion` (estaciones y página de beneficios de Axion), `npm run jobs` (todos los jobs), o desde Administración → «Ejecutar …».
 - Los cambios detectados en promociones ya revisadas **no se aplican solos**: aparecen en Administración → «Cambios detectados para revisar».
 
 ## Agregar una promoción a mano

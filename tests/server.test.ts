@@ -264,3 +264,34 @@ describe('importación', () => {
     expect(getPromotion(ctx.db, promoId)!.status).toBe('STALE');
   });
 });
+
+describe('vigilancia de la página de Axion', () => {
+  const page = (onText: string) =>
+    JSON.stringify({
+      modified: '2030-11-01T00:00:00',
+      content: {
+        rendered: `<p>Beneficios y promociones</p>
+<p>LUNES y VIERNES 10% DE DESCUENTO</p><p>HASTA EL 31/12/2030</p><p>VER EN EL MAPA</p><p>VER MÁS</p><p>${onText}</p>
+<p>VIERNES 20% DE DESCUENTO</p><p>HASTA EL 30/11/2030</p><p>VER EN EL MAPA</p><p>VER MÁS</p><p>EJEMPLO SINTÉTICO de otra promoción bancaria, con un texto suficientemente largo para ser un bloque válido de bases y condiciones.</p>`,
+      },
+    });
+
+  it('registra la línea de base y marca para revisión cuando cambia un bloque', async () => {
+    const { watchAxionBenefits } = await import('../src/server/jobs/axion');
+    const { createPromotion } = await import('../src/server/db/promotions');
+    let body = page('EJEMPLO SINTÉTICO: lunes y viernes 10% para usuarios ON, tope de $14.000 mensuales para niveles 3, 4 y 5, no acumulable con otras promociones.');
+    const sctx = { ...ctx.sourceCtx, fetch: (async () => new Response(body, { status: 200 })) as typeof fetch };
+    const created = createPromotion(ctx.db, clock, { ...testDraft(), retrievedAt: null, lastVerifiedAt: null } as never, { sourceId: 'axion-beneficios', sourceKey: 'lunes-y-viernes-10-de-descuento#test', actor: 'test' });
+
+    const r1 = await watchAxionBenefits(ctx.db, clock, sctx);
+    expect(r1).toMatchObject({ status: 'NO_CHANGES', blocks: 2, created: 0, changed: 0 });
+
+    body = page('EJEMPLO SINTÉTICO: lunes y viernes 10% para usuarios ON, tope de $10.000 mensuales para niveles 3, 4 y 5, no acumulable con otras promociones.');
+    const r2 = await watchAxionBenefits(ctx.db, clock, sctx);
+    expect(r2.changed).toBe(1);
+    expect(getPromotion(ctx.db, created.id)!.pendingReview).toBe(true);
+    const cands = (await call('GET', '/admin/candidates')).json.candidates;
+    expect(cands[0].kind).toBe('CHANGED');
+    expect(cands[0].payload.previousText).toContain('$14.000');
+  });
+});
