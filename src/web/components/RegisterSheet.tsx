@@ -11,9 +11,12 @@ export function RegisterSheet({
   suggestion,
   fuelType,
   pricePerLitre,
+  presetPromotionId,
   onClose,
   onSaved,
 }: {
+  /** Viene de "Ya la usé": promo elegida y modo "lo que pagué". */
+  presetPromotionId?: string;
   profile: ProfileData;
   suggestion: PlannedTransaction | null;
   fuelType: FuelType;
@@ -30,13 +33,21 @@ export function RegisterSheet({
   const [date, setDate] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [amountMode, setAmountMode] = useState<'gross' | 'paid'>('gross');
-  const [promoChoice, setPromoChoice] = useState<string>(suggestion?.promotions[0]?.id ?? 'AUTO');
+  const [amountMode, setAmountMode] = useState<'gross' | 'paid'>(presetPromotionId ? 'paid' : 'gross');
+  const [promoChoice, setPromoChoice] = useState<string>(presetPromotionId ?? suggestion?.promotions[0]?.id ?? 'AUTO');
   const [actual, setActual] = useState('');
   const [promos, setPromos] = useState<Promotion[]>([]);
 
   useEffect(() => {
-    void api.get<{ promotions: Promotion[] }>('/promotions').then((r) => setPromos(r.data.promotions));
+    void api.get<{ promotions: Promotion[] }>('/promotions').then((r) => {
+      setPromos(r.data.promotions);
+      // Si la promo exige un banco, preseleccionar una tarjeta de ese banco.
+      const p = r.data.promotions.find((x) => x.id === presetPromotionId);
+      const providers = p?.rule.eligibleProviderIds;
+      const m = providers ? methods.find((pm) => providers.includes(pm.providerId)) : null;
+      if (m) setMethod(m.id);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submit = async () => {
@@ -71,7 +82,7 @@ export function RegisterSheet({
   };
 
   return (
-    <Sheet title="Registrar carga" onClose={onClose}>
+    <Sheet title={presetPromotionId ? 'Ya usé esta promo' : 'Registrar carga'} onClose={onClose}>
       <p className="small muted" style={{ marginTop: 0 }}>
         Con esto la app descuenta lo usado de cada tope automáticamente.
       </p>
@@ -136,7 +147,7 @@ export function RegisterSheet({
         </label>
       </div>
       <label className="field">
-        <span>Fecha (vacío = hoy)</span>
+        <span>Fecha de la carga (vacío = hoy)</span>
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </label>
       {error && <div className="banner danger">{error}</div>}

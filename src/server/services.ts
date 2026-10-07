@@ -7,7 +7,9 @@ import { optimizePlan, planPeriod, recommend, type Recommendation } from '../cor
 import { evaluateTransaction } from '../core/rules/combine';
 import { addDays, type Clock, endOfMonth, formatLongDate, type LocalDate, startOfMonth, today } from '../core/time';
 import { CONFIRMED_STATUSES, type FuelType, type Promotion, type UserState } from '../core/types';
-import { usageFromHistory } from '../core/usage';
+import { transactionsInPeriod, usageFromHistory, usedBenefitForCap } from '../core/usage';
+import { checkStaticEligibility, describeBenefit } from '../core/rules/engine';
+import { CAP_PERIOD_LABELS } from '../core/labels';
 import { all, type DB } from './db/db';
 import { loadPromotions } from './db/promotions';
 import {
@@ -114,6 +116,55 @@ export interface HomeResponse {
   recommendation: Recommendation | null;
   freshness: DataFreshness;
   questions: Array<{ segmentId: string; question: string }>;
+  /** Promos que podés usar y cuánto tope te queda (para "Ya la usé"). */
+  myPromotions: MyPromotion[];
+}
+
+export interface MyPromotion {
+  promotionId: string;
+  name: string;
+  summary: string;
+  confirmed: boolean;
+  /** Topes con período (mes, semana…) y lo usado en el período actual. */
+  caps: Array<{ label: string; amount: Cents; used: Cents; remaining: Cents }>;
+  /** Operaciones usadas / permitidas por período, si hay límite. */
+  uses: Array<{ label: string; used: number; max: number }>;
+  /** Gasto que todavía genera beneficio en el período (null = sin tope). */
+  remainingEligibleSpend: Cents | null;
+}
+
+/** Motivos que significan "esta promo no es para vos" (distinto de "hoy no aplica"). */
+const NOT_FOR_YOU = new Set(['WRONG_FUEL', 'WRONG_SEGMENT', 'WRONG_PROVIDER', 'NOT_A_MEMBER', 'APP_MISSING', 'WRONG_CARD', 'WRONG_CARD_TYPE', 'WRONG_NETWORK', 'EXPIRED', 'NOT_STARTED', 'STATUS_INVALID', 'WRONG_STATION', 'EXCLUDED_REGION', 'WRONG_REGION']);
+
+export function myPromotions(promotions: Promotion[], state: UserState, date: LocalDate, fuelType: FuelType, stationId: string | null, catalog: ReturnType<typeof engineCatalog>): MyPromotion[] {
+  const out: MyPromotion[] = [];
+  for (const p of promotions) {
+    if (p.status === 'INVALID') continue;
+    const checks = state.profile.paymentMethods.map((m) => checkStaticEligibility(p, { date, paymentMethod: m, fuelType, stationId, profile: state.profile, catalog }));
+    const usable = checks.some((c) => !c.reasons.some((r) => NOT_FOR_YOU.has(r.code)));
+    if (!usable) continue;
+    const caps = p.rule.caps
+      .filter((c) => c.period !== 'PER_TRANSACTION')
+      .map((c) => {
+        const used = usedBenefitForCap(c, p, date, state.usage);
+        return { label: CAP_PERIOD_LABELS[c.period], amount: c.amount, used, remaining: Math.max(0, c.amount - used) };
+      });
+    const uses = p.rule.usageLimits
+      .filter((u) => u.period !== 'PER_TRANSACTION')
+      .map((u) => ({ label: CAP_PERIOD_LABELS[u.period], used: transactionsInPeriod(u, p, date, state.usage), max: u.maxTransactions }));
+    const remainingCap = caps.length ? Math.min(...caps.map((c) => c.remaining)) : null;
+    out.push({
+      promotionId: p.id,
+      name: p.name,
+      summary: describeBenefit(p),
+      confirmed: CONFIRMED_STATUSES.includes(p.status) && !p.pendingReview,
+      caps,
+      uses,
+      remainingEligibleSpend:
+        remainingCap !== null && p.rule.discountType === 'PERCENTAGE' && p.rule.discountValue > 0 ? Math.ceil((remainingCap * 10_000) / p.rule.discountValue) : null,
+    });
+  }
+  return out.sort((a, b) => Number(b.confirmed) - Number(a.confirmed));
 }
 
 export function home(ctx: AppContext, input: RecommendInput): HomeResponse {
@@ -167,6 +218,7 @@ export function home(ctx: AppContext, input: RecommendInput): HomeResponse {
     recommendation,
     freshness: dataFreshness(ctx, promotions),
     questions: pendingQuestions(promotions, profile.segments, catalogData, input.stationId ?? profile.defaultStationId),
+    myPromotions: myPromotions(promotions, state, date, fuelType, input.stationId ?? profile.defaultStationId, catalog),
   };
 }
 
