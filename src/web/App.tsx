@@ -1,13 +1,13 @@
 import { type ReactElement, useCallback, useEffect, useState } from 'react';
 import type { CatalogData } from '../server/db/user';
 import type { UserProfile } from '../core/types';
-import { api, ApiError, setToken } from './api';
-import { ToastHost } from './components/ui';
+import { api } from './api';
+import { toast, ToastHost } from './components/ui';
 import { Home } from './pages/Home';
 import { Plan } from './pages/Plan';
 import { History } from './pages/History';
 import { Settings } from './pages/Settings';
-import { Admin } from './pages/Admin';
+import { Estado } from './pages/Estado';
 
 export interface ProfileData {
   profile: UserProfile & { defaultPricePerLitre: number | null };
@@ -15,13 +15,14 @@ export interface ProfileData {
   provinces: Array<{ code: string; name: string }>;
   adjustments: Array<{ id: string; date: string; promotionId: string | null; poolId: string | null; amount: number; note: string }>;
   pools: Array<{ id: string; promotions: string[] }>;
+  configured: boolean;
 }
 
-type Route = 'home' | 'plan' | 'history' | 'settings' | 'admin';
+type Route = 'home' | 'plan' | 'history' | 'settings' | 'estado';
 
 function currentRoute(): Route {
   const h = window.location.hash.replace(/^#\/?/, '').split('/')[0];
-  return (['home', 'plan', 'history', 'settings', 'admin'] as Route[]).includes(h as Route) ? (h as Route) : 'home';
+  return (['home', 'plan', 'history', 'settings', 'estado'] as Route[]).includes(h as Route) ? (h as Route) : 'home';
 }
 
 const ICONS: Record<string, ReactElement> = {
@@ -53,53 +54,47 @@ const ICONS: Record<string, ReactElement> = {
 export function App() {
   const [route, setRoute] = useState<Route>(currentRoute());
   const [profile, setProfile] = useState<ProfileData | null>(null);
-  const [needsToken, setNeedsToken] = useState(false);
-  const [tokenInput, setTokenInput] = useState('');
-
-  useEffect(() => {
-    const onHash = () => {
-      setRoute(currentRoute());
-      window.scrollTo(0, 0);
-    };
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
 
   const reloadProfile = useCallback(async () => {
     try {
       const r = await api.get<ProfileData>('/profile');
       setProfile(r.data);
-      setNeedsToken(false);
+      // Primer uso: configurar qué tiene el usuario antes de recomendar.
+      if (!r.data.configured && currentRoute() === 'home') window.location.hash = '#/settings';
     } catch (e) {
-      if (e instanceof ApiError && e.status === 401) setNeedsToken(true);
+      toast((e as Error).message);
     }
   }, []);
 
-  useEffect(() => {
-    void reloadProfile();
+  /** Link de configuración: #/importar/<perfil en base64url>. Devuelve true si lo procesó. */
+  const applyImportLink = useCallback(() => {
+    const m = /^#\/importar\/(.+)$/.exec(window.location.hash);
+    if (!m) return false;
+    void (async () => {
+      try {
+        const b64 = m[1].replace(/-/g, '+').replace(/_/g, '/');
+        const bytes = Uint8Array.from(atob(b64 + '='.repeat((4 - (b64.length % 4)) % 4)), (c) => c.charCodeAt(0));
+        await api.put('/profile', JSON.parse(new TextDecoder().decode(bytes)));
+        toast('Perfil configurado');
+      } catch {
+        toast('El link de configuración no es válido.');
+      }
+      window.location.hash = '#/home';
+      await reloadProfile();
+    })();
+    return true;
   }, [reloadProfile]);
 
-  if (needsToken) {
-    return (
-      <div className="app">
-        <h1>Carga y Ahorra</h1>
-        <p className="muted">Esta instalación está protegida. Ingresá el token de acceso (APP_TOKEN).</p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setToken(tokenInput.trim());
-            void reloadProfile();
-          }}
-        >
-          <label className="field">
-            <span>Token</span>
-            <input type="password" value={tokenInput} onChange={(e) => setTokenInput(e.target.value)} autoComplete="current-password" />
-          </label>
-          <button className="btn primary block">Entrar</button>
-        </form>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const onHash = () => {
+      if (applyImportLink()) return;
+      setRoute(currentRoute());
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', onHash);
+    if (!applyImportLink()) void reloadProfile();
+    return () => window.removeEventListener('hashchange', onHash);
+  }, [applyImportLink, reloadProfile]);
 
   const tabs: Array<[Route, string]> = [
     ['home', 'Hoy'],
@@ -115,12 +110,12 @@ export function App() {
         {route === 'plan' && <Plan profile={profile} />}
         {route === 'history' && <History />}
         {route === 'settings' && <Settings data={profile} onSaved={reloadProfile} />}
-        {route === 'admin' && <Admin />}
+        {route === 'estado' && <Estado />}
       </main>
       <div className="tabbar">
         <nav aria-label="Secciones">
           {tabs.map(([r, label]) => (
-            <a key={r} href={`#/${r}`} className={route === r || (route === 'admin' && r === 'settings') ? 'active' : ''} aria-current={route === r ? 'page' : undefined}>
+            <a key={r} href={`#/${r}`} className={route === r || (route === 'estado' && r === 'settings') ? 'active' : ''} aria-current={route === r ? 'page' : undefined}>
               {ICONS[r]}
               {label}
             </a>

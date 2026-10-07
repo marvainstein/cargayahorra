@@ -63,10 +63,11 @@ export function Home({ profile }: { profile: ProfileData | null }) {
     [amountText, mode, fuelType, priceText],
   );
 
+  // Recalcular al abrir y cada vez que cambia el perfil (p. ej. tras configurarlo).
   useEffect(() => {
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [profile]);
 
   // recalcular al escribir (con pausa)
   const debounce = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -330,7 +331,7 @@ function RecommendationView({ rec, onRegister }: { rec: Recommendation; onRegist
             <p style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>{rec.wait.message}</p>
             {rec.wait.best && rec.wait.best.plan.transactions[0] && (
               <p className="small muted" style={{ marginBottom: 0 }}>
-                Ese día: {rec.wait.best.plan.transactions.map((t) => `${t.paymentMethodName} (${t.promotions.map((p) => p.name).join(' + ')})`).join(' y ')} · ahorro{' '}
+                Ese día: {rec.wait.best.plan.transactions.map((t) => `${t.promotions.map((p) => p.name).join(' + ')} (${t.paymentMethodMatters ? t.paymentMethodName : 'cualquier medio de pago'})`).join(' y ')} · ahorro{' '}
                 {ars(rec.wait.best.bestBenefit)}. Supone que las promociones y el precio se mantienen.
               </p>
             )}

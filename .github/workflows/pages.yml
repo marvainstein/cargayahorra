@@ -1,0 +1,81 @@
+# Actualiza los datos de promociones desde las fuentes oficiales y publica la app
+# en GitHub Pages. Corre cada 6 horas, en cada cambio a main y a mano.
+# Requisito (una vez): Settings → Pages → Source: "GitHub Actions".
+name: Actualizar datos y publicar
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # Estado mínimo entre corridas: salud de las fuentes (para detectar fuentes caídas).
+      - uses: actions/cache/restore@v4
+        with:
+          path: .state
+          key: state-${{ github.run_id }}
+          restore-keys: state-
+
+      - name: Consultar fuentes oficiales y generar datos
+        run: npm run data
+
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .state
+          key: state-${{ github.run_id }}
+
+      - run: npm test
+      - run: npm run build
+
+      - name: Issue de revisión si una fuente cambió
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create revisar-promos --color d93f0b --description "Cambios en fuentes de promociones" --force >/dev/null 2>&1 || true
+          open=$(gh issue list --label revisar-promos --state open --json number --jq '.[0].number' || true)
+          if [ -s .state/review.md ]; then
+            if [ -n "$open" ]; then
+              gh issue edit "$open" --body-file .state/review.md
+            else
+              gh issue create --title "Revisar cambios en promociones" --label revisar-promos --body-file .state/review.md
+            fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "Las fuentes volvieron a coincidir con los datos verificados."
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

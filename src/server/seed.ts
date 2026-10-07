@@ -21,7 +21,7 @@ import { upsertStations } from './db/stations';
 import { matchAnnexToCatalog } from './sources/stations';
 import { AXION_BENEFITS_SOURCE, AXION_STATIONS_SOURCE } from './jobs/axion';
 import { type DB, get, run, transaction } from './db/db';
-import { createPromotion, type PromotionDraft } from './db/promotions';
+import { createPromotion, type PromotionDraft, setSourceFingerprint } from './db/promotions';
 import { DEFAULT_USER_ID } from './db/user';
 import { SOURCE_CONFIGS } from './sources/registry';
 
@@ -72,6 +72,11 @@ interface SeedPromotion {
   sourceKey: string | null;
   /** Cómo se verificó (queda en la auditoría). */
   verification?: string;
+  /**
+   * Huella de lo que publicaba la fuente al verificarla. Si la fuente publica algo
+   * distinto, la promoción queda pendiente de revisión (ver jobs/import-promotions.ts).
+   */
+  sourceFingerprint?: string;
   draft: PromotionDraft;
 }
 
@@ -127,6 +132,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
   // ── Brubank: verificadas contra las bases oficiales (centro de ayuda), 2026-10-07 ──
   {
     id: 'seed-brubank-martes-10',
+    sourceFingerprint: '2887b55cff2fee3cbc685c339e69bbbb4e852380f797ac66a60bdb040d14c368',
     sourceId: 'brubank-help',
     sourceKey: '9010023',
     verification: 'Bases leídas completas en el centro de ayuda oficial de Brubank el 2026-10-07.',
@@ -164,6 +170,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
   },
   {
     id: 'seed-brubank-finde-20',
+    sourceFingerprint: '92704805728a4612383da50961cbcaea5736ad8997976ebb6c5ba1aa61d260be',
     sourceId: 'brubank-help',
     sourceKey: '9010641',
     verification:
@@ -202,6 +209,7 @@ export const SEED_PROMOTIONS: SeedPromotion[] = [
   },
   {
     id: 'seed-brubank-ultra-30',
+    sourceFingerprint: 'e84e7df18a7b37abcef8227be88cd309509437bbf7c353689aacac7ff039a127',
     sourceId: 'brubank-help',
     sourceKey: '12995968',
     verification: 'Bases leídas completas en el centro de ayuda oficial de Brubank el 2026-10-07.',
@@ -429,33 +437,11 @@ export function seedUser(db: DB, clock: Clock) {
   if (get(db, 'SELECT id FROM user WHERE id = ?', DEFAULT_USER_ID)) return;
   const now = clock.now().toISOString();
   transaction(db, () => {
-    // Estación habitual: Axion Av. Warnes 2040 (CABA). Combustible: Quantium nafta (Premium).
-    run(
-      db,
-      `INSERT INTO user (id, created_at, updated_at, region, default_fuel_type, default_station_id) VALUES (?,?,?,?,?,?)`,
-      DEFAULT_USER_ID,
-      now,
-      now,
-      'CABA',
-      'PREMIUM',
-      'axion-537',
-    );
-    // Lo que se sabe del pedido: Brubank One, BBVA y Axion ON. El resto se confirma en Ajustes.
+    run(db, `INSERT INTO user (id, created_at, updated_at) VALUES (?,?,?)`, DEFAULT_USER_ID, now, now);
+    // Perfil de ejemplo (servidor local). Los datos reales del usuario NO van en el repo:
+    // en la web estática viven en el dispositivo.
     for (const m of ['brubank-visa-debito', 'bbva-visa-credito']) run(db, 'INSERT INTO user_payment_method (user_id, payment_method_id) VALUES (?,?)', DEFAULT_USER_ID, m);
-    // Lo que indicaste: Brubank One, BBVA base (sin Black+, sin sueldo) con Visa crédito, Axion ON nivel 4 o 5.
-    const segs: Array<[string, string]> = [
-      ['brubank-plan-one', 'YES'],
-      ['brubank-plan-plus', 'NO'],
-      ['brubank-plan-ultra', 'NO'],
-      ['bbva-black-save', 'NO'],
-      ['bbva-black-all', 'NO'],
-      ['axion-on-level-1-2', 'NO'],
-      ['axion-on-level-3-5', 'YES'],
-      ['bbva-sueldo', 'NO'],
-    ];
-    for (const [s, st] of segs) run(db, 'INSERT INTO user_segment (user_id, segment_id, status) VALUES (?,?,?)', DEFAULT_USER_ID, s, st);
     run(db, `INSERT INTO user_loyalty_membership (user_id, programme_id) VALUES (?, 'axion-on')`, DEFAULT_USER_ID);
-    for (const a of ['axion-on', 'bbva', 'brubank', 'modo']) run(db, 'INSERT INTO user_app (user_id, app_id) VALUES (?,?)', DEFAULT_USER_ID, a);
   });
 }
 
@@ -483,6 +469,7 @@ export function seedPromotions(db: DB, clock: Clock) {
       actor: 'seed',
       reason: s.verification ?? 'Candidata de la investigación inicial (sin verificar)',
     });
+    if (s.sourceFingerprint) setSourceFingerprint(db, s.id, s.sourceFingerprint);
   }
 }
 

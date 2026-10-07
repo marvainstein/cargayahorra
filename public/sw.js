@@ -1,13 +1,13 @@
 /*
  * Service worker de Carga y Ahorra.
  *  - Shell de la app (HTML/JS/CSS/íconos): cache, con actualización en segundo plano.
- *  - API: SIEMPRE red primero. Si no hay conexión se devuelve la última respuesta
+ *  - Datos (data/app-data.json) y API: SIEMPRE red primero. Si no hay conexión se devuelve la última respuesta
  *    guardada marcada con el encabezado `x-offline-cache` (fecha), y la app la
  *    muestra como "datos guardados, pueden estar desactualizados". Nunca se
  *    presenta información vieja como si fuera actual.
  */
-const SHELL = 'cya-shell-v1';
-const API = 'cya-api-v1';
+const SHELL = 'cya-shell-v2';
+const API = 'cya-data-v2';
 const PRECACHE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
@@ -29,7 +29,7 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (url.pathname.includes('/api/')) {
+  if (url.pathname.includes('/api/') || url.pathname.includes('/data/')) {
     e.respondWith(
       fetch(req)
         .then((res) => {

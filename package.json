@@ -7,9 +7,7 @@
     "node": ">=22.5"
   },
   "scripts": {
-    "dev": "concurrently -k -n api,web \"npm:dev:api\" \"npm:dev:web\"",
-    "dev:api": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx watch src/server/main.ts",
-    "dev:web": "vite",
+    "dev": "npm run data -- --offline && vite",
     "build": "vite build",
     "start": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_ENV=production NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/main.ts",
     "test": "vitest run",
@@ -18,7 +16,9 @@
     "import": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts import",
     "jobs": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts jobs",
     "seed": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts seed",
-    "axion": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts axion"
+    "axion": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/cli.ts axion",
+    "data": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx src/server/export-static.ts",
+    "dev:server": "NODE_EXTRA_CA_CERTS=certs/digicert-global-g2-tls-rsa-sha256-2020-ca1.pem NODE_USE_ENV_PROXY=1 NODE_OPTIONS=\"--disable-warning=ExperimentalWarning --disable-warning=UNDICI-EHPA\" tsx watch src/server/main.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",

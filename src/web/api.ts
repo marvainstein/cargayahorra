@@ -1,30 +1,14 @@
 /**
- * Cliente de la API. El frontend no contiene reglas de promociones: sólo
- * pide resultados ya calculados por el servidor y los muestra.
+ * Acceso a datos de la web. No contiene reglas de promociones: pide resultados
+ * calculados por los casos de uso compartidos, que en la web estática corren en
+ * el dispositivo (ver local/router.ts).
  */
+import { handle, LocalApiError } from './local/router';
+
 export interface ApiResult<T> {
   data: T;
-  /** Fecha de la respuesta guardada si se sirvió sin conexión. */
+  /** Fecha de los datos guardados si se sirvieron sin conexión. */
   offlineSince: string | null;
-}
-
-const TOKEN_KEY = 'cya-token';
-
-export function getToken(): string {
-  try {
-    return localStorage.getItem(TOKEN_KEY) ?? '';
-  } catch {
-    return '';
-  }
-}
-
-export function setToken(t: string) {
-  try {
-    if (t) localStorage.setItem(TOKEN_KEY, t);
-    else localStorage.removeItem(TOKEN_KEY);
-  } catch {
-    // almacenamiento no disponible: el token sólo dura esta sesión
-  }
 }
 
 export class ApiError extends Error {
@@ -37,13 +21,14 @@ export class ApiError extends Error {
 }
 
 async function request<T>(method: string, path: string, body?: unknown): Promise<ApiResult<T>> {
-  const headers: Record<string, string> = { 'content-type': 'application/json' };
-  const token = getToken();
-  if (token) headers.authorization = `Bearer ${token}`;
-  const res = await fetch(`./api${path}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(json.error ?? `Error ${res.status}`, res.status);
-  return { data: json as T, offlineSince: res.headers.get('x-offline-cache') };
+  try {
+    const r = await handle(method, path, body);
+    // copia profunda: la UI nunca muta el estado interno
+    return { data: structuredClone(r.data) as T, offlineSince: r.offlineSince };
+  } catch (e) {
+    if (e instanceof LocalApiError) throw new ApiError(e.message, e.status);
+    throw new ApiError((e as Error).message, 500);
+  }
 }
 
 export const api = {
