@@ -22,6 +22,7 @@ export function Home({ profile }: { profile: ProfileData | null }) {
   const [priceText, setPriceText] = useState('');
   const [editPrice, setEditPrice] = useState(false);
   const [register, setRegister] = useState<PlannedTransaction | 'manual' | null>(null);
+  const [usedPromo, setUsedPromo] = useState<string | null>(null);
   const userTyped = useRef(false);
   const reqId = useRef(0);
 
@@ -211,11 +212,62 @@ export function Home({ profile }: { profile: ProfileData | null }) {
         </div>
       )}
 
+      {data && data.myPromotions.length > 0 && (
+        <>
+          <h2>Tus promos este mes</h2>
+          <div className="card">
+            {data.myPromotions.map((mp) => (
+              <div className="list-item" key={mp.promotionId}>
+                <div style={{ flex: 1 }}>
+                  <div className="title">
+                    {mp.name} {!mp.confirmed && <span className="tag warn">sin confirmar</span>}
+                  </div>
+                  <div className="meta">{mp.summary}</div>
+                  {mp.caps.map((c, i) => (
+                    <div key={i} style={{ marginTop: 8 }}>
+                      <div style={{ background: 'var(--surface-2)', borderRadius: 6, height: 8, overflow: 'hidden' }}>
+                        <div style={{ width: `${Math.min(100, (c.used / c.amount) * 100)}%`, height: '100%', background: 'var(--brand)' }} />
+                      </div>
+                      <div className="small muted" style={{ marginTop: 4 }}>
+                        Usaste {ars(c.used)} de {ars(c.amount)} ({c.label}) · <strong style={{ color: 'var(--text)' }}>te quedan {ars(c.remaining)}</strong>
+                        {mp.remainingEligibleSpend ? ` (cargando ${ars(mp.remainingEligibleSpend)})` : ''}
+                      </div>
+                    </div>
+                  ))}
+                  {mp.uses.map((u, i) => (
+                    <div key={i} className="small muted" style={{ marginTop: 4 }}>
+                      Usos: {u.used} de {u.max} ({u.label})
+                    </div>
+                  ))}
+                </div>
+                <button className="btn small" onClick={() => setUsedPromo(mp.promotionId)}>
+                  Ya la usé
+                </button>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
       <div className="spacer" />
       <button className="btn block" onClick={() => setRegister('manual')}>
         Registrar una carga
       </button>
 
+      {usedPromo && profile && (
+        <RegisterSheet
+          profile={profile}
+          suggestion={null}
+          fuelType={ft}
+          pricePerLitre={data?.price?.price ?? null}
+          presetPromotionId={usedPromo}
+          onClose={() => setUsedPromo(null)}
+          onSaved={() => {
+            setUsedPromo(null);
+            void load();
+          }}
+        />
+      )}
       {register && profile && (
         <RegisterSheet
           profile={profile}

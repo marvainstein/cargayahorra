@@ -455,7 +455,7 @@ export function seedUser(db: DB, clock: Clock) {
     ];
     for (const [s, st] of segs) run(db, 'INSERT INTO user_segment (user_id, segment_id, status) VALUES (?,?,?)', DEFAULT_USER_ID, s, st);
     run(db, `INSERT INTO user_loyalty_membership (user_id, programme_id) VALUES (?, 'axion-on')`, DEFAULT_USER_ID);
-    for (const a of ['axion-on', 'bbva', 'brubank']) run(db, 'INSERT INTO user_app (user_id, app_id) VALUES (?,?)', DEFAULT_USER_ID, a);
+    for (const a of ['axion-on', 'bbva', 'brubank', 'modo']) run(db, 'INSERT INTO user_app (user_id, app_id) VALUES (?,?)', DEFAULT_USER_ID, a);
   });
 }
 
